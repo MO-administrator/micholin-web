@@ -1,0 +1,52 @@
+---
+import Button from "./Button.astro";
+export interface Props {
+  title?: string;
+  description?: string;
+  showExtra?: boolean;
+}
+
+const { title, description, showExtra = false } = Astro.props;
+---
+
+<section
+  class:list={[
+    "flex",
+    "flex-col",
+    "w-dvw",
+    "h-dvh",
+    "justify-center",
+    "contain-content",
+    "place-items-center",
+    "bg-gradient-to-b",
+  ]}
+>
+  <h1 class:list={["text-blue-100", "text-6xl", "mb-8"]}>
+    {title}
+  </h1>
+  <p class:list={["w-dvw", "max-w-screen-lg", "text-2xl", "text-center"]}>
+    {description}
+  </p>
+  {
+    showExtra && (
+      <div
+        class:list={[
+          "flex",
+          "mt-20",
+          "mx-4",
+          "w-dvw",
+          "max-w-screen-lg",
+          "justify-around",
+          "place-items-center",
+        ]}
+      >
+        <Button id="contact" href="contact-me">
+          Contact Me
+        </Button>
+        <Button id="work" href="projects">
+          View My Work
+        </Button>
+      </div>
+    )
+  }
+</section>

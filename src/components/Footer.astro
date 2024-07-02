@@ -1,0 +1,16 @@
+---
+import Brand from "./Brand.astro";
+
+const year = new Date().getFullYear();
+---
+
+<section
+  class="footer"
+  class:list={["flex", "flex-row", "justify-between", "w-dvw"]}
+>
+  <div class:list={['flex', 'flex-row', 'place-items-center']}>
+    <Brand />
+    <div class="ml-4">Copyright &copy; {year}</div>
+  </div>
+  <div>Resources</div>
+</section>

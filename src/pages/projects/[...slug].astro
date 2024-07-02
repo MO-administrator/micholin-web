@@ -1,0 +1,26 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getEntry } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+export interface Params {
+  slug: string;
+}
+
+const { slug } = Astro.params;
+
+if (!slug) throw new Error('Something went wrong');
+
+const project: CollectionEntry<'projects'> | undefined = await getEntry('projects', slug);
+
+if (!project) throw new Error('Something went wrong');
+
+const { Content } = await project.render();
+---
+
+<Layout title='Article'>
+  <a href="/projects">&leftarrow;</a>
+  <div class="container flex flex-col justify-evenly h-screen">
+    <Content />
+  </div>
+</Layout>

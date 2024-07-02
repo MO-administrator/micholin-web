@@ -1,0 +1,35 @@
+---
+const pages = [
+  { url: '/', text: 'Home' },
+  { url: '/about', text: 'About' },
+  { url: '/projects', text: 'My Work'},
+]
+---
+
+<div class="navbar">
+  <ul class:list={["flex", "flex-row", "justify-between"]}>
+    {
+      pages.map(page => {
+        return (
+          <li class="mr-4">
+            <a class="transition duration-500 ease-in pb-2" href={page.url}>
+              {page.text}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</div>
+
+<script>
+  const currentUrl = document.URL.split("://")[1].split("/")[1];
+  document.querySelector(`a[href="/${currentUrl}"]`)?.classList.add("active");
+</script>
+
+<style lang="scss">
+  a:hover,
+  a.active {
+    border-bottom: 2px solid #008013;
+  }
+</style>

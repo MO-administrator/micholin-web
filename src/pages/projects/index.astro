@@ -1,0 +1,28 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/Hero.astro";
+import Card from "../../components/Card.astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { formatDate } from '../../utils';
+
+const projects: CollectionEntry<"projects">[] = await getCollection("projects");
+---
+
+<Layout title="My Work">
+  <Hero
+    title="My Work"
+    description="Projects worked on in previous organisations or while freelancing."
+  />
+  <div class:list={["grid", "grid-cols-1", "sm:grid-cols-2", "md:grid-cols-3"]}>
+    {
+      projects.map((project) => (
+        <Card
+          href={'projects/' + project.slug}
+          title={project.data.title}
+          body={formatDate(project.data.pubDate)}
+        />
+      ))
+    }
+  </div>
+</Layout>
