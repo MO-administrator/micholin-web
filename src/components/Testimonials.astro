@@ -1,1 +1,12 @@
-<section>Testimonials</section>
+---
+import { getCollection } from "astro:content";
+import CardTestimonial from "./Card:Testimonial.astro";
+
+const testimonials = await getCollection("testimonials");
+---
+
+<section id="test" class="container">
+  <div class:list={["flex", "flex-auto", "flex-col", "gap-4"]}>
+    {testimonials.map((testimonial) => <CardTestimonial {testimonial} />)}
+  </div>
+</section>

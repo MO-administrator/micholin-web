@@ -1,11 +1,34 @@
 ---
-import Brand from './Brand.astro';
+import Brand from "./Brand.astro";
 import Navbar from "./Navbar.astro";
-import Menu from './Menu.astro';
+import Menu from "./Menu.astro";
+import { SITE_NAME } from "../constants";
 ---
 
-<section class="header flex flex-row justify-evenly w-dvw place-items-center mt-0">
-  <Brand />
-  <Navbar title="Micholin" />
+<section
+  role="row"
+  aria-label="Header"
+  class:list={[
+    "header",
+    "w-dvw",
+    "mt-0",
+    "flex",
+    "flex-row",
+    "justify-evenly",
+    "place-items-center",
+  ]}
+>
+  <Brand>
+    <Fragment>
+      <span class="text-violet-400 text-opacity-70">
+        {SITE_NAME.split(" ")[0]}
+      </span>
+      &nbsp;
+      <span class="text-green-400 text-opacity-70">
+        {SITE_NAME.split(" ")[1]}
+      </span>
+    </Fragment>
+  </Brand>
+  <Navbar />
   <Menu />
 </section>

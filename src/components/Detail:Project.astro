@@ -1,0 +1,43 @@
+---
+import { type CollectionEntry } from "astro:content";
+import { Picture } from "astro:assets";
+import Prose from "./Prose.astro";
+import Detail from "./Detail.astro";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+
+const { title, image } = project.data;
+
+const { Content } = await project.render();
+---
+
+<Detail>
+  <Fragment slot="content">
+    <Prose>
+      <Content />
+    </Prose>
+  </Fragment>
+  <Fragment slot="cover-image">
+    <Picture
+      class:list={[
+        "p-2",
+        "mx-auto",
+        "max-h-96",
+        "w-fit",
+        "object-cover",
+        "rounded-full",
+        "rounded-bl-3xl",
+        "lg:rounded-3xl",
+        "lg:rounded-bl-full",
+      ]}
+      src={image}
+      alt={title}
+      loading="eager"
+      format="webp"
+    />
+  </Fragment>
+</Detail>

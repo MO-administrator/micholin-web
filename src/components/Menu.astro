@@ -1,12 +1,24 @@
 ---
-import { Image } from "astro:assets";
+import { Picture } from "astro:assets";
+import profileImg from "../images/profile.png";
 ---
 
-<div class="ml-4 mr-0 cursor-pointer rounded-full contain-content">
-  <Image
-    src="/src/images/profile.png"
+<div
+  id="menu"
+  onclick="window.location.replace('/admin');"
+  class:list={[
+    "mr-0",
+    "ml-4",
+    "cursor-pointer",
+    "rounded-full",
+    "contain-content",
+  ]}
+>
+  <Picture
+    class="max-w-12 h-auto"
+    src={profileImg}
     alt="profile pic"
-    width={50}
-    height={50}
+    loading="eager"
+    format='webp'
   />
 </div>

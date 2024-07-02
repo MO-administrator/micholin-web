@@ -1,11 +1,17 @@
 ---
+import { getEntry } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
+
+const {
+  data: { title, description },
+} = await getEntry("pagemetas", "about");
 ---
 
-<Layout title="About">
+<Layout>
   <Hero
-    title="About"
-    description="Experienced React JS Developer with a Passion for Building Innovative Web Applications."
+    {title}
+    {description}
+    descriptionOptions={{ typeSpeed: 1, backDelay: 2000 }}
   />
 </Layout>

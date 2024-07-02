@@ -1,28 +1,19 @@
 ---
+import { type CollectionEntry, getCollection, getEntry } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import Hero from "../../components/Hero.astro";
-import Card from "../../components/Card.astro";
-import { getCollection } from "astro:content";
-import type { CollectionEntry } from "astro:content";
-import { formatDate } from '../../utils';
+import Higlights from "../../components/Highlights.astro";
 
-const projects: CollectionEntry<"projects">[] = await getCollection("projects");
+const {
+  data: { title, description },
+} = await getEntry("pagemetas", "projects");
+
+const projects: CollectionEntry<"projects">[] = (
+  await getCollection("projects", project => !project.data.isDraft)
+).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<Layout title="My Work">
-  <Hero
-    title="My Work"
-    description="Projects worked on in previous organisations or while freelancing."
-  />
-  <div class:list={["grid", "grid-cols-1", "sm:grid-cols-2", "md:grid-cols-3"]}>
-    {
-      projects.map((project) => (
-        <Card
-          href={'projects/' + project.slug}
-          title={project.data.title}
-          body={formatDate(project.data.pubDate)}
-        />
-      ))
-    }
-  </div>
+<Layout>
+  <Hero {title} {description} />
+  <Higlights {projects} />
 </Layout>

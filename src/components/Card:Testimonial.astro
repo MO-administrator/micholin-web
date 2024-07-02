@@ -1,0 +1,65 @@
+---
+import { type CollectionEntry } from "astro:content";
+import { Picture } from "astro:assets";
+import Card from "./Card.astro";
+import FormattedDate from "./FormattedDate.astro";
+
+interface Props {
+  testimonial: CollectionEntry<"testimonials">;
+}
+
+const {
+  testimonial: {
+    data: { href, author, avatar, pubDate, designation },
+    render,
+  },
+} = Astro.props;
+
+const { Content } = await render();
+---
+
+<Card href={href}>
+  <span class="testimonial-wrapper">
+    <div class="testimonial-header">
+      <span class="header-avatar">
+        <Picture class="rounded-full h-16 w-16" src={avatar} alt={author} />
+      </span>
+      <span class="header-bio">
+        <span>
+          <FormattedDate date={pubDate} />
+          <span class="line-clamp-2">{designation}</span>
+        </span>
+      </span>
+    </div>
+    <div slot="content" class="testimonial-body">
+      <blockquote class="line-clamp-5">
+        <Content />
+      </blockquote>
+    </div>
+  </span>
+
+  <style lang="scss">
+    .testimonial-wrapper {
+      @apply max-w-screen-sm rounded-3xl;
+      display: grid;
+      grid-template-columns: 1fr 2fr 2fr;
+      sub {
+        font-size: 0.75rem;
+      }
+    }
+    .testimonial-header {
+      @apply flex flex-col flex-auto gap-4 col-span-1;
+      .header-avatar {
+        @apply object-contain;
+      }
+      .header-bio {
+        @apply flex flex-col flex-auto gap-2 col-span-2 overflow-hidden;
+      }
+    }
+    .testimonial-body {
+      display: flex;
+      place-items: center;
+      padding: 0.5rem 0.25rem;
+    }
+  </style>
+</Card>

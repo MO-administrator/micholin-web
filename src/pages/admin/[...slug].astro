@@ -1,0 +1,10 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import App from "../../admin/App";
+---
+
+<Layout>
+  <section class="flex place-items-center h-dvh">
+    <App client:only="react" />
+  </section>
+</Layout>

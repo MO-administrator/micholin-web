@@ -1,1 +1,25 @@
-<section class="flex flex-row w-dvw max-w-screen-lg h-1/3 place-items-center justify-center">Highlights</section>
+---
+import { type CollectionEntry } from "astro:content";
+import CardProject from "./Card:Project.astro";
+
+interface Props {
+  projects: CollectionEntry<"projects">[];
+}
+
+const { projects } = Astro.props;
+---
+
+<section class="container">
+  <div
+    class:list={[
+      "p-8",
+      "rounded-3xl",
+      "grid",
+      "gap-8",
+      "grid-cols-1",
+      "lg:grid-cols-3",
+    ]}
+  >
+    {projects.map((project) => <CardProject {project} />)}
+  </div>
+</section>

@@ -1,0 +1,69 @@
+---
+import { Picture } from "astro:assets";
+import { type CollectionEntry } from "astro:content";
+import Card from "./Card.astro";
+import Tag from "./Tag.astro";
+import FormattedDate from "./FormattedDate.astro";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+const {
+  project: {
+    data: { title, tags, pubDate, image },
+    slug,
+  },
+} = Astro.props;
+---
+
+<Card href={`/projects/${slug}`}>
+  <div class:list={["grid", "grid-cols-1", "sm:grid-cols-2", "2xl:gap-2"]}>
+    <div class:list={["flex", "flex-auto", "flex-wrap", "gap-4"]}>
+      <span class:list={["flex", "flex-col", "flex-auto"]}>
+        <span class:list={["flex", "flex-row", "flex-auto", "justify-between"]}>
+          <h2 class="text-blue-100 line-clamp-1">
+            {title}
+          </h2>
+          <span class="block">&rarr;</span>
+        </span>
+        <sub>
+          <FormattedDate date={pubDate} />
+        </sub>
+      </span>
+      <span
+        class:list={[
+          "flex",
+          "flex-wrap",
+          "flex-auto",
+          "justify-around",
+          "2xl:justify-start",
+        ]}
+      >
+        {tags.map((tag) => <Tag {tag} />)}
+      </span>
+    </div>
+    <div
+      class:list={[
+        "mx-auto",
+        "w-48",
+        "flex",
+        "place-items-center",
+        "justify-center",
+        "contain-content",
+        "rounded-full",
+        "rounded-br-3xl",
+        "2xl:rounded-3xl",
+        "2xl:rounded-bl-full",
+      ]}
+    >
+      <Picture
+        class:list={["h-auto", "w-fit"]}
+        src={image}
+        alt={title}
+        loading="eager"
+        format="webp"
+      />
+    </div>
+  </div>
+</Card>

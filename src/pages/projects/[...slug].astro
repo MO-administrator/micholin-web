@@ -1,26 +1,20 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { getEntry } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
-
-export interface Params {
-  slug: string;
-}
+import { type CollectionEntry, getEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import Detail from '../../components/Detail:Project.astro';
 
 const { slug } = Astro.params;
 
-if (!slug) throw new Error('Something went wrong');
+if (!slug) return Astro.redirect("/projects");
 
-const project: CollectionEntry<'projects'> | undefined = await getEntry('projects', slug);
+const project: CollectionEntry<"projects"> | undefined = await getEntry(
+  "projects",
+  slug
+);
 
-if (!project) throw new Error('Something went wrong');
-
-const { Content } = await project.render();
+if (!project) return Astro.redirect("/projects");
 ---
 
-<Layout title='Article'>
-  <a href="/projects">&leftarrow;</a>
-  <div class="container flex flex-col justify-evenly h-screen">
-    <Content />
-  </div>
+<Layout title={`${project.data.title} | Projects`}>
+  <Detail {project} />
 </Layout>

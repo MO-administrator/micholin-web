@@ -1,52 +1,44 @@
 ---
-import Button from "./Button.astro";
-export interface Props {
+import { type TypedOptions } from "typed.js";
+import Typed from "./Typed.astro";
+
+interface Props {
   title?: string;
-  description?: string;
-  showExtra?: boolean;
+  description: string | string[] | null;
+  descriptionOptions?: TypedOptions;
 }
 
-const { title, description, showExtra = false } = Astro.props;
+const { title = "", description = "", descriptionOptions = {} } = Astro.props;
 ---
 
-<section
-  class:list={[
-    "flex",
-    "flex-col",
-    "w-dvw",
-    "h-dvh",
-    "justify-center",
-    "contain-content",
-    "place-items-center",
-    "bg-gradient-to-b",
-  ]}
->
-  <h1 class:list={["text-blue-100", "text-6xl", "mb-8"]}>
-    {title}
-  </h1>
-  <p class:list={["w-dvw", "max-w-screen-lg", "text-2xl", "text-center"]}>
-    {description}
-  </p>
-  {
-    showExtra && (
-      <div
-        class:list={[
-          "flex",
-          "mt-20",
-          "mx-4",
-          "w-dvw",
-          "max-w-screen-lg",
-          "justify-around",
-          "place-items-center",
-        ]}
-      >
-        <Button id="contact" href="contact-me">
-          Contact Me
-        </Button>
-        <Button id="work" href="projects">
-          View My Work
-        </Button>
-      </div>
-    )
-  }
+<section class="container">
+  <div
+    class:list={[
+      "flex",
+      "flex-col",
+      "w-auto",
+      "h-fit",
+      "py-20",
+      "justify-center",
+      "contain-content",
+      "place-items-center",
+      "bg-gradient-to-br",
+      "rounded-b-3xl",
+      "lg:grid",
+      "lg:grid-cols-2",
+      "lg:grid-flow-row",
+      "lg:gap-8"
+    ]}
+  >
+    <div class:list={["flex", "flex-col", "flex-auto"]}>
+      <h1 class:list={["text-center", "text-blue-100", "text-6xl", "mb-8"]}>
+        {title}
+      </h1>
+      {description && (<Typed strings={description} options={descriptionOptions} />)}
+    </div>
+    <div class:list={["flex", "flex-col", "flex-auto", "place-items-center", "gap-8"]}>
+      <slot name="cta" />
+      <slot />
+    </div>
+  </div>
 </section>

@@ -1,18 +1,27 @@
 ---
+import { type CollectionEntry, getCollection, getEntry } from "astro:content";
 import Layout from "../layouts/Layout.astro";
-import Hero from "../components/Hero.astro";
+import Hero from "../components/Hero:Home.astro";
 import Highlights from "../components/Highlights.astro";
 import Qualifications from "../components/Qualifications.astro";
 import Testimonials from "../components/Testimonials.astro";
+import Contact from "../components/Contact.astro";
+
+const {
+  data: { title, description },
+} = await getEntry("pagemetas", "home");
+
+const projects: CollectionEntry<"projects">[] = (
+  await getCollection("projects", entry => !entry.data.isDraft)
+)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
 ---
 
 <Layout>
-  <Hero
-    title="Olin Fernandes"
-    description="Experienced React JS Developer with a Passion for Building Innovative Web Applications."
-    showExtra={true}
-  />
-  <Highlights />
+  <Hero {title} {description} />
+  <Highlights {projects} />
   <Qualifications />
   <Testimonials />
+  <Contact />
 </Layout>

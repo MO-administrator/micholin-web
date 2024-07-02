@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&display=swap");
+:root {
+  --page-bg-color: #13151a;
+  --page-bg: url("/page_bg.svg");
+  --accent: 136, 58, 234;
+  --accent-light: 224, 204, 250;
+  --accent-dark: 49, 10, 101;
+  --accent-gradient: linear-gradient(
+    45deg,
+    rgb(var(--accent)),
+    rgb(var(--accent-light)) 30%,
+    white 60%
+  );
+  --tw-gradient-from: rgb(180, 40, 165, 0.8) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(142, 85, 172) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+html {
+  font-family: "Bona Nova SC", system-ui, sans-serif;
+  background: var(--page-bg-color);
+  background-size: 224px;
+  color: #fff;
+}
+body {
+  height: 100dvh;
+  background-image: linear-gradient(#000, #333, #000);
+  scrollbar-width: thin;
+  scroll-behavior: smooth;
+  scroll-snap-type: mandatory;
+}
+main {
+  position: relative;
+  background-image: var(--page-bg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #00000030;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100dvh - 11.5rem);
+  overflow-y: auto;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  section {
+    scroll-snap-align: start;
+  }
+}
+section {
+  margin: 0 auto;
+  padding: 1rem;
+  &.header {
+    margin-top: 0;
+  }
+  &.footer {
+    margin-top: auto;
+    margin-bottom: 0;
+  }
+}

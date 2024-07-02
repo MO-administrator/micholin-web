@@ -1,0 +1,58 @@
+---
+import { type TypedOptions } from "typed.js";
+interface Props {
+  strings: string | string[];
+  options?: TypedOptions;
+}
+
+const { strings, options } = Astro.props;
+---
+
+<div id="typed-strings" data-typed-options={JSON.stringify(options)}>
+  {
+    typeof strings === "object" && Array.isArray(strings) ? (
+      strings.map(item => <p>{item}</p>)
+    ) : (
+      <p>{strings}</p>
+    )
+  }
+</div>
+<div
+  id="typed"
+  class:list={[
+    "px-4",
+    "flex",
+    "flex-wrap",
+    "place-items-center",
+    "w-full",
+    "min-h-16",
+    "max-w-screen-lg",
+    "text-2xl",
+    "text-center",
+  ]}
+>
+</div>
+
+<script>
+  import Typed from "typed.js";
+  document.addEventListener("astro:page-load", () => {
+    const defaultOptions = {
+      stringsElement: "#typed-strings",
+      typeSpeed: 5,
+      loop: true,
+      startDelay: 800,
+      backDelay: 3000,
+      showCursor: false,
+    };
+    const options =
+      document
+        .querySelector("#typed-strings")
+        ?.getAttribute("data-typed-options") ?? `{}`;
+    const parsedOptions = JSON.parse(options);
+    const newOptions = { ...defaultOptions, ...parsedOptions };
+    if (document.querySelector("#typed")) {
+      const typed = new Typed("#typed", newOptions);
+      typed.start();
+    }
+  });
+</script>

@@ -1,69 +1,50 @@
 ---
+import { getEntry } from "astro:content";
+import { ViewTransitions } from "astro:transitions";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { SITE_NAME, SITE_DESCRIPTION, SITE_FAVICON } from "../constants";
+import '../style/global.css';
+
+const currentPage = Astro.url.pathname.replace("/", "");
+const pageMeta = currentPage
+  ? await getEntry("pagemetas", currentPage)
+  : undefined;
+if (
+  currentPage &&
+  !pageMeta &&
+  !currentPage.includes("projects") &&
+  !currentPage.includes("admin")
+) {
+  console.warn(`Page meta missing for current page: ${currentPage}`);
+}
 
 interface Props {
   title?: string;
 }
 
-const { title = "Olin Fernandes" } = Astro.props;
+const { title = pageMeta?.data.title } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
+    <meta name="description" content={SITE_DESCRIPTION} />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+
+    <link rel="icon" type="image/svg" href={SITE_FAVICON} />
+
+    <title>{title ? `${title} | ${SITE_NAME}` : SITE_NAME}</title>
+
+    <ViewTransitions />
   </head>
   <body>
     <Header />
-    <slot />
+    <main>
+      <slot />
+    </main>
     <Footer />
   </body>
 </html>
-<style is:global lang="scss">
-  @import url("https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&display=swap");
-  :root {
-    --accent: 136, 58, 234;
-    --accent-light: 224, 204, 250;
-    --accent-dark: 49, 10, 101;
-    --accent-gradient: linear-gradient(
-      45deg,
-      rgb(var(--accent)),
-      rgb(var(--accent-light)) 30%,
-      white 60%
-    );
-    --tw-gradient-from: rgba(8, 0, 8, 0.8) var(--tw-gradient-from-position);
-    --tw-gradient-to: rgb(180, 40, 165, 0.8) var(--tw-gradient-to-position);
-    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-  }
-  html {
-    font-family: "Bona Nova SC", system-ui, sans-serif;
-    background: #13151a;
-    background-size: 224px;
-    color: #fff;
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-evenly;
-      max-height: 100dvh;
-      section {
-        margin: 0 auto;
-        padding: 1rem;
-        &.header {
-          margin-top: 0;
-          margin-bottom: auto;
-        }
-        &.footer {
-          margin-top: auto;
-          margin-bottom: 0;
-        }
-      }
-    }
-  }
-</style>

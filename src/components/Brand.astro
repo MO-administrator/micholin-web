@@ -1,9 +1,32 @@
 ---
-import { Image } from 'astro:assets';
+import { Picture } from "astro:assets";
+import { IMAGE_SIZE, SITE_FAVICON, SITE_NAME } from "../constants";
 ---
 
-<div class="ml-0 mr-auto cursor-pointer, rounded-xl contain-content">
-  <a href="/">
-    <Image src="/favicon.png" alt="brand logo" width={50} height={20} />
+<div
+  role="img"
+  aria-label="Brand Logo"
+  class:list={["ml-0", "mr-auto", "hover:animate-pulse"]}
+>
+  <a
+    href="/"
+    class:list={[
+      "flex",
+      "flex-auto",
+      "flex-nowrap",
+      "place-items-center",
+      "cursor-pointer",
+    ]}
+  >
+    <Picture
+      class:list={["max-w-12", "h-auto", "mr-2"]}
+      src={SITE_FAVICON}
+      alt={SITE_NAME}
+      height={IMAGE_SIZE}
+      width={IMAGE_SIZE}
+      loading="eager"
+      format="webp"
+    />
+    <slot />
   </a>
 </div>

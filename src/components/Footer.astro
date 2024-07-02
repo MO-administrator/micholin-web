@@ -1,16 +1,26 @@
 ---
 import Brand from "./Brand.astro";
-
-const year = new Date().getFullYear();
+import { SITE_NAME } from "../constants";
 ---
 
 <section
   class="footer"
   class:list={["flex", "flex-row", "justify-between", "w-dvw"]}
 >
-  <div class:list={['flex', 'flex-row', 'place-items-center']}>
+  <div class:list={["flex", "flex-row", "place-items-center"]}>
     <Brand />
-    <div class="ml-4">Copyright &copy; {year}</div>
+    <div class="ml-4">
+      {SITE_NAME} &copy; <span id="copyright"></span>. All Rights Reserved.
+    </div>
   </div>
   <div>Resources</div>
 </section>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const copyrightEl = document.getElementById("copyright");
+    if (copyrightEl) {
+      copyrightEl.innerText = new Date().getFullYear().toString();
+    }
+  });
+</script>

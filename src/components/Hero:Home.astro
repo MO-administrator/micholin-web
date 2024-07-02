@@ -1,0 +1,36 @@
+---
+import Hero from './Hero.astro';
+import Button from './Button.astro';
+
+interface Props {
+  title: string;
+  description: string | string[] | null;
+}
+
+const { title, description } = Astro.props;
+---
+
+<Hero {title} {description} descriptionOptions={{ loop: false }}>
+  <Fragment slot="cta">
+    <div
+      class:list={[
+        "mx-2",
+        "mt-8",
+        "flex",
+        "flex-row",
+        "w-full",
+        "max-w-screen-sm",
+        "justify-center",
+        "place-items-center",
+        "gap-4",
+      ]}
+    >
+      <Button id="contact" href="/contact" class:list={["rounded-3xl"]}>
+        Contact Me
+      </Button>
+      <Button id="work" href="/projects" class:list={["rounded-3xl"]}>
+        View My Work
+      </Button>
+    </div>
+  </Fragment>
+</Hero>
