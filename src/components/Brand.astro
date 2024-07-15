@@ -6,20 +6,10 @@ import { IMAGE_SIZE, SITE_FAVICON, SITE_NAME } from "../constants";
 <div
   role="img"
   aria-label="Brand Logo"
-  class:list={["ml-0", "mr-auto", "hover:animate-pulse"]}
+  class="brand-logo"
 >
-  <a
-    href="/"
-    class:list={[
-      "flex",
-      "flex-auto",
-      "flex-nowrap",
-      "place-items-center",
-      "cursor-pointer",
-    ]}
-  >
+  <a href="/" >
     <Picture
-      class:list={["max-w-12", "h-auto", "mr-2"]}
       src={SITE_FAVICON}
       alt={SITE_NAME}
       height={IMAGE_SIZE}
@@ -30,3 +20,17 @@ import { IMAGE_SIZE, SITE_FAVICON, SITE_NAME } from "../constants";
     <slot />
   </a>
 </div>
+
+<style lang="scss">
+  .brand-logo {
+    a {
+      @apply flex place-items-center
+      cursor-pointer
+    }
+    img {
+      @apply max-w-12 h-auto mr-2
+    }
+    @apply ml-0 mr-auto
+    hover:animate-pulse;
+  }
+</style>

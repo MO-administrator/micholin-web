@@ -27,23 +27,23 @@ export const FormLogin = () => {
         noValidate
         spellCheck
         onSubmit={handleLogin}
-        className="flex flex-col flex-auto justify-center gap-4"
+        className="flex flex-col justify-center flex-auto gap-4"
       >
-        <fieldset className="flex flex-col flex-auto justify-center gap-4">
+        <fieldset className="flex flex-col justify-center flex-auto gap-4">
           <legend className="flex flex-col mx-auto place-items-center">
-            <div className="flex h-20 w-20 mx-auto place-items-center motion-safe:animate-spin-slow">
+            <div className="flex w-20 h-20 mx-auto place-items-center motion-safe:animate-spin-slow">
               <img
                 src="/icons/react-icon.svg"
                 alt="react-logo"
                 loading="eager"
               />
             </div>
-            <h1 className="text-center mb-4">Login Page</h1>
+            <h1 className="mb-4 text-center">Login Page</h1>
           </legend>
-          <span className="flex flex-auto gap-2 justify-between place-items-center">
+          <span className="flex justify-between flex-auto gap-2 place-items-center">
             <label htmlFor="username">Username:</label>
             <input
-              className="text-slate-600 font-serif py-1 px-2 rounded-full"
+              className="px-2 py-1 font-serif rounded-full text-slate-600"
               id="username"
               type="text"
               name="username"
@@ -52,10 +52,10 @@ export const FormLogin = () => {
               required
             />
           </span>
-          <span className="flex flex-auto gap-2 justify-between place-items-center">
+          <span className="flex justify-between flex-auto gap-2 place-items-center">
             <label htmlFor="password">Password:</label>
             <input
-              className="text-slate-600 font-serif py-1 px-2 rounded-full"
+              className="px-2 py-1 font-serif rounded-full text-slate-600"
               id="password"
               type="password"
               name="password"
@@ -66,7 +66,7 @@ export const FormLogin = () => {
           </span>
           <input
             id='login-btn'
-            className="flex justify-center place-items-center text-center w-full p-2 my-4 mx-auto cursor-pointer bg-slate-600 border-2 border-white rounded-full rounded-bl-3xl rounded-tr-3xl transform ease-in-out duration-300 hover:scale-110"
+            className="flex justify-center w-full p-2 mx-auto my-4 text-center border-2 border-white rounded-full cursor-pointer place-items-center bg-slate-600 rounded-bl-3xl rounded-tr-3xl transform ease-in-out duration-300 hover:scale-110"
             type="submit"
             form="login"
             value="Log In &rarr;"

@@ -1,24 +1,19 @@
 ---
-import Button from './Button.astro';
+import Button from "./Button.astro";
 ---
 
 <Button
   onclick="event.preventDefault();window.history.back()"
   href="#back"
-  class:list={[
-    "absolute",
-    "z-50",
-    "top-0",
-    "-left-8",
-    "ml-7",
-    "mb-4",
-    "w-10",
-    "text-2xl",
-    "text-center",
-    "rounded-l-xl",
-    "cursor-pointer",
-    "hover:opacity-90",
-    "hover:scale-110",
-  ]}>
+  class="button"
+>
   &larr;
 </Button>
+
+<style lang="scss">
+  .button {
+    @apply absolute z-50 top-0 -left-8 ml-7 mb-4 w-10
+    text-2xl text-center rounded-l-xl cursor-pointer
+    hover:opacity-90 hover:scale-110;
+  }
+</style>

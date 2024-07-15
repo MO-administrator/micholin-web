@@ -2,11 +2,20 @@
 import { getCollection } from "astro:content";
 import CardTestimonial from "./Card:Testimonial.astro";
 
-const testimonials = await getCollection("testimonials");
+const testimonials = (await getCollection("testimonials")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
 ---
 
-<section id="test" class="container">
-  <div class:list={["flex", "flex-auto", "flex-col", "gap-4"]}>
-    {testimonials.map((testimonial) => <CardTestimonial {testimonial} />)}
-  </div>
+<section class="container">
+  <ul class="testimonials">
+    {testimonials.map(testimonial => <CardTestimonial {testimonial} />)}
+  </ul>
 </section>
+
+<style>
+  .testimonials {
+    @apply flex mx-auto
+    gap-4 justify-center max-w-screen-sm;
+  }
+</style>
