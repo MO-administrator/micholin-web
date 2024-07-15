@@ -22,7 +22,7 @@ html {
   color: #fff;
 }
 body {
-  height: 100dvh;
+  height: 100lvh;
   background-image: linear-gradient(#000, #333, #000);
   scrollbar-width: thin;
   scroll-behavior: smooth;

@@ -3,19 +3,25 @@ import { getCollection } from "astro:content";
 import CardTestimonial from "./Card:Testimonial.astro";
 
 const testimonials = (await getCollection("testimonials")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
 
 <section class="container">
-  <ul class="testimonials">
-    {testimonials.map(testimonial => <CardTestimonial {testimonial} />)}
-  </ul>
+  <div class="wrapper">
+    <ul class="testimonials">
+      {testimonials.map((testimonial) => <CardTestimonial {testimonial} />)}
+    </ul>
+  </div>
 </section>
 
 <style>
+  .wrapper {
+    @apply grid;
+  }
   .testimonials {
-    @apply flex mx-auto
-    gap-4 justify-center max-w-screen-sm;
+    @apply flex flex-wrap flex-row justify-self-center
+    gap-4 justify-center place-items-center
+    max-w-screen-sm;
   }
 </style>

@@ -23,17 +23,7 @@ const { Content } = await project.render();
   </Fragment>
   <Fragment slot="cover-image">
     <Picture
-      class:list={[
-        "p-2",
-        "mx-auto",
-        "max-h-96",
-        "w-fit",
-        "object-cover",
-        "rounded-full",
-        "rounded-bl-3xl",
-        "lg:rounded-3xl",
-        "lg:rounded-bl-full",
-      ]}
+      class="rounded-full"
       src={image}
       alt={title}
       loading="eager"

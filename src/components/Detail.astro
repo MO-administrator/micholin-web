@@ -2,17 +2,35 @@
 import Back from "./Button:Back.astro";
 ---
 
-<section
-  class="container relative overflow-y-scroll bg-gradient-to-bl rounded-xl max-h-dvh xl:max-w-screen-xl"
->
-  <Back />
-  <div class="grid grid-cols-1 xl:grid-cols-2 xl:place-items-center">
-    <div class="order-2 block w-auto xl:order-1 xl:h-auto xl:pl-8">
-      <slot name="content" />
+<section class="container grid">
+  <div class="wrapper">
+    <Back />
+    <div class="content-grid">
+      <div class="grid-body">
+        <slot name="content" />
+      </div>
+      <div class="grid-showcase">
+        <slot name="cover-image" />
+      </div>
+      <slot />
     </div>
-    <div class="order-1 block object-contain xl:order-2 xl:max-h-96">
-      <slot name="cover-image" />
-    </div>
-    <slot />
   </div>
 </section>
+
+<style lang="scss">
+  .wrapper {
+    @apply relative overflow-y-scroll
+    bg-gradient-to-bl rounded-xl max-h-full
+    xl:max-w-screen-xl xl:justify-self-center;
+    .content-grid {
+      @apply grid grid-cols-1 w-screen max-w-screen-lg place-items-center p-8 gap-4;
+      .grid-body {
+        @apply flex flex-row flex-wrap w-auto
+        xl:order-1 xl:h-auto;
+      }
+      .grid-showcase {
+        @apply block object-contain xl:max-w-96;
+      }
+    }
+  }
+</style>
