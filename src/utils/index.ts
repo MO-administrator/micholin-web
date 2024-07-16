@@ -1,3 +1,5 @@
+import { XataClient } from "../xata"; }
+
 export const formatDate = (
   date: number | string | Date,
   options: Intl.DateTimeFormatOptions = {
@@ -15,3 +17,8 @@ export const scrollIntoView = (id: string) => {
     document.querySelector(`#${id}`)?.scrollIntoView({ behavior: "smooth" });
   });
 };
+
+export const xata = new XataClient({
+  branch: import.meta.env.XATA_BRANCH,
+  apiKey: import.meta.env.XATA_API_KEY
+})

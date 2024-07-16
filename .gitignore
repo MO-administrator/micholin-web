@@ -31,3 +31,6 @@ pnpm-debug.log*
 # frontmatter
 .frontmatter
 frontmatter.json
+
+# Local Netlify folder
+.netlify
