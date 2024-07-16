@@ -3,13 +3,12 @@ import { z, defineCollection } from "astro:content";
 export const collections = {
   pagemetas: defineCollection({
     type: "data",
-    schema: ({ image }) =>
-      z.object({
+    schema: z.object({
         href: z.string().startsWith("/"),
         title: z.string(),
         description: z.array(z.string()).nullable().default(null),
         text: z.string().optional().nullable().default(null),
-        image: image().optional().nullable().default(null),
+        image: z.string().optional().nullable().default(null),
       }),
   }),
   projects: defineCollection({

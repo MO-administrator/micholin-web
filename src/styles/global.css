@@ -26,7 +26,6 @@ body {
   background-image: linear-gradient(#000, #333, #000);
   scrollbar-width: thin;
   scroll-behavior: smooth;
-  scroll-snap-type: mandatory;
 }
 main {
   position: relative;

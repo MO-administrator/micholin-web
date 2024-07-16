@@ -1,6 +1,6 @@
 ---
 import { getEntry } from "astro:content";
-import { Picture } from "astro:assets";
+import { Icon } from "astro-icon/components";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 
@@ -15,15 +15,6 @@ const {
     description={description ?? []}
     descriptionOptions={{ loop: false }}
   >
-    {
-      image && (
-        <Picture
-          src={image}
-          alt={text ?? title}
-          loading={"eager"}
-          format="webp"
-        />
-      )
-    }
+    {image && <Icon name={image} size={100} color="#ffae32" />}
   </Hero>
 </Layout>

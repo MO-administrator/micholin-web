@@ -1,6 +1,6 @@
 ---
-import { Picture } from "astro:assets";
 import { type CollectionEntry, getEntry } from "astro:content";
+import { Icon } from "astro-icon/components";
 
 const pages = [
   (await getEntry("pagemetas", "home")).data,
@@ -16,7 +16,7 @@ const isActive = (page: CollectionEntry<"pagemetas">["data"]) => {
 ---
 
 <div class="navbar" role="navigation" aria-label="Nabar">
-  <ul class:list={[]}>
+  <ul>
     {
       pages.map(page => (
         <li class:list={["mr-4", "hover:animate-pulse"]}>
@@ -24,15 +24,7 @@ const isActive = (page: CollectionEntry<"pagemetas">["data"]) => {
             href={page.href}
             class={isActive(page) ? "link link--active" : "link"}
           >
-            {page?.image && (
-              <Picture
-                src={page.image}
-                alt={page.text}
-                height={18}
-                width={18}
-                loading={"eager"}
-              />
-            )}
+            {page?.image && <Icon name={page.image} />}
             {page.text}
           </a>
         </li>

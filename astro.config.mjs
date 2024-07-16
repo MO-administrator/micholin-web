@@ -5,13 +5,15 @@ import sitemap from "@astrojs/sitemap";
 import compress from "astro-compress";
 import netlify from "@astrojs/netlify";
 
+import icon from "astro-icon";
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), react(), sitemap(), compress()],
+  integrations: [tailwind(), react(), sitemap(), compress(), icon()],
   output: "server",
   image: {
-    service: passthroughImageService(),
+    service: passthroughImageService()
   },
   adapter: netlify(),
-  site: "https://micholin.netlify.app/",
+  site: "https://micholin.netlify.app/"
 });
