@@ -30,7 +30,7 @@ export const FormLogin = () => {
         className="flex flex-col justify-center flex-auto gap-4"
       >
         <fieldset className="flex flex-col justify-center flex-auto gap-4">
-          <legend className="flex flex-col mx-auto place-items-center">
+          <legend className="flex flex-col m-0 place-items-center">
             <div className="flex w-20 h-20 mx-auto place-items-center motion-safe:animate-spin-slow">
               <img
                 src="/icons/react-icon.svg"
@@ -65,7 +65,7 @@ export const FormLogin = () => {
             />
           </span>
           <input
-            id='login-btn'
+            id="login-btn"
             className="flex justify-center w-full p-2 mx-auto my-4 text-center border-2 border-white rounded-full cursor-pointer place-items-center bg-slate-600 rounded-bl-3xl rounded-tr-3xl transform ease-in-out duration-300 hover:scale-110"
             type="submit"
             form="login"

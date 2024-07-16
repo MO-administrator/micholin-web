@@ -1,6 +1,31 @@
 ---
-import Hero from './Hero.astro';
-import Button from './Button.astro';
+import Hero from "./Hero.astro";
+import Button from "./Button.astro";
+
+const wrapperClass = [
+  "mx-2",
+  "mt-8",
+  "flex",
+  "flex-row",
+  "w-full",
+  "max-w-screen-sm",
+  "justify-center",
+  "place-items-center",
+  "gap-4",
+];
+const ctaClass = [
+  "rounded-3xl",
+  "bg-slate-700",
+  "p-2",
+  "px-4",
+  "border-2",
+  "border-transparent",
+  "transition",
+  "duration-300",
+  "ease-in",
+  "hover:border-green-600",
+  "hover:scale-110",
+];
 
 interface Props {
   title: string;
@@ -12,23 +37,11 @@ const { title, description } = Astro.props;
 
 <Hero {title} {description} descriptionOptions={{ loop: false }}>
   <Fragment slot="cta">
-    <div
-      class:list={[
-        "mx-2",
-        "mt-8",
-        "flex",
-        "flex-row",
-        "w-full",
-        "max-w-screen-sm",
-        "justify-center",
-        "place-items-center",
-        "gap-4",
-      ]}
-    >
-      <Button id="contact" href="/contact" class:list={["rounded-3xl"]}>
+    <div class:list={wrapperClass}>
+      <Button id="contact" href="/contact" class:list={ctaClass}>
         Contact Me
       </Button>
-      <Button id="work" href="/projects" class:list={["rounded-3xl"]}>
+      <Button id="work" href="/projects" class:list={ctaClass}>
         View My Work
       </Button>
     </div>
