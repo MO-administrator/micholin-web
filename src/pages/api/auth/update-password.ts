@@ -1,8 +1,7 @@
 import type { APIRoute } from "astro";
-import { argon, jwt, prisma } from "../../../utils";
-import { z, ZodError } from "zod";
+import { z } from "zod";
+import { argon, decodeToken, handleErrors, prisma } from "../../../utils";
 
-const tokenSecret = import.meta.env.TOKEN_SECRET;
 
 const updatePasswordDTOSchema = z.object({
   password: z.string().min(8, "password must be a minimum of 8 characters."),
@@ -10,13 +9,11 @@ const updatePasswordDTOSchema = z.object({
 
 export const PUT: APIRoute = async ({ request }) => {
   try {
-    const user = request.headers.get("user");
-    if (!user) {
+    const token = request.headers.get("user");
+    if (!token) {
       throw new Error("Not authorized.");
     }
-    const decodedToken = jwt.verify(user, tokenSecret, {
-      complete: true,
-    });
+    const decodedToken = decodeToken(token);
     const { payload } = decodedToken;
     if (typeof payload != "string") {
       const userId = payload.data.userId;
@@ -38,30 +35,7 @@ export const PUT: APIRoute = async ({ request }) => {
       });
     }
   } catch (error) {
-    if (error instanceof Error) {
-      return new Response(JSON.stringify({ message: error.message }), { status: 401 })
-    }
-    if (error instanceof ZodError) {
-      const response = error.issues.map(
-        ({
-          path,
-          message,
-        }: {
-          path: (string | number)[];
-          message: string;
-        }) => ({
-          [path.join("-")]: message,
-        })
-      );
-
-      return new Response(JSON.stringify(response), {
-        status: 400,
-      });
-    }
-    console.warn(error);
-    return new Response(JSON.stringify({ message: "Unauthorized." }), {
-      status: 401,
-    });
+    return handleErrors(error);
   }
   console.log("Why are we here?");
   return new Response(JSON.stringify({ message: "something went wrong" }), {

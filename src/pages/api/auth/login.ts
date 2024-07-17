@@ -1,13 +1,11 @@
 import type { APIRoute } from "astro";
-import { z, ZodError } from "zod";
-import { prisma, argon, jwt } from "../../../utils";
+import { z } from "zod";
+import { prisma, argon, generateToken, handleErrors } from "../../../utils";
 
 const loginDTOSchema = z.object({
   username: z.string().email("Please input a valid email."),
   password: z.string().min(8, "Please input password with min 8 ch."),
 });
-
-const tokenSecret = import.meta.env.TOKEN_SECRET;
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -28,15 +26,13 @@ export const POST: APIRoute = async ({ request }) => {
 
     const isValid = await argon.verify(hash, password);
     if (isValid) {
-      const token = jwt.sign({ data: { userId: xata_id } }, tokenSecret, {
-        expiresIn: "16h",
-      });
+      const token = generateToken(xata_id)
 
-      return new Response(JSON.stringify({message: 'Successfully Logged In!'}), {
+      return new Response(JSON.stringify({message: 'Successfully Logged In!', token }), {
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
           user: token,
-          "Authorization": `Bearer ${token}`
         },
         status: 200,
         statusText: "Logged in successfully.",
@@ -46,31 +42,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
   } catch (error) {
-    if (error instanceof ZodError) {
-      const response = error.issues.map(
-        ({
-          path,
-          message,
-        }: {
-          path: (string | number)[];
-          message: string;
-        }) => ({
-          [path.join("-")]: message,
-        })
-      );
-      return new Response(JSON.stringify(response), {
-        status: 400,
-      });
-    }
-    if (error instanceof Error) {
-      return new Response(JSON.stringify({ message: error.message }), {
-        status: 400,
-      });
-    }
-    console.warn(error);
-    return new Response(JSON.stringify(error), {
-      status: 500,
-    });
+    return handleErrors(error);
   }
 };
 

@@ -1,10 +1,6 @@
 import type { APIRoute } from "astro";
-import { z, ZodError } from "zod";
-import * as argon from "argon2";
-import jwt from "jsonwebtoken";
-import { prisma } from "../../../utils";
-
-const tokenSecret = import.meta.env.TOKEN_SECRET;
+import { z } from "zod";
+import { generateToken, prisma, argon, handleErrors } from "../../../utils";
 
 const registerDTOSchema = z.object({
   username: z.string().email("Please input a valid email"),
@@ -35,9 +31,7 @@ export const POST: APIRoute = async ({ request }) => {
       select: { xata_id: true },
     });
 
-    const token = jwt.sign({ data: { userId: xata_id } }, tokenSecret, {
-      expiresIn: "16h",
-    });
+    const token = generateToken(xata_id);
 
     return new Response(
       JSON.stringify({ message: "registration successful!" }),
@@ -51,31 +45,7 @@ export const POST: APIRoute = async ({ request }) => {
       }
     );
   } catch (error) {
-    if (error instanceof ZodError) {
-      const response = error.issues.map(
-        ({
-          path,
-          message,
-        }: {
-          path: (string | number)[];
-          message: string;
-        }) => ({
-          [path.join("-")]: message,
-        })
-      );
-      return new Response(JSON.stringify(response), {
-        status: 400,
-      });
-    }
-    if (error instanceof Error) {
-      return new Response(JSON.stringify({ message: error.message }), {
-        status: 400,
-      });
-    }
-    console.warn(error);
-    return new Response(JSON.stringify(error), {
-      status: 400,
-    });
+    return handleErrors(error);
   }
 };
 
