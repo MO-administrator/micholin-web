@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { z } from "astro/zod";
+import { prisma } from '../../../utils';
 import {
   COOKIE_EXPIRES,
   COOKIE_MAX_AGE,
@@ -27,6 +28,11 @@ export const POST: APIRoute = async ({ request }) => {
      * Add JWT token for authentication
      * Add access token to response
      */
+
+    /** Query Xata to get list of users */
+
+    const users = await prisma.users.findMany();
+    console.log(users);
 
     return new Response(JSON.stringify(data), {
       headers: {

@@ -1,0 +1,18 @@
+{
+  "done": true,
+  "migration": {
+    "name": "sql_ad3f7d5184f7f8",
+    "operations": [
+      {
+        "sql": {
+          "up": "CREATE TABLE users (xata_version int NOT NULL DEFAULT 0, xata_createdat timestamptz(6) NOT NULL DEFAULT current_timestamp, xata_updatedat timestamptz(6) NOT NULL DEFAULT current_timestamp, xata_id text NOT NULL, email text NOT NULL, hash varchar(244) NOT NULL, CONSTRAINT users_pkey PRIMARY KEY (email))"
+        }
+      }
+    ]
+  },
+  "migrationType": "inferred",
+  "name": "sql_ad3f7d5184f7f8",
+  "parent": "sql_119fd75e53ff70",
+  "schema": "public",
+  "startedAt": "2024-07-16T22:23:54.697054Z"
+}

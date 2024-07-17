@@ -6,18 +6,125 @@ import type {
   XataRecord,
 } from "@xata.io/client";
 
-const tables = [] as const;
+const tables = [
+  {
+    name: "posts",
+    checkConstraints: {},
+    foreignKeys: {},
+    primaryKey: [],
+    uniqueConstraints: {},
+    columns: [
+      {
+        name: "xata_createdat",
+        type: "datetime",
+        notNull: true,
+        unique: false,
+        defaultValue: "now()",
+        comment: "",
+      },
+      {
+        name: "xata_id",
+        type: "text",
+        notNull: true,
+        unique: true,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "xata_updatedat",
+        type: "datetime",
+        notNull: true,
+        unique: false,
+        defaultValue: "now()",
+        comment: "",
+      },
+      {
+        name: "xata_version",
+        type: "int",
+        notNull: true,
+        unique: false,
+        defaultValue: "0",
+        comment: "",
+      },
+    ],
+  },
+  {
+    name: "users",
+    checkConstraints: {},
+    foreignKeys: {},
+    primaryKey: ["email"],
+    uniqueConstraints: {},
+    columns: [
+      {
+        name: "email",
+        type: "text",
+        notNull: true,
+        unique: true,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "hash",
+        type: "string",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "xata_createdat",
+        type: "timestamp(6) with time zone",
+        notNull: true,
+        unique: false,
+        defaultValue: "CURRENT_TIMESTAMP",
+        comment: "",
+      },
+      {
+        name: "xata_id",
+        type: "text",
+        notNull: true,
+        unique: true,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "xata_updatedat",
+        type: "timestamp(6) with time zone",
+        notNull: true,
+        unique: false,
+        defaultValue: "CURRENT_TIMESTAMP",
+        comment: "",
+      },
+      {
+        name: "xata_version",
+        type: "int",
+        notNull: true,
+        unique: false,
+        defaultValue: "0",
+        comment: "",
+      },
+    ],
+  },
+] as const;
 
 export type SchemaTables = typeof tables;
 export type InferredTypes = SchemaInference<SchemaTables>;
 
-export type DatabaseSchema = {};
+export type Posts = InferredTypes["posts"];
+export type PostsRecord = Posts & XataRecord;
+
+export type Users = InferredTypes["users"];
+export type UsersRecord = Users & XataRecord;
+
+export type DatabaseSchema = {
+  posts: PostsRecord;
+  users: UsersRecord;
+};
 
 const DatabaseClient = buildClient();
 
 const defaultOptions = {
-  databaseURL:
-    "https://Olin-Fernandes-s-workspace-enni6o.eu-central-1.xata.sh/db/micholin:main",
+  databaseURL: "https://micholin-enni6o.eu-central-1.xata.sh/db/micholin:main",
 };
 
 export class XataClient extends DatabaseClient<DatabaseSchema> {

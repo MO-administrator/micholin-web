@@ -14,6 +14,6 @@ const projects: CollectionEntry<"projects">[] = (
 ---
 
 <Layout>
-  <Hero {title} {description} />
+  <Hero {title} {description} descriptionOptions={{ backSpeed: 8, backDelay: 2e3 }} />
   <Higlights {projects} />
 </Layout>

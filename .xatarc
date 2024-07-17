@@ -1,5 +1,5 @@
 {
-  "databaseURL": "https://Olin-Fernandes-s-workspace-enni6o.eu-central-1.xata.sh/db/micholin:main",
+  "databaseURL": "https://micholin-enni6o.eu-central-1.xata.sh/db/micholin:main",
   "codegen": {
     "output": "src/xata.ts"
   }
