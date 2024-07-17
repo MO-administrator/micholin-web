@@ -4,15 +4,11 @@ import { Picture } from "astro:assets";
 import Card from "./Card.astro";
 import FormattedDate from "./FormattedDate.astro";
 
-interface Props {
-  testimonial: CollectionEntry<"testimonials">;
-}
+type Props = CollectionEntry<"testimonials">;
 
 const {
-  testimonial: {
-    data: { href, author, avatar, pubDate, designation },
-    render,
-  },
+  data: { href, author, avatar, pubDate, designation },
+  render,
 } = Astro.props;
 
 const { Content } = await render();
@@ -43,7 +39,7 @@ const { Content } = await render();
       @apply grid max-w-screen-sm rounded-3xl;
       grid-template-columns: 1fr 2fr 2fr;
       sub {
-        font-size: 0.75rem;
+        @apply text-xs;
       }
       .testimonial-header {
         @apply flex flex-col flex-auto gap-4 col-span-1;
@@ -56,8 +52,7 @@ const { Content } = await render();
       }
     }
     .testimonial-body {
-      @apply flex place-self-center;
-      padding: 0.5rem 0.75rem;
+      @apply flex place-self-center py-2 px-3;
     }
   </style>
 </Card>

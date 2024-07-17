@@ -2,7 +2,7 @@ import { FormLogin } from "../components/Form:Login";
 
 export const Login = () => {
   return (
-    <div className="container flex flex-auto h-fit place-items-center">
+    <div className="container grid h-full max-h-lvh place-items-center">
       <FormLogin />
     </div>
   );

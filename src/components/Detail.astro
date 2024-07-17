@@ -1,16 +1,21 @@
 ---
 import Back from "./Button:Back.astro";
+
+type Props = { title?: string };
+
+const { title = '' } = Astro.props;
 ---
 
 <section class="container grid">
   <div class="wrapper">
     <Back />
     <div class="content-grid">
-      <div class="grid-body">
-        <slot name="content" />
-      </div>
-      <div class="grid-showcase">
+      <div class="content-grid-showcase">
         <slot name="cover-image" />
+      </div>
+      {title && <h1 class="content-grid-title">{title}</h1>}
+      <div class="content-grid-body">
+        <slot name="content" />
       </div>
       <slot />
     </div>
@@ -19,17 +24,22 @@ import Back from "./Button:Back.astro";
 
 <style lang="scss">
   .wrapper {
-    @apply relative overflow-y-scroll
-    bg-gradient-to-bl rounded-xl max-h-full
+    @apply relative grid overflow-y-scroll
+    bg-gradient-to-bl rounded-xl max-h-full place-items-center
     xl:max-w-screen-xl xl:justify-self-center;
     .content-grid {
-      @apply grid grid-cols-1 w-screen max-w-screen-lg place-items-center p-8 gap-4;
-      .grid-body {
-        @apply flex flex-row flex-wrap w-auto
-        xl:order-1 xl:h-auto;
+      @apply grid grid-cols-1 w-screen max-w-screen-sm
+      place-items-center p-8 gap-4
+      lg:max-w-screen-md xl:max-w-screen-lg;
+      &-showcase {
+        @apply block object-contain max-w-96;
       }
-      .grid-showcase {
-        @apply block object-contain xl:max-w-96;
+      &-title {
+        @apply text-5xl text-center underline underline-offset-8 decoration-green-600;
+      }
+      &-body {
+        @apply flex flex-col flex-wrap
+        p-16 w-auto xl:h-auto;
       }
     }
   }

@@ -1,13 +1,17 @@
 import type { APIRoute } from "astro";
 import { z, ZodError } from "zod";
-import { prisma, argon, jwt } from "../../../utils";
-
-const loginDTOSchema = z.object({
-  username: z.string().email("Please input a valid email."),
-  password: z.string().min(8, "Please input password with min 8 ch."),
-});
+import * as argon from "argon2";
+import jwt from "jsonwebtoken";
+import { prisma } from "../../../utils";
 
 const tokenSecret = import.meta.env.TOKEN_SECRET;
+
+const registerDTOSchema = z.object({
+  username: z.string().email("Please input a valid email"),
+  password: z
+    .string()
+    .min(8, "Please input password with minimum of 8 characters"),
+});
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -17,34 +21,35 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const formData = await request.formData();
-    const { username, password } = loginDTOSchema.parse(
+
+    const registerDTO = registerDTOSchema.parse(
       Object.fromEntries(formData.entries())
     );
+    const payload = {
+      email: registerDTO.username,
+      hash: await argon.hash(registerDTO.password),
+    };
 
-    const { hash, xata_id } = await prisma.users.findUniqueOrThrow({
-      where: { email: username },
-      select: { hash: true, xata_id: true },
+    const { xata_id } = await prisma.users.create({
+      data: payload,
+      select: { xata_id: true },
     });
 
-    const isValid = await argon.verify(hash, password);
-    if (isValid) {
-      const token = jwt.sign({ data: { userId: xata_id } }, tokenSecret, {
-        expiresIn: "16h",
-      });
+    const token = jwt.sign({ data: { userId: xata_id } }, tokenSecret, {
+      expiresIn: "16h",
+    });
 
-      return new Response(JSON.stringify({message: 'Successfully Logged In!'}), {
+    return new Response(
+      JSON.stringify({ message: "registration successful!" }),
+      {
         headers: {
           "Content-Type": "application/json",
           user: token,
-          "Authorization": `Bearer ${token}`
         },
         status: 200,
         statusText: "Logged in successfully.",
-      });
-    } else {
-      throw new Error('password incorrect!')
-    }
-
+      }
+    );
   } catch (error) {
     if (error instanceof ZodError) {
       const response = error.issues.map(
@@ -69,7 +74,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
     console.warn(error);
     return new Response(JSON.stringify(error), {
-      status: 500,
+      status: 400,
     });
   }
 };

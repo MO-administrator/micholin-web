@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
 
-export const GET: APIRoute = async () => {
-  return new Response(JSON.stringify({ message: 'This is a GET'}))
+export const ALL: APIRoute = async () => {
+  return new Response(JSON.stringify({ message: 'API endpoint invalid!'}))
 }

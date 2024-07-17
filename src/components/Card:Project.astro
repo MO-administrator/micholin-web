@@ -5,15 +5,11 @@ import Card from "./Card.astro";
 import Tag from "./Tag.astro";
 import FormattedDate from "./FormattedDate.astro";
 
-interface Props {
-  project: CollectionEntry<"projects">;
-}
+type Props = CollectionEntry<"projects">;
 
 const {
-  project: {
-    data: { title, tags, pubDate, image },
-    slug,
-  },
+  data: { title, tags, pubDate, image },
+  slug,
 } = Astro.props;
 ---
 
@@ -31,9 +27,9 @@ const {
           <FormattedDate date={pubDate} />
         </sub>
       </span>
-      <span class="content-tags">
-        {tags.map((tag) => <Tag {tag} />)}
-      </span>
+      <ul class="content-tags">
+        {tags.map(tag => <Tag {tag} />)}
+      </ul>
     </div>
     <div class="showcase">
       <Picture src={image} alt={title} loading="eager" format="webp" />

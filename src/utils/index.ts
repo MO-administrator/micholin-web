@@ -1,4 +1,7 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
+export * as argon from "argon2";
+import jwt from "jsonwebtoken";
+export { jwt };
 
 export const formatDate = (
   date: number | string | Date,
@@ -6,7 +9,7 @@ export const formatDate = (
     year: "numeric",
     month: "long",
     day: "numeric",
-  },
+  }
 ) => new Date(date).toLocaleString(undefined, options);
 
 export const getRandomItem = (list: any[]) =>

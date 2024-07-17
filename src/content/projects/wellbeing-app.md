@@ -13,8 +13,6 @@ image: ./images/wellbeing-app.jpeg
 slug: wellbeing-app
 ---
 
-# **Wellbeing App**
-
 This application helps users organize and manage rituals for better health and fitness.
 
 ## **Tools & Technologies**
@@ -54,21 +52,9 @@ This application helps users organize and manage rituals for better health and f
 [nestjsIcon]: https://nestjs.com/favicon-32x32.0a29681d.png "NestJS"
 [prismaIcon]: https://www.prisma.io/images/favicon-32x32.png "Prisma"
 [postgresIcon]: https://www.postgresql.org/media/img/about/press/elephant.png "PostgreSQL"
-[mongodbIcon]: https://www.mongodb.com/assets/images/global/favicon.ico "MongoDB"
-[reactIcon]: https://react.dev/favicon-32x32.png "ReactJS"
-[materialIcon]: https://mui.com/static/favicon.ico "Material-UI"
-[sassIcon]: https://sass-lang.com/icon.png "SaSS"
-[azureIcon]: https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/acom_social_icon_azure "Azure Cloud"
-[dotnetIcon]: https://dotnet.microsoft.com/blob-assets/images/dotnet-icons/square.png "DotNet"
 [dockerUrl]: https://www.docker.com
 [nodejsUrl]: https://nodejs.org
 [expressjsUrl]: https://expressjs.com
 [nestjsUrl]: https://nestjs.com
 [prismaUrl]: https://www.prisma.io
-[reactUrl]: https://react.dev
-[materialUrl]: https://mui.com/material-ui/
-[sassUrl]: https://sass-lang.com
 [postgresUrl]: https://www.postgresql.org
-[mongodbUrl]: https://www.mongodb.com
-[azureUrl]: https://azure.microsoft.com/en-us
-[dotnetUrl]: https://dotnet.microsoft.com/en-us/apps/aspnet

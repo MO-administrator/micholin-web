@@ -4,6 +4,10 @@ import { Icon } from "astro-icon/components";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 
+if (/api/i.test(Astro.request.url)) {
+  return Astro.redirect('/api', 307);
+}
+
 const {
   data: { title, description, text, image },
 } = await getEntry("pagemetas", "404");

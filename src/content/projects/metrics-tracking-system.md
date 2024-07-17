@@ -13,8 +13,6 @@ image: ./images/metrics-tracking-system.jpeg
 slug: metrics-tracking-system
 ---
 
-# **Metrics Tracking System**
-
 This application helps with tracking trainer and student performance.
 
 ## **Tools & Technologies**

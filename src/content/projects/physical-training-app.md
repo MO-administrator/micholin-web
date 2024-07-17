@@ -14,8 +14,6 @@ image: ./images/physical-training-app.jpeg
 slug: physical-training-app
 ---
 
-# **Physical Training App**
-
 This application helps to manage workout routines & schedules along with acting as a platform for trainers & clients to connect. The App consisted of features to create new and modify existing exercises & workouts which could be later assigned to the client by their dedicated trainer.
 
 ## **Tools & Technologies**
@@ -39,12 +37,9 @@ This application helps to manage workout routines & schedules along with acting 
 [nodejsIcon]: https://nodejs.org/static/images/favicons/favicon.png "NodeJS"
 [expressjsIcon]: https://expressjs.com/images/favicon.png "ExpressJS"
 [postgresIcon]: https://www.postgresql.org/media/img/about/press/elephant.png "PostgreSQL"
-[mongodbIcon]: https://www.mongodb.com/assets/images/global/favicon.ico "MongoDB"
 [reactIcon]: https://react.dev/favicon-32x32.png "ReactJS"
 [materialIcon]: https://mui.com/static/favicon.ico "Material-UI"
 [sassIcon]: https://sass-lang.com/icon.png "SaSS"
-[azureIcon]: https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/acom_social_icon_azure "Azure Cloud"
-[dotnetIcon]: https://dotnet.microsoft.com/blob-assets/images/dotnet-icons/square.png "DotNet"
 [dockerUrl]: https://www.docker.com
 [nodejsUrl]: https://nodejs.org
 [reactUrl]: https://react.dev
@@ -52,6 +47,3 @@ This application helps to manage workout routines & schedules along with acting 
 [expressjsUrl]: https://expressjs.com
 [sassUrl]: https://sass-lang.com
 [postgresUrl]: https://www.postgresql.org
-[mongodbUrl]: https://www.mongodb.com
-[azureUrl]: https://azure.microsoft.com/en-us
-[dotnetUrl]: https://dotnet.microsoft.com/en-us/apps/aspnet

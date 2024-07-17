@@ -21,6 +21,6 @@ const { projects } = Astro.props;
       "2xl:grid-cols-3"
     ]}
   >
-    {projects.map((project) => <CardProject {project} />)}
+    {projects.map((project) => <CardProject {...project} />)}
   </div>
 </section>
