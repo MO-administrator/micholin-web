@@ -59,6 +59,7 @@ const AuthProvider: FC<ProviderProps> = ({ children }) => {
           .map(item => Object.entries(item).join("- ").replace(",", ": "))
           .join("\r\n");
       }
+      btnRef.current?.classList.remove("animate-pulse");
       /** TODO - Add a error handler to display error toast on FE. */
       alert(message);
     }
