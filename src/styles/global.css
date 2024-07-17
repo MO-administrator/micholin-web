@@ -56,9 +56,17 @@ section {
   padding: 1rem;
   &.header {
     margin-top: 0;
+    background-image: linear-gradient(var(--accent-gradient));
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
   }
   &.footer {
     margin-top: auto;
     margin-bottom: 0;
+    background-image: linear-gradient(var(--accent-gradient));
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 }

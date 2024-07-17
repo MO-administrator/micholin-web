@@ -6,10 +6,14 @@ const pages = [
   (await getEntry("pagemetas", "home")).data,
   (await getEntry("pagemetas", "projects")).data,
   (await getEntry("pagemetas", "about")).data,
-];
-const currentPage = Astro.url.pathname.split("/")[1];
-const isActive = (page: CollectionEntry<"pagemetas">["data"]) => {
-  if (!currentPage && page?.text === "Home") return true;
+] as CollectionEntry<"pagemetas">["data"][];
+
+const [_, currentPage] = Astro.url.pathname.split("/");
+
+const isActive: (
+  page: CollectionEntry<"pagemetas">["data"]
+) => boolean = page => {
+  if (!currentPage && page.text === "Home") return true;
   else if (currentPage && page?.href.includes(currentPage)) return true;
   else return false;
 };
@@ -24,7 +28,7 @@ const isActive = (page: CollectionEntry<"pagemetas">["data"]) => {
             href={page.href}
             class={isActive(page) ? "link link--active" : "link"}
           >
-            {page?.image && <Icon name={page.image} />}
+            {page.image && <Icon name={page.image} />}
             {page.text}
           </a>
         </li>

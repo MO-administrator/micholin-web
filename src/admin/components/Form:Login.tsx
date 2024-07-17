@@ -30,8 +30,8 @@ export const FormLogin = () => {
         className="grid justify-center gap-4"
       >
         <fieldset className="grid justify-center gap-4">
-          <legend className="grid place-self-center place-items-center">
-            <div className="flex w-20 h-20 mx-auto place-items-center motion-safe:animate-spin-slow">
+          <div className="grid place-self-center place-items-center">
+            <div className="block w-20 h-20 motion-safe:animate-spin-slow">
               <img
                 src="/icons/react-icon.svg"
                 alt="react-logo"
@@ -39,8 +39,8 @@ export const FormLogin = () => {
               />
             </div>
             <h1 className="mb-4 text-center">Login Page</h1>
-          </legend>
-          <span className="flex justify-between flex-auto gap-2 place-items-center">
+          </div>
+          <span className="grid justify-between grid-flow-row gap-2 place-items-center">
             <label htmlFor="username">Username:</label>
             <input
               className="px-2 py-1 font-serif rounded-full text-slate-600"
@@ -52,7 +52,7 @@ export const FormLogin = () => {
               required
             />
           </span>
-          <span className="flex justify-between flex-auto gap-2 place-items-center">
+          <span className="grid justify-between grid-flow-row gap-2 place-items-center">
             <label htmlFor="password">Password:</label>
             <input
               className="px-2 py-1 font-serif rounded-full text-slate-600"

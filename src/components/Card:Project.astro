@@ -39,11 +39,11 @@ const {
     .wrapper {
       @apply flex flex-col lg:flex-row lg:min-h-1 2xl:gap-2;
       .content {
-        @apply flex flex-auto flex-wrap gap-4;
+        @apply grid grid-flow-row gap-4;
         &-body {
-          @apply flex flex-col flex-auto;
+          @apply grid grid-flow-row;
           span {
-            @apply flex flex-row flex-auto justify-between;
+            @apply grid grid-flow-col justify-between;
             h2 {
               @apply text-blue-100 line-clamp-1;
             }
@@ -53,8 +53,7 @@ const {
           }
         }
         &-tags {
-          @apply flex flex-wrap flex-auto
-          justify-around 2xl:justify-start;
+          @apply flex flex-wrap justify-start;
         }
       }
       .showcase {

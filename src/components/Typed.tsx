@@ -14,8 +14,8 @@ export const Typed: FC<Props> = ({ strings, options }) => {
     strings,
     typeSpeed: 5,
     loop: true,
-    startDelay: 800,
-    backDelay: 3000,
+    startDelay: 1e3,
+    backDelay: 3e3,
     showCursor: false,
     ...options,
   };
