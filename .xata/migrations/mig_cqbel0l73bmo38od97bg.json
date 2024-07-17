@@ -1,23 +1,17 @@
 {
   "done": true,
   "migration": {
-    "name": "mig_cqb50qs96ip5jbgdq0a0",
+    "name": "mig_cqbel0l73bmo38od97bg",
     "operations": [
       {
         "create_table": {
-          "name": "Likes",
+          "name": "posts",
           "columns": [
-            {
-              "name": "xata_updatedat",
-              "type": "timestamptz",
-              "default": "now()",
-              "nullable": false
-            },
             {
               "name": "xata_id",
               "type": "text",
               "check": {
-                "name": "Likes_xata_id_length_xata_id",
+                "name": "posts_xata_id_length_xata_id",
                 "constraint": "length(\"xata_id\") < 256"
               },
               "unique": true,
@@ -35,27 +29,33 @@
               "type": "timestamptz",
               "default": "now()",
               "nullable": false
+            },
+            {
+              "name": "xata_updatedat",
+              "type": "timestamptz",
+              "default": "now()",
+              "nullable": false
             }
           ]
         }
       },
       {
         "sql": {
-          "up": "ALTER TABLE \"Likes\" REPLICA IDENTITY FULL",
+          "up": "ALTER TABLE \"posts\" REPLICA IDENTITY FULL",
           "onComplete": true
         }
       },
       {
         "sql": {
-          "up": "CREATE TRIGGER xata_maintain_metadata_trigger_pgroll\n  BEFORE INSERT OR UPDATE\n  ON \"Likes\"\n  FOR EACH ROW\n  EXECUTE FUNCTION xata_private.maintain_metadata_trigger_pgroll()",
+          "up": "CREATE TRIGGER xata_maintain_metadata_trigger_pgroll\n  BEFORE INSERT OR UPDATE\n  ON \"posts\"\n  FOR EACH ROW\n  EXECUTE FUNCTION xata_private.maintain_metadata_trigger_pgroll()",
           "onComplete": true
         }
       }
     ]
   },
   "migrationType": "pgroll",
-  "name": "mig_cqb50qs96ip5jbgdq0a0",
-  "parent": "mig_cqb50fs96ip5jbgdq090",
+  "name": "mig_cqbel0l73bmo38od97bg",
+  "parent": "mig_cqbeagu0l7ij355640ng",
   "schema": "public",
-  "startedAt": "2024-07-16T10:50:19.779197Z"
+  "startedAt": "2024-07-16T21:47:46.716986Z"
 }

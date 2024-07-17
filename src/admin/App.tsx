@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
-import AppRoutes from "./AppRoutes";
+import { AppRoutes } from "./AppRoutes";
 
-export default () => (
+export const App = () => (
   <React.StrictMode>
     <BrowserRouter basename="/admin">
       <AuthProvider>

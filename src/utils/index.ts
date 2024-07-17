@@ -1,4 +1,4 @@
-import { XataClient } from "../xata";
+import { PrismaClient } from '@prisma/client';
 
 export const formatDate = (
   date: number | string | Date,
@@ -18,7 +18,4 @@ export const scrollIntoView = (id: string) => {
   });
 };
 
-export const xata = new XataClient({
-  branch: import.meta.env.XATA_BRANCH,
-  apiKey: import.meta.env.XATA_API_KEY,
-});
+export const prisma = new PrismaClient();

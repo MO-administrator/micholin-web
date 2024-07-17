@@ -1,0 +1,18 @@
+{
+  "done": true,
+  "migration": {
+    "name": "sql_35908038c963ce",
+    "operations": [
+      {
+        "sql": {
+          "up": "ALTER TABLE posts DROP xata_id, ADD COLUMN xata_id serial NOT NULL"
+        }
+      }
+    ]
+  },
+  "migrationType": "inferred",
+  "name": "sql_35908038c963ce",
+  "parent": "mig_cqbel0l73bmo38od97bg",
+  "schema": "public",
+  "startedAt": "2024-07-16T21:53:38.276757Z"
+}

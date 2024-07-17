@@ -15,7 +15,7 @@ const projects: CollectionEntry<"projects">[] = (
   await getCollection("projects", entry => !entry.data.isDraft)
 )
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
+  .slice(0, 4);
 ---
 
 <Layout>

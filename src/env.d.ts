@@ -3,7 +3,7 @@
 
 interface ImportMetaEnv {
   readonly XATA_API_KEY: string;
-  readonly XATA_BRANCH?: string;
+  readonly XATA_BRANCH: string;
   readonly XATA_DB_URL: string;
 }
 interface ImportMeta {

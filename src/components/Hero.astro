@@ -1,10 +1,10 @@
 ---
 import { type TypedOptions } from "typed.js";
-import Typed from "./Typed.astro";
+import { Typed } from "./Typed";
 
 interface Props {
   title?: string;
-  description: string | string[] | null;
+  description: string[] | null;
   descriptionOptions?: TypedOptions;
 }
 
@@ -34,7 +34,7 @@ const { title = "", description = "", descriptionOptions = {} } = Astro.props;
       <h1 class:list={["text-center", "text-blue-100", "text-6xl", "mb-8"]}>
         {title}
       </h1>
-      {description && (<Typed strings={description} options={descriptionOptions} />)}
+      {description && (<Typed client:only="react" strings={description} options={descriptionOptions} />)}
     </div>
     <div class:list={["flex", "flex-col", "flex-auto", "place-items-center", "gap-8"]}>
       <slot name="cta" />

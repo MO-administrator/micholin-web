@@ -4,7 +4,7 @@ import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { useAuthContext } from "./contexts/AuthContext";
 
-export default () => {
+export const AppRoutes = () => {
   const { authenticated } = useAuthContext();
   const publicRoutes = useRoutes([
     {
