@@ -1,5 +1,61 @@
 <section class="container">
-  <div class="flex justify-center">
-    <h1 class="text-center">Contact Form</h1>
+  <div class="container-grid">
+    <form name="contact" data-netlify="true" class="container-grid-form">
+      <legend>Contact Form</legend>
+      <p class="container-grid-form-fieldset">
+        <label
+          >Name <input
+            class="container-grid-form-fieldset-input"
+            type="text"
+            name="name"
+            required
+          /></label
+        >
+      </p>
+      <p class="container-grid-form-fieldset">
+        <label
+          >Email <input
+            class="container-grid-form-fieldset-input"
+            type="email"
+            name="email"
+            required
+          /></label
+        >
+      </p>
+      <p class="container-grid-form-fieldset">
+        <label
+          >Message <textarea
+            class="container-grid-form-fieldset-input"
+            rows={2}
+            placeholder="Type your message…"></textarea></label
+        >
+      </p>
+      <p>
+        <button class="container-grid-form-submit" type="submit">Send</button>
+      </p>
+    </form>
   </div>
+  <style lang="scss">
+    .container {
+      @apply h-full;
+      &-grid {
+        @apply grid place-items-center gap-8 h-full;
+        &-form {
+          @apply w-full max-w-screen-md grid place-items-center gap-4;
+          &-fieldset {
+            @apply w-full grid place-items-center;
+            &-input {
+              @apply rounded-3xl h-10 w-full text-slate-800 p-2 px-4;
+            }
+            textarea {
+              @apply h-auto;
+            }
+          }
+          &-submit {
+            @apply bg-slate-600 p-2 px-4 rounded-3xl;
+          }
+        }
+      }
+    }
+  </style>
 </section>
