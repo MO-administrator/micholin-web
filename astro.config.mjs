@@ -9,9 +9,17 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), react(), sitemap(), compress(), icon({iconDir: 'src/content/icons'})],
-  image: passthroughImageService(),
+  integrations: [
+    tailwind(),
+    react(),
+    sitemap(),
+    compress(),
+    icon({ iconDir: "src/content/icons" }),
+  ],
+  image: {
+    service: passthroughImageService(),
+  },
   output: "server",
   adapter: netlify(),
-  site: "https://micholin.netlify.app/"
+  site: "https://micholin.netlify.app/",
 });
