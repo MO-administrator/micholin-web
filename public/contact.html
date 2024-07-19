@@ -1,0 +1,119 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Contact Form" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="background_color" content="#333333" />
+    <meta name="theme_color" content="#f8f8f8" />
+    <link rel="icon" href="/favicon.svg" />
+    <title>Contact Form</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <form name="contact" method="post" netlify>
+        <button class="back" onclick="window.history.back()">&larr;</button>
+        <legend><h1>Contact</h1></legend>
+        <p>
+          <label>Name <input type="text" name="name" required /></label>
+        </p>
+        <p>
+          <label>Email <input type="email" name="email" required /></label>
+        </p>
+        <p>
+          <label
+            >Message
+            <textarea rows="4" placeholder="Type your message here…"></textarea>
+          </label>
+        </p>
+        <p>
+          <button type="submit">Send</button>
+        </p>
+      </form>
+    </div>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap");
+
+      :root {
+        --page-bg-color: #13151a;
+        --page-bg: url("/page_bg.svg");
+        --accent: 136, 58, 234;
+        --accent-light: 224, 204, 250;
+        --accent-dark: 49, 10, 101;
+        --accent-gradient: linear-gradient(
+          45deg,
+          rgb(var(--accent)),
+          rgb(var(--accent-light)) 30%,
+          white 60%
+        );
+        --tw-gradient-from: rgb(180, 40, 165, 0.8)
+          var(--tw-gradient-from-position);
+        --tw-gradient-to: rgb(142, 85, 172) var(--tw-gradient-to-position);
+        --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+      }
+      html {
+        font-family: "Lato", system-ui, sans-serif;
+        background: var(--page-bg-color);
+        background-size: 224px;
+        color: #fff;
+      }
+      body {
+        height: 100lvh;
+        background-image: linear-gradient(#000, #333, #000);
+        scrollbar-width: thin;
+        scroll-behavior: smooth;
+      }
+      .wrapper {
+        background-image: var(--page-bg);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: #00000030;
+        display: grid;
+        place-items: center;
+        gap: 2rem;
+        height: 100%;
+      }
+      .back {
+        position: absolute;
+        top: 3.5rem;
+        left: 4rem;
+        padding: 1rem;
+        transition: all 300ms ease-in;
+      }
+      form {
+        position: relative;
+        background-color: #1e293bf0;
+        border-radius: 5em;
+        padding: 2rem 4rem;
+        display: grid;
+        width: 100%;
+        max-width: 768px;
+        place-items: center;
+        gap: 0.5rem;
+      }
+      input,
+      textarea {
+        height: 2.5rem;
+        width: 100%;
+        color: #1e293b;
+        border-radius: 1.5rem;
+        padding: 0.5rem 1rem;
+      }
+      textarea {
+        height: auto;
+      }
+      button {
+        cursor: pointer;
+        color: #fff;
+        background-color: #475569;
+        padding: 0.5rem 4rem;
+        border-radius: 1.5rem;
+        transition: all 300ms ease-in;
+      }
+      button:hover {
+        transform: scale(1.10);
+        color: goldenrod;
+      }
+    </style>
+  </body>
+</html>
