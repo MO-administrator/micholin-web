@@ -2,7 +2,6 @@ import type { APIRoute } from "astro";
 import { z } from "zod";
 import { argon, decodeToken, handleErrors, prisma } from "../../../utils";
 
-
 const updatePasswordDTOSchema = z.object({
   password: z.string().min(8, "password must be a minimum of 8 characters."),
 });
@@ -10,26 +9,35 @@ const updatePasswordDTOSchema = z.object({
 export const PUT: APIRoute = async ({ request }) => {
   try {
     const token = request.headers.get("user");
+
     if (!token) {
       throw new Error("Not authorized.");
     }
-    const decodedToken = decodeToken(token);
-    const { payload } = decodedToken;
+
+    const { payload } = decodeToken(token);
+
     if (typeof payload != "string") {
       const userId = payload.data.userId;
+
       const user = await prisma.users.findUniqueOrThrow({
         where: { xata_id: userId },
         select: { hash: true },
       });
+
       const formData = await request.formData();
+
       const { password } = updatePasswordDTOSchema.parse(
-        Object.fromEntries(formData.entries())
+        Object.fromEntries(formData.entries()),
       );
+
       if (await argon.verify(user.hash, password)) {
         throw new Error("please choose a new password.");
       }
+
       const hash = await argon.hash(password);
+
       await prisma.users.update({ where: { xata_id: userId }, data: { hash } });
+
       return new Response(JSON.stringify({ message: "password updated." }), {
         status: 200,
       });
@@ -43,8 +51,6 @@ export const PUT: APIRoute = async ({ request }) => {
   });
 };
 
-export const ALL: APIRoute = () => {
-  return new Response(JSON.stringify({ message: "invalid endpoint." }), {
-    status: 400,
-  });
+export const ALL: APIRoute = ({ redirect }) => {
+  return redirect("/api", 307);
 };

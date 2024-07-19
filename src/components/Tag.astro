@@ -1,26 +1,21 @@
 ---
+import { Icon } from 'astro-icon/components';
+
 interface Props {
   tag: string;
+  isIcon?: boolean
 }
 
-const { tag } = Astro.props;
+const { tag, isIcon = false } = Astro.props;
 ---
 
-<span
-  class:list={[
-    "flex",
-    "place-items-center",
-    "my-2",
-    "mr-2",
-    "p-1",
-    "px-2",
-    "text-xs",
-    "rounded-full",
-    "border-2",
-    "text-slate-800",
-    "border-slate-800",
-    "bg-blue-100",
-  ]}
->
-  {tag}
+<span>
+  {isIcon ? <Icon name={tag} size={32} /> : tag}
+  <style>
+    span {
+      @apply flex place-items-center my-2 mr-2 p-1 px-2
+      text-xs rounded-full border-2 text-slate-400
+      border-slate-800 bg-blue-100;
+    }
+  </style>
 </span>

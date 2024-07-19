@@ -5,9 +5,7 @@ export const PUT: APIRoute = ({ params }) => {
   try {
     const { slug } = params;
     if (!slug) {
-      return new Response(JSON.stringify({ message: "invalid slug" }), {
-        status: 400,
-      });
+      throw new Error("invalid slug");
     }
     return new Response(JSON.stringify({ message: `update ${slug}` }), {
       status: 200,
@@ -21,9 +19,7 @@ export const DELETE: APIRoute = ({ params }) => {
   try {
     const { slug } = params;
     if (!slug) {
-      return new Response(JSON.stringify({ message: "invalid slug" }), {
-        status: 400,
-      });
+      throw new Error("invalid slug");
     }
     return new Response(JSON.stringify({ message: `delete ${slug}` }), {
       status: 200,
@@ -33,8 +29,6 @@ export const DELETE: APIRoute = ({ params }) => {
   }
 };
 
-export const ALL: APIRoute = () => {
-  return new Response(JSON.stringify({ message: "invalid endpoint" }), {
-    status: 404,
-  });
+export const ALL: APIRoute = async ({ redirect }) => {
+  return redirect("/api", 307);
 };

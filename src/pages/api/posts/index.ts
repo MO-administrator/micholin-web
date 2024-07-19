@@ -1,5 +1,5 @@
-import { type APIRoute } from 'astro';
-import { handleErrors } from '../../../utils';
+import { type APIRoute } from "astro";
+import { handleErrors } from "../../../utils";
 
 export const GET: APIRoute = () => {
   try {
@@ -9,7 +9,7 @@ export const GET: APIRoute = () => {
   } catch (error) {
     return handleErrors(error);
   }
-}
+};
 
 export const POST: APIRoute = () => {
   try {
@@ -19,10 +19,8 @@ export const POST: APIRoute = () => {
   } catch (error) {
     return handleErrors(error);
   }
-}
+};
 
-export const ALL: APIRoute = () => {
-  return new Response(JSON.stringify({ message: "invalid endpoint" }), {
-    status: 404,
-  });
+export const ALL: APIRoute = async ({ redirect }) => {
+  return redirect("/api", 307);
 };

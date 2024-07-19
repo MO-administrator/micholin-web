@@ -3,7 +3,7 @@ import { useAuthContext } from "../contexts/AuthContext";
 export const Home = () => {
   const { handleLogout, btnRef } = useAuthContext();
   return (
-    <div className="container grid place-items-center gap-2">
+    <div className="container grid place-items-center gap-2 animate-ping-reverse">
       <h1 className="text-center">Welcome</h1>
       <input
         ref={btnRef}

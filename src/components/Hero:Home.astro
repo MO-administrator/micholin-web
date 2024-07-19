@@ -1,49 +1,33 @@
 ---
+import { getEntry } from 'astro:content';
 import Hero from "./Hero.astro";
 import Button from "./Button.astro";
 
-const wrapperClass = [
-  "mx-2",
-  "mt-8",
-  "flex",
-  "flex-row",
-  "w-full",
-  "max-w-screen-sm",
-  "justify-center",
-  "place-items-center",
-  "gap-4",
-];
-const ctaClass = [
-  "rounded-3xl",
-  "bg-slate-700",
-  "p-2",
-  "px-4",
-  "border-2",
-  "border-transparent",
-  "transition",
-  "duration-300",
-  "ease-in",
-  "hover:border-green-600",
-  "hover:scale-110",
-];
-
-interface Props {
-  title: string;
-  description: string[] | null;
-}
-
-const { title, description } = Astro.props;
+const {
+  data: { title, description },
+} = await getEntry("pagemetas", "home");
 ---
 
 <Hero {title} {description} descriptionOptions={{ loop: false }}>
   <Fragment slot="cta">
-    <div class:list={wrapperClass}>
-      <Button id="contact" href="/contact" class:list={ctaClass}>
+    <div class="wrapper">
+      <Button id="contact" href="/contact" class="wrapper-cta">
         Contact Me
       </Button>
-      <Button id="work" href="/projects" class:list={ctaClass}>
+      <Button id="work" href="/projects" class="wrapper-cta">
         View My Work
       </Button>
     </div>
+    <style lang="scss">
+      .wrapper {
+        @apply mx-2 mt-8 flex flex-row w-full max-w-screen-sm
+        justify-center place-items-center gap-4;
+        &-cta {
+          @apply rounded-3xl bg-slate-700 p-2 px-4 border-2
+          border-transparent transition duration-300 ease-in
+          hover:border-green-600 hover:scale-110;
+        }
+      }
+    </style>
   </Fragment>
 </Hero>

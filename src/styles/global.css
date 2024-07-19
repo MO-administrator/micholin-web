@@ -49,12 +49,33 @@ main {
     font-family: "Merriweather", system-ui, sans-serif;
     scroll-snap-align: start;
   }
-  .loading {
+}
+section {
+  scroll-snap-align: start;
+  margin: 0 auto;
+  padding: 1rem;
+}
+.header {
+  margin-top: 0;
+  background-image: linear-gradient(transparent, #303030, transparent);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.footer {
+  margin-top: auto;
+  margin-bottom: 0;
+  background-image: linear-gradient(transparent, #303030, transparent);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.loading {
     display: grid;
     place-items: center;
     position: relative;
     height: 100dvh;
-    background-image: url("/page_bg_img.png");
+    background-image: url("/page_bg.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -126,24 +147,3 @@ main {
       transform: translate(24px, 0);
     }
   }
-}
-section {
-  scroll-snap-align: start;
-  margin: 0 auto;
-  padding: 1rem;
-  &.header {
-    margin-top: 0;
-    background-image: linear-gradient(var(--accent-gradient));
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-  &.footer {
-    margin-top: auto;
-    margin-bottom: 0;
-    background-image: linear-gradient(var(--accent-gradient));
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-}

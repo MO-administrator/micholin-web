@@ -14,54 +14,49 @@ const {
 ---
 
 <Card href={`/projects/${slug}`}>
-  <div class="wrapper">
-    <div class="content">
-      <span class="content-body">
-        <span>
-          <h2>
-            {title}
-          </h2>
-          <i>&rarr;</i>
-        </span>
-        <sub>
-          <FormattedDate date={pubDate} />
-        </sub>
+  <div class="content">
+    <span class="content-body">
+      <span>
+        <h2>
+          {title}
+        </h2>
+        <i>&rarr;</i>
       </span>
-      <ul class="content-tags">
-        {tags.map(tag => <Tag {tag} />)}
-      </ul>
-    </div>
-    <div class="showcase">
-      <Picture src={image} alt={title} loading="eager" format="webp" />
-    </div>
+      <sub>
+        <FormattedDate date={pubDate} />
+      </sub>
+    </span>
+    <ul class="content-tags">
+      {tags.map(tag => <Tag {tag} isIcon />)}
+    </ul>
+  </div>
+  <div class="showcase" slot="content">
+    <Picture src={image} alt={title} loading="eager" format="webp" />
   </div>
   <style lang="scss">
-    .wrapper {
-      @apply flex flex-col lg:flex-row lg:min-h-1 2xl:gap-2;
-      .content {
-        @apply grid grid-flow-row gap-4;
-        &-body {
-          @apply grid grid-flow-row;
-          span {
-            @apply grid grid-flow-col justify-between;
-            h2 {
-              @apply text-blue-100 line-clamp-1;
-            }
-            i {
-              @apply place-self-center;
-            }
+    .content {
+      @apply grid grid-flow-row gap-4;
+      &-body {
+        @apply grid grid-flow-row;
+        span {
+          @apply grid grid-flow-col justify-between;
+          h2 {
+            @apply text-blue-100 line-clamp-1;
+          }
+          i {
+            @apply place-self-center;
           }
         }
-        &-tags {
-          @apply flex flex-wrap justify-start;
-        }
       }
-      .showcase {
-        @apply mx-auto w-48 flex place-items-center
-        justify-center contain-content;
-        img {
-          @apply h-auto w-20 rounded-full;
-        }
+      &-tags {
+        @apply flex flex-wrap justify-start;
+      }
+    }
+    .showcase {
+      @apply mx-auto w-48 flex place-items-center
+      justify-center contain-content;
+      img {
+        @apply h-auto w-20 rounded-3xl;
       }
     }
   </style>

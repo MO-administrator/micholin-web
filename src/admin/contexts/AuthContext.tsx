@@ -82,6 +82,7 @@ const AuthProvider: FC<ProviderProps> = ({ children }) => {
           alert(`Authentication successfull\r\n${JSON.stringify(res)}`);
         }, 12e2);
       } else {
+        btnRef.current?.classList.remove('animate-pulse');
         const res = await response.json();
         throw res;
       }
@@ -92,6 +93,7 @@ const AuthProvider: FC<ProviderProps> = ({ children }) => {
           .map(item => Object.entries(item).join("- ").replace(",", ": "))
           .join("\r\n");
       }
+      btnRef.current?.classList.remove("animate-pulse");
       /** TODO - Add a error handler to display error toast on FE. */
       alert(message);
     }

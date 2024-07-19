@@ -10,17 +10,13 @@ const { projects } = Astro.props;
 ---
 
 <section class="container">
-  <div
-    class:list={[
-      "p-8",
-      "rounded-3xl",
-      "grid",
-      "gap-8",
-      "grid-cols-1",
-      "lg:grid-cols-2",
-      "2xl:grid-cols-3"
-    ]}
-  >
-    {projects.map((project) => <CardProject {...project} />)}
+  <div>
+    {projects.map(project => <CardProject {...project} />)}
   </div>
+  <style>
+    div {
+      @apply p-8 rounded-3xl grid gap-8 grid-cols-1
+      lg:grid-cols-2 2xl:grid-cols-3;
+    }
+  </style>
 </section>

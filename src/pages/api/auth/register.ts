@@ -19,7 +19,7 @@ export const POST: APIRoute = async ({ request }) => {
     const formData = await request.formData();
 
     const registerDTO = registerDTOSchema.parse(
-      Object.fromEntries(formData.entries())
+      Object.fromEntries(formData.entries()),
     );
     const payload = {
       email: registerDTO.username,
@@ -38,19 +38,17 @@ export const POST: APIRoute = async ({ request }) => {
       {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
           user: token,
         },
         status: 200,
-        statusText: "Logged in successfully.",
-      }
+      },
     );
   } catch (error) {
     return handleErrors(error);
   }
 };
 
-export const ALL: APIRoute = async ({ request }) => {
-  return new Response(
-    JSON.stringify({ message: `invalid endpoint! ${request.url}` })
-  );
+export const ALL: APIRoute = async ({ redirect }) => {
+  return redirect("/api", 307);
 };

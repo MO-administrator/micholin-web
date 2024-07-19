@@ -19,14 +19,14 @@ const isActive: (
 };
 ---
 
-<div class="navbar" role="navigation" aria-label="Nabar">
+<div class="navbar" role="navigation" aria-label="navbar">
   <ul>
     {
       pages.map(page => (
-        <li class:list={["mr-4", "hover:animate-pulse"]}>
+        <li>
           <a
             href={page.href}
-            class={isActive(page) ? "link link--active" : "link"}
+            class:list={["link", { "link--active": isActive(page) }]}
           >
             {page.image && <Icon name={page.image} />}
             {page.text}
@@ -35,24 +35,26 @@ const isActive: (
       ))
     }
   </ul>
-  <style>
-    .navbar ul {
-      @apply hidden
-      lg:flex lg:flex-row lg:justify-between;
-    }
-    .navbar ul li {
-      @apply mr-4
-      hover:animate-pulse;
-    }
-    .link {
-      @apply pb-2 flex flex-auto gap-2
-      place-items-center
-      transition duration-300 ease-in
-      opacity-70 border-solid border-b-2 border-b-transparent
-      hover:opacity-100 hover:border-b-green-600;
-    }
-    .link--active {
-      @apply border-b-green-600 opacity-100;
+  <style lang="scss">
+    .navbar {
+      ul {
+        @apply hidden
+        lg:flex lg:flex-row lg:justify-between;
+        li {
+          @apply mr-4
+            hover:animate-pulse;
+          .link {
+            @apply pb-2 flex flex-auto gap-2
+              place-items-center
+              transition duration-300 ease-in
+              opacity-70 border-solid border-b-2 border-b-transparent
+              hover:opacity-100 hover:border-b-green-600;
+            &--active {
+              @apply border-b-green-600 opacity-100;
+            }
+          }
+        }
+      }
     }
   </style>
 </div>

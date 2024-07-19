@@ -3,7 +3,7 @@ import Back from "./Button:Back.astro";
 
 type Props = { title?: string };
 
-const { title = '' } = Astro.props;
+const { title = "" } = Astro.props;
 ---
 
 <section class="container grid">
@@ -17,25 +17,30 @@ const { title = '' } = Astro.props;
       <div class="content-grid-body">
         <slot name="content" />
       </div>
-      <slot />
     </div>
+    <slot />
   </div>
 </section>
 
 <style lang="scss">
   .wrapper {
     @apply relative grid overflow-y-scroll
-    bg-gradient-to-bl rounded-xl max-h-full place-items-center
-    xl:max-w-screen-xl xl:justify-self-center;
+    bg-gradient-to-bl rounded-xl max-h-full place-items-center;
     .content-grid {
       @apply grid grid-cols-1 w-screen max-w-screen-sm
-      place-items-center p-8 gap-4
+      place-items-center p-8 gap-4 rounded-t-3xl
       lg:max-w-screen-md xl:max-w-screen-lg;
+      background-image: linear-gradient(
+        transparent 0,
+        #333 30rem,
+        transparent 34rem,
+        transparent 100%
+      );
       &-showcase {
         @apply block object-contain max-w-96;
       }
       &-title {
-        @apply text-5xl text-center underline underline-offset-8 decoration-green-600;
+        @apply text-purple-400 text-5xl text-center underline underline-offset-8 decoration-green-600;
       }
       &-body {
         @apply flex flex-col flex-wrap

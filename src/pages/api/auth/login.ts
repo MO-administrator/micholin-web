@@ -16,7 +16,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     const formData = await request.formData();
     const { username, password } = loginDTOSchema.parse(
-      Object.fromEntries(formData.entries())
+      Object.fromEntries(formData.entries()),
     );
 
     const { hash, xata_id } = await prisma.users.findUniqueOrThrow({
@@ -25,29 +25,29 @@ export const POST: APIRoute = async ({ request }) => {
     });
 
     const isValid = await argon.verify(hash, password);
+
     if (isValid) {
-      const token = generateToken(xata_id)
+      const token = generateToken(xata_id);
 
-      return new Response(JSON.stringify({message: 'Successfully Logged In!', token }), {
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-          user: token,
+      return new Response(
+        JSON.stringify({ message: "Successfully Logged In!" }),
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            user: token,
+          },
+          status: 200,
         },
-        status: 200,
-        statusText: "Logged in successfully.",
-      });
+      );
     } else {
-      throw new Error('password incorrect!')
+      throw new Error("password incorrect!");
     }
-
   } catch (error) {
     return handleErrors(error);
   }
 };
 
-export const ALL: APIRoute = async ({ request }) => {
-  return new Response(
-    JSON.stringify({ message: `invalid endpoint! ${request.url}` })
-  );
+export const ALL: APIRoute = async ({ redirect }) => {
+  return redirect("/api", 307);
 };
