@@ -10,7 +10,7 @@ const testimonials = (await getCollection("testimonials")).sort(
 <section class="container">
   <div class="wrapper">
     <ul class="testimonials">
-      {testimonials.map(testimonial => <CardTestimonial {testimonial} />)}
+      {testimonials.map(testimonial => <CardTestimonial {...testimonial} />)}
     </ul>
   </div>
 </section>

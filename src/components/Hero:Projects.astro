@@ -1,0 +1,19 @@
+---
+import { getEntry } from "astro:content";
+import Hero from "./Hero.astro";
+
+const {
+  data: { title, description },
+} = await getEntry("pagemetas", "projects");
+---
+
+<Hero
+  {title}
+  {description}
+  descriptionOptions={{
+    typeSpeed: 10,
+    backSpeed: 10,
+    backDelay: 2e3,
+    smartBackspace: true,
+  }}
+/>

@@ -1,12 +1,6 @@
 import type { APIRoute } from "astro";
-import { z } from "astro/zod";
-import { prisma } from '../../../utils';
-import {
-  COOKIE_EXPIRES,
-  COOKIE_MAX_AGE,
-  TOKEN_SECRET,
-  TOKEN_NAME,
-} from "../../../constants";
+import { z } from "zod";
+import { prisma, argon, generateToken, handleErrors } from "../../../utils";
 
 const loginDTOSchema = z.object({
   username: z.string().email("Please input a valid email."),
@@ -21,54 +15,39 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const formData = await request.formData();
-    const data = loginDTOSchema.parse(Object.fromEntries(formData.entries()));
+    const { username, password } = loginDTOSchema.parse(
+      Object.fromEntries(formData.entries()),
+    );
 
-    /** TODO
-     * Add login authentication flow
-     * Add JWT token for authentication
-     * Add access token to response
-     */
-
-    /** Query Xata to get list of users */
-
-    const users = await prisma.users.findMany();
-    console.log(users);
-
-    return new Response(JSON.stringify(data), {
-      headers: {
-        "Content-Type": "application/json",
-        "Set-Cookie": `${TOKEN_NAME}=${TOKEN_SECRET};HttpOnly;SameSite=None;Secure;Max-Age=${
-          COOKIE_MAX_AGE
-        };Expires=${COOKIE_EXPIRES}`,
-      },
-      status: 200,
-      statusText: "Logged in successfully.",
+    const { hash, xata_id } = await prisma.users.findUniqueOrThrow({
+      where: { email: username },
+      select: { hash: true, xata_id: true },
     });
-  } catch (error: any) {
-    if (error?.issues?.length) {
-      let response;
-      if (error.issues.length === 1 && error.issues[0].path.length < 1) {
-        response = error.issues[0].message;
-      } else {
-        response = error.issues.map(
-          ({
-            path,
-            message,
-          }: {
-            path: (string | number)[];
-            message: string;
-          }) => ({
-            [path.join("-")]: message,
-          }),
-        );
-      }
-      return new Response(JSON.stringify(response), {
-        status: 400,
-      });
+
+    const isValid = await argon.verify(hash, password);
+
+    if (isValid) {
+      const token = generateToken(xata_id);
+
+      return new Response(
+        JSON.stringify({ message: "Successfully Logged In!" }),
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            user: token,
+          },
+          status: 200,
+        },
+      );
+    } else {
+      throw new Error("password incorrect!");
     }
-    console.warn(error);
-    return new Response(JSON.stringify(error), {
-      status: 400,
-    });
+  } catch (error) {
+    return handleErrors(error);
   }
+};
+
+export const ALL: APIRoute = async ({ redirect }) => {
+  return redirect("/api", 307);
 };

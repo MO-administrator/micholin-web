@@ -4,18 +4,17 @@ import { Picture } from "astro:assets";
 import Prose from "./Prose.astro";
 import Detail from "./Detail.astro";
 
-interface Props {
-  project: CollectionEntry<"projects">;
-}
+type Props = CollectionEntry<"projects">;
 
-const { project } = Astro.props;
+const {
+  data: { title, image },
+  render
+} = Astro.props;
 
-const { title, image } = project.data;
-
-const { Content } = await project.render();
+const { Content } = await render();
 ---
 
-<Detail>
+<Detail {title}>
   <Fragment slot="content">
     <Prose>
       <Content />
@@ -23,7 +22,7 @@ const { Content } = await project.render();
   </Fragment>
   <Fragment slot="cover-image">
     <Picture
-      class="rounded-full"
+      class="rounded-3xl"
       src={image}
       alt={title}
       loading="eager"

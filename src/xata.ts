@@ -10,10 +10,27 @@ const tables = [
   {
     name: "posts",
     checkConstraints: {},
-    foreignKeys: {},
+    foreignKeys: {
+      author_link: {
+        name: "author_link",
+        columns: ["author"],
+        referencedTable: "users",
+        referencedColumns: ["xata_id"],
+        onDelete: "RESTRICT",
+      },
+    },
     primaryKey: [],
     uniqueConstraints: {},
     columns: [
+      {
+        name: "author",
+        type: "link",
+        link: { table: "users" },
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: '{"xata.link":"users"}',
+      },
       {
         name: "xata_createdat",
         type: "datetime",

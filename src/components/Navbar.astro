@@ -6,49 +6,55 @@ const pages = [
   (await getEntry("pagemetas", "home")).data,
   (await getEntry("pagemetas", "projects")).data,
   (await getEntry("pagemetas", "about")).data,
-];
-const currentPage = Astro.url.pathname.split("/")[1];
-const isActive = (page: CollectionEntry<"pagemetas">["data"]) => {
-  if (!currentPage && page?.text === "Home") return true;
+] as CollectionEntry<"pagemetas">["data"][];
+
+const [_, currentPage] = Astro.url.pathname.split("/");
+
+const isActive: (
+  page: CollectionEntry<"pagemetas">["data"]
+) => boolean = page => {
+  if (!currentPage && page.text === "Home") return true;
   else if (currentPage && page?.href.includes(currentPage)) return true;
   else return false;
 };
 ---
 
-<div class="navbar" role="navigation" aria-label="Nabar">
+<div class="navbar" role="navigation" aria-label="navbar">
   <ul>
     {
       pages.map(page => (
-        <li class:list={["mr-4", "hover:animate-pulse"]}>
+        <li>
           <a
             href={page.href}
-            class={isActive(page) ? "link link--active" : "link"}
+            class:list={["link", { "link--active": isActive(page) }]}
           >
-            {page?.image && <Icon name={page.image} />}
+            {page.image && <Icon name={page.image} />}
             {page.text}
           </a>
         </li>
       ))
     }
   </ul>
-  <style>
-    .navbar ul {
-      @apply hidden
-      lg:flex lg:flex-row lg:justify-between;
-    }
-    .navbar ul li {
-      @apply mr-4
-      hover:animate-pulse;
-    }
-    .link {
-      @apply pb-2 flex flex-auto gap-2
-      place-items-center
-      transition duration-300 ease-in
-      opacity-70 border-solid border-b-2 border-b-transparent
-      hover:opacity-100 hover:border-b-green-600;
-    }
-    .link--active {
-      @apply border-b-green-600 opacity-100;
+  <style lang="scss">
+    .navbar {
+      ul {
+        @apply hidden
+        lg:flex lg:flex-row lg:justify-between;
+        li {
+          @apply mr-4
+            hover:animate-pulse;
+          .link {
+            @apply pb-2 flex flex-auto gap-2
+              place-items-center
+              transition duration-300 ease-in
+              opacity-70 border-solid border-b-2 border-b-transparent
+              hover:opacity-100 hover:border-b-green-600;
+            &--active {
+              @apply border-b-green-600 opacity-100;
+            }
+          }
+        }
+      }
     }
   </style>
 </div>

@@ -2,7 +2,7 @@ import { useState, type ChangeEvent } from "react";
 import { useAuthContext } from "../contexts/AuthContext";
 
 export const FormLogin = () => {
-  const { handleLogin } = useAuthContext();
+  const { handleLogin, btnRef } = useAuthContext();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -27,11 +27,11 @@ export const FormLogin = () => {
         noValidate
         spellCheck
         onSubmit={handleLogin}
-        className="flex flex-col justify-center flex-auto gap-4"
+        className="grid justify-center gap-4"
       >
-        <fieldset className="flex flex-col justify-center flex-auto gap-4">
-          <legend className="flex flex-col m-0 place-items-center">
-            <div className="flex w-20 h-20 mx-auto place-items-center motion-safe:animate-spin-slow">
+        <fieldset className="grid justify-center gap-4">
+          <div className="grid place-self-center place-items-center">
+            <div className="block w-20 h-20 motion-safe:animate-spin-slow">
               <img
                 src="/icons/react-icon.svg"
                 alt="react-logo"
@@ -39,8 +39,8 @@ export const FormLogin = () => {
               />
             </div>
             <h1 className="mb-4 text-center">Login Page</h1>
-          </legend>
-          <span className="flex justify-between flex-auto gap-2 place-items-center">
+          </div>
+          <span className="grid justify-between grid-flow-row gap-2 place-items-center">
             <label htmlFor="username">Username:</label>
             <input
               className="px-2 py-1 font-serif rounded-full text-slate-600"
@@ -52,7 +52,7 @@ export const FormLogin = () => {
               required
             />
           </span>
-          <span className="flex justify-between flex-auto gap-2 place-items-center">
+          <span className="grid justify-between grid-flow-row gap-2 place-items-center">
             <label htmlFor="password">Password:</label>
             <input
               className="px-2 py-1 font-serif rounded-full text-slate-600"
@@ -65,8 +65,8 @@ export const FormLogin = () => {
             />
           </span>
           <input
-            id="login-btn"
-            className="flex justify-center w-full p-2 mx-auto my-4 text-center border-2 border-white rounded-full cursor-pointer place-items-center bg-slate-600 rounded-bl-3xl rounded-tr-3xl transform ease-in-out duration-300 hover:scale-110"
+            ref={btnRef}
+            className="flex justify-center w-full p-2 mx-auto my-4 text-center duration-300 ease-in-out transform border-2 border-white rounded-full cursor-pointer place-items-center bg-slate-600 rounded-bl-3xl rounded-tr-3xl hover:scale-110"
             type="submit"
             form="login"
             value="Log In &rarr;"

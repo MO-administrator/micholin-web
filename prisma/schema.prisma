@@ -13,6 +13,8 @@ model posts {
   xata_createdat DateTime @default(now()) @db.Timestamptz(6)
   xata_updatedat DateTime @default(now()) @db.Timestamptz(6)
   xata_id        String   @unique(map: "_pgroll_new_posts_xata_id_key") @default(uuid())
+  author         String?
+  users          users?   @relation(fields: [author], references: [xata_id], onDelete: Restrict, onUpdate: NoAction, map: "author_link")
 }
 
 model users {
@@ -20,7 +22,7 @@ model users {
   xata_createdat DateTime @default(now()) @db.Timestamptz(6)
   xata_updatedat DateTime @default(now()) @db.Timestamptz(6)
   xata_id        String   @unique(map: "_pgroll_new_users_xata_id_key") @default(uuid())
-
-  email String @id
-  hash String @db.VarChar(244)
+  email          String   @id
+  hash           String   @db.VarChar(244)
+  posts          posts[]
 }

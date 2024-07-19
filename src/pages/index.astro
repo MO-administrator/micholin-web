@@ -1,15 +1,11 @@
 ---
-import { type CollectionEntry, getCollection, getEntry } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero:Home.astro";
 import Highlights from "../components/Highlights.astro";
 import Qualifications from "../components/Qualifications.astro";
 import Testimonials from "../components/Testimonials.astro";
 import Contact from "../components/Contact.astro";
-
-const {
-  data: { title, description },
-} = await getEntry("pagemetas", "home");
 
 const projects: CollectionEntry<"projects">[] = (
   await getCollection("projects", entry => !entry.data.isDraft)
@@ -19,7 +15,7 @@ const projects: CollectionEntry<"projects">[] = (
 ---
 
 <Layout>
-  <Hero {title} {description} />
+  <Hero />
   <Highlights {projects} />
   <Qualifications />
   <Testimonials />

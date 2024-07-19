@@ -16,5 +16,5 @@ if (!project) return Astro.redirect("/projects");
 ---
 
 <Layout title={`${project.data.title} | Projects`}>
-  <Detail {project} />
+  <Detail {...project} />
 </Layout>
