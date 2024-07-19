@@ -20,6 +20,8 @@ export default defineConfig({
     service: passthroughImageService(),
   },
   output: "server",
-  adapter: netlify(),
+  adapter: netlify({
+    edgeMiddleware: true,
+  }),
   site: "https://micholin.netlify.app/",
 });
