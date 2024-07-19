@@ -1,2 +1,7 @@
+[[redirects]]
+  from = "/api/*" # simplify all calls to serverless functions
+  to = "/.netlify/functions/:splat" # all function calls will go to this path
+  status = 200 # ok code
+  force = true # ensure to always redirect
 [[plugins]]
-package = "@xata.io/netlify"
+  package = "@xata.io/netlify"
