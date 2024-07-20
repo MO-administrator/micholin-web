@@ -12,6 +12,10 @@ export const AppRoutes = () => {
       element: <Login />,
     },
     {
+      path: "register",
+      element: <Navigate to="login" replace />,
+    },
+    {
       path: "*",
       element: <Navigate to="login" replace />,
     },

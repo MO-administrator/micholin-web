@@ -1,0 +1,36 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+if (Astro.request.method === "POST") {
+  try {
+    const formData = await Astro.request.formData();
+    await fetch(`${Astro.site}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        body: new URLSearchParams(formData as any).toString(),
+      },
+    });
+  } catch (error) {
+    if (error instanceof Error) {
+      console.warn(error.message);
+    }
+  }
+}
+---
+
+<Layout>
+  <div
+    class="container grid place-self-center place-items-center h-full animate-ping-reverse"
+  >
+    <article class="p-4 rounded-lg bg-slate-800 bg-blend-overlay">
+      <h1>Submission Received! 👍🏽</h1>
+      <p>
+        Thank you for your feedback!<br />Head back to the <a
+          href="/"
+          class="decoration-green-600 underline underline-offset-2">home page</a
+        >
+      </p>
+    </article>
+  </div>
+</Layout>

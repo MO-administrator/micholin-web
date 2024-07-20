@@ -1,0 +1,36 @@
+---
+import Form from "./Form.astro";
+import FormField from "./FormField.astro";
+
+const props = {
+  name: "contact",
+  title: "Contact Form",
+  netlify: true,
+};
+const fields = [
+  {
+    type: "email" as "email",
+    name: "email",
+    label: "Email",
+    required: true,
+  },
+  {
+    type: "text" as "text",
+    name: "name",
+    label: "Name",
+    required: false,
+  },
+  {
+    type: "textarea" as "textarea",
+    name: "message",
+    label: "Message",
+    required: true,
+  },
+];
+---
+
+<Form {...props}>
+  <Fragment slot="fields">
+    {fields.map(field => <FormField {...field} />)}
+  </Fragment>
+</Form>

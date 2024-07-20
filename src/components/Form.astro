@@ -1,0 +1,46 @@
+---
+interface Props {
+  name: string;
+  title: string;
+  netlify?: boolean;
+}
+
+const { netlify, name, title } = Astro.props;
+---
+
+<form
+  id={name}
+  name={name}
+  method="POST"
+  action="/success"
+  data-netlify={netlify}
+  netlify-honeypot="bot-field"
+  class="grid justify-center gap-4 bg-purple-600 opacity-90 pb-6 rounded-b-3xl"
+>
+  {
+    netlify && (
+      <input type="hidden" name="form-name" value={name} />
+      <p class="hidden">
+        <label for="bot-field">Don't fill this out if you're human:</label>
+        <input name="bot-field" />
+      </p>
+    )
+  }
+  <legend>
+    <h1 class="mb-4 text-center">{title || name}</h1>
+    <div class="grid place-self-center place-items-center bg-black p-4 pb-6 rounded-3xl">
+      <div class="block w-20 h-20 motion-safe:animate-pulse">
+        <img src="/favicon.svg" alt={`${name}`} loading="eager" />
+      </div>
+    </div>
+  </legend>
+  <fieldset class="grid justify-center gap-4">
+    <slot name="fields" />
+  </fieldset>
+  <input
+    class="flex justify-center w-full max-w-40 p-2 mx-auto my-4 text-center duration-300 ease-in-out transform border-2 border-white rounded-full cursor-pointer place-items-center bg-slate-600 rounded-bl-3xl rounded-tr-3xl hover:scale-110"
+    type="submit"
+    form={name}
+    value="Submit"
+  />
+</form>

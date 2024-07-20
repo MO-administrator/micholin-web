@@ -1,0 +1,33 @@
+---
+interface Props {
+  type: "text" | "password" | "email" | "textarea";
+  name: string;
+  label?: string;
+  required?: boolean;
+}
+
+const { type, name, label, required } = Astro.props;
+---
+
+<p class="px-8 grid md:grid-cols-2 gap-2 place-items-start">
+  <label for={name}>{label || name}:</label>
+  {
+    type === "textarea" ? (
+      <textarea
+        class="p-2 px-4 font-serif rounded-3xl text-slate-600"
+        id={name}
+        rows={4}
+        {name}
+        {required}
+      />
+    ) : (
+      <input
+        class="px-2 py-1 w-full font-serif rounded-full text-slate-600"
+        id={name}
+        {type}
+        {name}
+        {required}
+      />
+    )
+  }
+</p>
