@@ -210,7 +210,7 @@ export type DatabaseSchema = {
 const DatabaseClient = buildClient();
 
 const defaultOptions = {
-  databaseURL: "https://micholin-enni6o.eu-central-1.xata.sh/db/micholin:stage",
+  databaseURL: "https://micholin-enni6o.eu-central-1.xata.sh/db/micholin:main",
 };
 
 export class XataClient extends DatabaseClient<DatabaseSchema> {
