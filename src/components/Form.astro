@@ -5,7 +5,7 @@ type Props = {
   netlify?: boolean;
 }
 
-const { netlify, name, title } = Astro.props;
+const { netlify = false, name, title } = Astro.props;
 ---
 
 <form
@@ -27,7 +27,7 @@ const { netlify, name, title } = Astro.props;
     )
   }
   <legend>
-    <h1 class="mb-4 text-center">{title || name}</h1>
+    <h1 class="mb-4 text-center">{title}</h1>
     <div class="grid place-self-center place-items-center bg-black p-4 pb-6 rounded-3xl">
       <div class="block w-20 h-20 motion-safe:animate-pulse">
         <img src="/favicon.svg" alt={`${name}`} loading="eager" />

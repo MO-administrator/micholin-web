@@ -31,3 +31,21 @@ if (Astro.request.method === "POST") {
     </article>
   </div>
 </Layout>
+
+<div class="hidden">
+  <form
+    name="contact v1"
+    method="POST"
+    data-netlify
+    data-netlify-honeypot="bot-field"
+  >
+    <input type="hidden" name="form-name" value="contact v1" />
+    <p class="hidden">
+      <label for="bot-field">Don't type here if you're human.</label>
+      <input id="bot-field" name="bot-field" />
+    </p>
+    <input type="email" name="email" required />
+    <input type="text" name="name" required />
+    <textarea name="message" required></textarea>
+  </form>
+</div>

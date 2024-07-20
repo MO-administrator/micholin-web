@@ -27,7 +27,7 @@ const tokenKey = import.meta.env.PUBLIC_REACT_APP_TOKEN_NAME;
 
 const AuthContext = createContext<AuthContext | undefined>(undefined);
 
-const AuthProvider: FC<ProviderProps> = ({ children }) => {
+export const AuthProvider: FC<ProviderProps> = ({ children }) => {
   const [localStore, setLocalStore] = useLocalStorage(tokenKey);
   const [authenticated, setAuthenticated] = useState(false);
   const btnRef = useRef<HTMLInputElement | null>(null);
@@ -79,7 +79,7 @@ const AuthProvider: FC<ProviderProps> = ({ children }) => {
         btnRef.current?.classList.replace("animate-pulse", "animate-ping-forward");
         setTimeout(() => {
           setLocalStore(response.headers.get("user"));
-          alert(`Authentication successfull\r\n${JSON.stringify(res)}`);
+          console.log(`Authentication successfull\r\n${JSON.stringify(res)}`);
         }, 12e2);
       } else {
         btnRef.current?.classList.remove('animate-pulse');
@@ -129,12 +129,10 @@ const AuthProvider: FC<ProviderProps> = ({ children }) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-const useAuthContext = () => {
+export const useAuthContext = () => {
   const authContext = useContext(AuthContext);
   if (authContext === undefined) {
     throw new Error(`useAuthContext must be used within an AuthProvider`);
   }
   return authContext;
 };
-
-export { AuthProvider, useAuthContext };
