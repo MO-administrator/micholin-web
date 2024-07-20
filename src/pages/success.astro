@@ -1,28 +1,29 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-if (Astro.request.method === "POST") {
-  try {
-    const formData = await Astro.request.formData();
-    const payload = new URLSearchParams();
-    formData.forEach((v, k) => {
-      if (!(v instanceof File)){
-        payload.append(k, v)
-      }
-    });
-    await fetch(`${Astro.site}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        body: payload.toString(),
-      },
-    });
-  } catch (error) {
-    if (error instanceof Error) {
-      console.warn(error.message);
-    }
-  }
-}
+// if (Astro.request.method === "POST") {
+//   const payload = new URLSearchParams();
+//   try {
+//     const formData = await Astro.request.formData();
+//     formData.forEach((v, k) => {
+//       if (v instanceof File) {
+//         return;
+//       }
+//       payload.append(k, v);
+//     });
+//     await fetch(Astro.url.origin, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/x-www-form-urlencoded",
+//         body: payload.toString(),
+//       },
+//     });
+//   } catch (error) {
+//     if (error instanceof Error) {
+//       console.warn(error.message);
+//     }
+//   }
+// }
 ---
 
 <Layout>
