@@ -1,7 +1,7 @@
 ---
 import { type CollectionEntry, getEntry } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
-import Detail from '../../components/Detail:Project.astro';
+import Detail from "../../components/Detail:Project.astro";
 
 const { slug } = Astro.params;
 
@@ -13,6 +13,11 @@ const project: CollectionEntry<"projects"> | undefined = await getEntry(
 );
 
 if (!project) return Astro.redirect("/projects");
+
+Astro.response.headers.set(
+  "CDN-Cache-Control",
+  "public, max-age=45, must-revalidate"
+);
 ---
 
 <Layout title={`${project.data.title} | Projects`}>

@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { AppRoutes } from "./AppRoutes";
 
-export const App = () => (
+export const AdminApp = () => (
   <React.StrictMode>
     <BrowserRouter basename="/admin">
       <AuthProvider>

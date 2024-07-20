@@ -6,6 +6,11 @@ import Hero from "../components/Hero.astro";
 const {
   data: { title, description },
 } = await getEntry("pagemetas", "about");
+
+Astro.response.headers.set(
+  "CDN-Cache-Control",
+  "public, max-age=45, must-revalidate"
+);
 ---
 
 <Layout>

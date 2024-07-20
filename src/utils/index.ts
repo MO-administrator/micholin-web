@@ -6,6 +6,12 @@ import JwtService from "./jwt-service";
 export const prisma = new PrismaClient();
 export const { generateToken, decodeToken } = new JwtService();
 
+/**
+ * Formats a date to locale string
+ * @param date input date
+ * @param options date format options
+ * @returns {string}
+ */
 export const formatDate = (
   date: number | string | Date,
   options: Intl.DateTimeFormatOptions = {
@@ -13,17 +19,32 @@ export const formatDate = (
     month: "long",
     day: "numeric",
   }
-) => new Date(date).toLocaleString(undefined, options);
+): string => new Date(date).toLocaleString(undefined, options);
 
-export const getRandomItem = (list: any[]) => {
+/**
+ * Returns a random item from a list of items
+ * @param list list of items
+ * @returns {any}
+ */
+export const getRandomItem = (list: any[]): any => {
   return list[Math.floor(Math.random() * list.length)];
 }
 
-export const scrollIntoView = (id: string) => {
+/**
+ * Scroll to the target section
+ * @param id target section id
+ * @returns {void}
+ */
+export const scrollIntoView = (id: string): void => {
   document.querySelector(`#${id}`)?.scrollIntoView({ behavior: "smooth" });
 };
 
-export const handleErrors = (error: unknown) => {
+/**
+ * Global API error handler
+ * @param error Any error
+ * @returns {Response}
+ */
+export const handleErrors = (error: unknown): Response => {
   if (error instanceof ZodError) {
     const response = error.issues.map(
       ({ path, message }: { path: (string | number)[]; message: string }) => ({

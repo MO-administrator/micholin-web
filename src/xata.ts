@@ -66,6 +66,71 @@ const tables = [
     ],
   },
   {
+    name: "todos",
+    checkConstraints: {},
+    foreignKeys: {},
+    primaryKey: ["title"],
+    uniqueConstraints: {},
+    columns: [
+      {
+        name: "description",
+        type: "string",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "tasks",
+        type: "multiple",
+        notNull: false,
+        unique: false,
+        defaultValue: "ARRAY[]::text[]",
+        comment: "",
+      },
+      {
+        name: "title",
+        type: "text",
+        notNull: true,
+        unique: true,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "xata_createdat",
+        type: "timestamp(6) with time zone",
+        notNull: true,
+        unique: false,
+        defaultValue: "CURRENT_TIMESTAMP",
+        comment: "",
+      },
+      {
+        name: "xata_id",
+        type: "text",
+        notNull: true,
+        unique: true,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "xata_updatedat",
+        type: "timestamp(6) with time zone",
+        notNull: true,
+        unique: false,
+        defaultValue: "CURRENT_TIMESTAMP",
+        comment: "",
+      },
+      {
+        name: "xata_version",
+        type: "int",
+        notNull: true,
+        unique: false,
+        defaultValue: "0",
+        comment: "",
+      },
+    ],
+  },
+  {
     name: "users",
     checkConstraints: {},
     foreignKeys: {},
@@ -130,18 +195,22 @@ export type InferredTypes = SchemaInference<SchemaTables>;
 export type Posts = InferredTypes["posts"];
 export type PostsRecord = Posts & XataRecord;
 
+export type Todos = InferredTypes["todos"];
+export type TodosRecord = Todos & XataRecord;
+
 export type Users = InferredTypes["users"];
 export type UsersRecord = Users & XataRecord;
 
 export type DatabaseSchema = {
   posts: PostsRecord;
+  todos: TodosRecord;
   users: UsersRecord;
 };
 
 const DatabaseClient = buildClient();
 
 const defaultOptions = {
-  databaseURL: "https://micholin-enni6o.eu-central-1.xata.sh/db/micholin:main",
+  databaseURL: "https://micholin-enni6o.eu-central-1.xata.sh/db/micholin:stage",
 };
 
 export class XataClient extends DatabaseClient<DatabaseSchema> {

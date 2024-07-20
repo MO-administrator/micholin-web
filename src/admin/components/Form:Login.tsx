@@ -1,6 +1,10 @@
 import { useState, type ChangeEvent } from "react";
 import { useAuthContext } from "../contexts/AuthContext";
 
+/**
+ * React admin application login
+ * @returns
+ */
 export const FormLogin = () => {
   const { handleLogin, btnRef } = useAuthContext();
   const [username, setUsername] = useState<string>("");
@@ -11,10 +15,19 @@ export const FormLogin = () => {
    * Add validation for password
    */
 
+  /**
+   * Sets the local state username as the user types.
+   * @param e username input change
+   */
   const handleChangeUsername = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setUsername(e.target.value);
   };
+
+  /**
+   * Sets the local state password as the user types.
+   * @param e password input change
+   */
   const handleChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setPassword(e.target.value);

@@ -7,6 +7,11 @@ import Higlights from "../../components/Highlights.astro";
 const projects: CollectionEntry<"projects">[] = (
   await getCollection("projects", project => !project.data.isDraft)
 ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+Astro.response.headers.set(
+  "CDN-Cache-Control",
+  "public, max-age=45, must-revalidate"
+);
 ---
 
 <Layout>

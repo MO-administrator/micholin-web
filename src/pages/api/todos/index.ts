@@ -3,11 +3,14 @@ import { handleErrors, prisma } from "../../../utils";
 
 export const GET: APIRoute = async () => {
   try {
-    const posts = await prisma.posts.findMany({
-      select: { xata_id: true, author: true },
+    const todos = await prisma.todos.findMany({
+      select: { xata_id: true, title: true, description: true, tasks: true },
     });
     return new Response(
-      JSON.stringify({ data: posts, message: "retreive posts success." }),
+      JSON.stringify({
+        data: todos,
+        message: 'retreive todos success.',
+      }),
       {
         status: 200,
       }

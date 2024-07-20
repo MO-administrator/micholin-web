@@ -26,3 +26,13 @@ model users {
   hash           String   @db.VarChar(244)
   posts          posts[]
 }
+
+model todos {
+  xata_version   Int      @default(0)
+  xata_createdat DateTime @default(now()) @db.Timestamptz(6)
+  xata_updatedat DateTime @default(now()) @db.Timestamptz(6)
+  xata_id        String   @unique(map: "_pgroll_new_todos_xata_id_key") @default(uuid())
+  title          String   @id
+  description    String   @db.VarChar(244)
+  tasks          String[] @default([])
+}
