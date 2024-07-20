@@ -1,0 +1,37 @@
+<form id="contact" name="contact" action="/success" method="POST" netlify netlify-honeypot>
+  <fieldset>
+    <p class="px-8 grid md:grid-cols-2 gap-2 place-items-start">
+      <label for="{name}">{label || name}:</label>
+      { type === "textarea" ? (
+      <textarea
+        class="p-2 px-4 font-serif rounded-3xl text-slate-600"
+        id="{name}"
+        rows="{4}"
+        {name}
+        {required}
+      />
+      ) : (
+      <input
+        class="px-2 py-1 w-full font-serif rounded-full text-slate-600"
+        id="{name}"
+        {type}
+        {name}
+        {required}
+      />
+      ) }
+    </p>
+    <p>
+      <label for="email">Email</label>
+      <input type="text" id="email" name="email" required />
+    </p>
+    <p>
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required />
+    </p>
+    <p>
+      <label for="message">Message</label>
+      <textarea id="message" name="message" required row="4" />
+    </p>
+  </fieldset>
+  <input type="submit" form="contact" />
+</form>
