@@ -2,26 +2,38 @@
 import Form from "./Form.astro";
 import FormField from "./FormField.astro";
 
-const props = {
+type FormProps = {
+  name: string;
+  title: string;
+  netlify: boolean;
+}
+type FieldProps = {
+  type: "email" | "text" | "password" | "textarea";
+  name: string;
+  label?: string;
+  required: boolean;
+}
+
+const props: FormProps = {
   name: "contact",
   title: "Contact Form",
   netlify: true,
 };
-const fields = [
+const fields: FieldProps[] = [
   {
-    type: "email" as "email",
+    type: "email",
     name: "email",
     label: "Email",
     required: true,
   },
   {
-    type: "text" as "text",
+    type: "text",
     name: "name",
     label: "Name",
     required: false,
   },
   {
-    type: "textarea" as "textarea",
+    type: "textarea",
     name: "message",
     label: "Message",
     required: true,

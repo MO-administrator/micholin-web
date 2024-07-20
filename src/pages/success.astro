@@ -2,8 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 
 if (Astro.request.method === "POST") {
+  const payload = new URLSearchParams();
   try {
-    const payload = new URLSearchParams();
     const formData = await Astro.request.formData();
     formData.forEach((v, k) => {
       if (v instanceof File) {
@@ -15,8 +15,8 @@ if (Astro.request.method === "POST") {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        body: payload.toString(),
       },
+      body: payload.toString(),
     });
   } catch (error) {
     if (error instanceof Error) {
