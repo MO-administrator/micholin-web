@@ -2,21 +2,11 @@
 import Layout from "../layouts/Layout.astro";
 
 if (Astro.request.method === "POST") {
-  const payload = new URLSearchParams();
   try {
     const formData = await Astro.request.formData();
-    formData.forEach((v, k) => {
-      if (v instanceof File) {
-        return;
-      }
-      payload.append(k, v);
-    });
-    await fetch(Astro.url.origin, {
+    await fetch(`${Astro.url.origin}/api/inquiry`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: payload.toString(),
+      body: formData,
     });
   } catch (error) {
     if (error instanceof Error) {

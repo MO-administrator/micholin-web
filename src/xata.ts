@@ -8,6 +8,71 @@ import type {
 
 const tables = [
   {
+    name: "inquiries",
+    checkConstraints: {},
+    foreignKeys: {},
+    primaryKey: [],
+    uniqueConstraints: {},
+    columns: [
+      {
+        name: "email",
+        type: "string",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "message",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "name",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "xata_createdat",
+        type: "timestamp(6) with time zone",
+        notNull: true,
+        unique: false,
+        defaultValue: "CURRENT_TIMESTAMP",
+        comment: "",
+      },
+      {
+        name: "xata_id",
+        type: "text",
+        notNull: true,
+        unique: true,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "xata_updatedat",
+        type: "timestamp(6) with time zone",
+        notNull: true,
+        unique: false,
+        defaultValue: "CURRENT_TIMESTAMP",
+        comment: "",
+      },
+      {
+        name: "xata_version",
+        type: "int",
+        notNull: true,
+        unique: false,
+        defaultValue: "0",
+        comment: "",
+      },
+    ],
+  },
+  {
     name: "posts",
     checkConstraints: {},
     foreignKeys: {
@@ -192,6 +257,9 @@ const tables = [
 export type SchemaTables = typeof tables;
 export type InferredTypes = SchemaInference<SchemaTables>;
 
+export type Inquiries = InferredTypes["inquiries"];
+export type InquiriesRecord = Inquiries & XataRecord;
+
 export type Posts = InferredTypes["posts"];
 export type PostsRecord = Posts & XataRecord;
 
@@ -202,6 +270,7 @@ export type Users = InferredTypes["users"];
 export type UsersRecord = Users & XataRecord;
 
 export type DatabaseSchema = {
+  inquiries: InquiriesRecord;
   posts: PostsRecord;
   todos: TodosRecord;
   users: UsersRecord;
