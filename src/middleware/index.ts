@@ -1,4 +1,4 @@
-import { defineMiddleware, sequence } from 'astro:middleware';
+import { defineMiddleware, sequence } from "astro:middleware";
 
 const first = defineMiddleware((context, next) => {
   if (context.url.pathname.startsWith("/api")) {
@@ -7,4 +7,4 @@ const first = defineMiddleware((context, next) => {
   return next();
 });
 
-export const onRequest = sequence(first)
+export const onRequest = sequence(first);
