@@ -3,8 +3,6 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero:Home.astro";
 import Highlights from "../components/Highlights.astro";
-import Qualifications from "../components/Qualifications.astro";
-import Testimonials from "../components/Testimonials.astro";
 import Login from "../components/Login.astro";
 
 const projects: CollectionEntry<"projects">[] = (
@@ -18,6 +16,4 @@ const projects: CollectionEntry<"projects">[] = (
   <Login />
   <Hero />
   <Highlights {projects} />
-  <Qualifications />
-  <Testimonials />
 </Layout>
