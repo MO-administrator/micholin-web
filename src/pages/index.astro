@@ -5,6 +5,7 @@ import Hero from "../components/Hero:Home.astro";
 import Highlights from "../components/Highlights.astro";
 import Qualifications from "../components/Qualifications.astro";
 import Testimonials from "../components/Testimonials.astro";
+import Login from "../components/Login.astro";
 
 const projects: CollectionEntry<"projects">[] = (
   await getCollection("projects", entry => !entry.data.isDraft)
@@ -14,6 +15,7 @@ const projects: CollectionEntry<"projects">[] = (
 ---
 
 <Layout>
+  <Login />
   <Hero />
   <Highlights {projects} />
   <Qualifications />

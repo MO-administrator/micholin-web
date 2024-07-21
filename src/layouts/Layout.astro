@@ -15,7 +15,8 @@ if (
   !pageMeta &&
   !currentPage.includes("projects") &&
   !currentPage.includes("admin") &&
-  !currentPage.includes("api")
+  !currentPage.includes("api") &&
+  !currentPage.includes('netlify')
 ) {
   console.warn(`Page meta missing for current page: ${currentPage}`);
 }

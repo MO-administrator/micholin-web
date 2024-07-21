@@ -7,8 +7,13 @@ interface ImportMetaEnv {
   readonly XATA_DB_URL: string;
   readonly TOKEN_SECRET: string;
   readonly TOKEN_NAME: string;
-  readonly PUBLIC_REACT_APP_TOKEN_SECRET: string;
   readonly PUBLIC_REACT_APP_TOKEN_NAME: string;
+  readonly AUTH_TRUST_HOST: string;
+  readonly AUTH_RESEND_FROM: string;
+  readonly AUTH_SECRET: string;
+  readonly AUTH_RESEND_KEY: string;
+  readonly AUTH_GOOGLE_ID: string;
+  readonly AUTH_GOOGLE_SECRET: string;
 }
 interface ImportMeta {
   readonly env: ImportMetaEnv;
