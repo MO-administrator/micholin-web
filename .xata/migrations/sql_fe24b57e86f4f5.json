@@ -1,0 +1,18 @@
+{
+  "done": true,
+  "migration": {
+    "name": "sql_fe24b57e86f4f5",
+    "operations": [
+      {
+        "sql": {
+          "up": "CREATE TABLE \"User\" (id text NOT NULL, name text, email text NOT NULL, hash text, \"emailVerified\" timestamp(3), image text, \"createdAt\" timestamp(3) NOT NULL DEFAULT current_timestamp, \"updatedAt\" timestamp(3) NOT NULL, xata_updatedat timestamptz(6) NOT NULL DEFAULT current_timestamp, xata_id text NOT NULL, xata_version int NOT NULL DEFAULT 0, xata_createdat timestamptz(6) NOT NULL DEFAULT current_timestamp, CONSTRAINT \"User_pkey\" PRIMARY KEY (id))"
+        }
+      }
+    ]
+  },
+  "migrationType": "inferred",
+  "name": "sql_fe24b57e86f4f5",
+  "parent": "mig_cqek0thph6sceplcetrg",
+  "schema": "public",
+  "startedAt": "2024-07-21T17:08:21.543626Z"
+}

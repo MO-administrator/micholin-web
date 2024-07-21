@@ -1,0 +1,18 @@
+{
+  "done": true,
+  "migration": {
+    "name": "sql_f294e900005e87",
+    "operations": [
+      {
+        "sql": {
+          "up": "CREATE UNIQUE INDEX \"Session_sessionToken_key\" ON \"Session\" USING btree (\"sessionToken\")"
+        }
+      }
+    ]
+  },
+  "migrationType": "inferred",
+  "name": "sql_f294e900005e87",
+  "parent": "sql_5fadcd32621a8a",
+  "schema": "public",
+  "startedAt": "2024-07-21T17:08:22.964806Z"
+}

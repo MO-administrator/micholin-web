@@ -8,7 +8,161 @@ import type {
 
 const tables = [
   {
-    name: "inquiries",
+    name: "Account",
+    checkConstraints: {},
+    foreignKeys: {
+      Account_userId_fkey: {
+        name: "Account_userId_fkey",
+        columns: ["userId"],
+        referencedTable: "User",
+        referencedColumns: ["id"],
+        onDelete: "CASCADE",
+      },
+    },
+    primaryKey: ["provider", "providerAccountId"],
+    uniqueConstraints: {},
+    columns: [
+      {
+        name: "access_token",
+        type: "text",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "createdAt",
+        type: "timestamp(3) without time zone",
+        notNull: true,
+        unique: false,
+        defaultValue: "CURRENT_TIMESTAMP",
+        comment: "",
+      },
+      {
+        name: "expires_at",
+        type: "int",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "id_token",
+        type: "text",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "provider",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "providerAccountId",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "refresh_token",
+        type: "text",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "scope",
+        type: "text",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "session_state",
+        type: "text",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "token_type",
+        type: "text",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "type",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "updatedAt",
+        type: "timestamp(3) without time zone",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "userId",
+        type: "link",
+        link: { table: "User" },
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "xata_createdat",
+        type: "timestamp(6) with time zone",
+        notNull: true,
+        unique: false,
+        defaultValue: "CURRENT_TIMESTAMP",
+        comment: "",
+      },
+      {
+        name: "xata_id",
+        type: "text",
+        notNull: true,
+        unique: true,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "xata_updatedat",
+        type: "timestamp(6) with time zone",
+        notNull: true,
+        unique: false,
+        defaultValue: "CURRENT_TIMESTAMP",
+        comment: "",
+      },
+      {
+        name: "xata_version",
+        type: "int",
+        notNull: true,
+        unique: false,
+        defaultValue: "0",
+        comment: "",
+      },
+    ],
+  },
+  {
+    name: "Inquiry",
     checkConstraints: {},
     foreignKeys: {},
     primaryKey: [],
@@ -16,7 +170,7 @@ const tables = [
     columns: [
       {
         name: "email",
-        type: "string",
+        type: "text",
         notNull: true,
         unique: false,
         defaultValue: null,
@@ -73,91 +227,58 @@ const tables = [
     ],
   },
   {
-    name: "posts",
+    name: "Session",
     checkConstraints: {},
     foreignKeys: {
-      author_link: {
-        name: "author_link",
-        columns: ["author"],
-        referencedTable: "users",
-        referencedColumns: ["xata_id"],
-        onDelete: "RESTRICT",
+      Session_userId_fkey: {
+        name: "Session_userId_fkey",
+        columns: ["userId"],
+        referencedTable: "User",
+        referencedColumns: ["id"],
+        onDelete: "CASCADE",
       },
     },
     primaryKey: [],
     uniqueConstraints: {},
     columns: [
       {
-        name: "author",
+        name: "createdAt",
+        type: "timestamp(3) without time zone",
+        notNull: true,
+        unique: false,
+        defaultValue: "CURRENT_TIMESTAMP",
+        comment: "",
+      },
+      {
+        name: "expires",
+        type: "timestamp(3) without time zone",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "sessionToken",
+        type: "text",
+        notNull: true,
+        unique: true,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "updatedAt",
+        type: "timestamp(3) without time zone",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "userId",
         type: "link",
-        link: { table: "users" },
-        notNull: false,
-        unique: false,
-        defaultValue: null,
-        comment: '{"xata.link":"users"}',
-      },
-      {
-        name: "xata_createdat",
-        type: "datetime",
+        link: { table: "User" },
         notNull: true,
         unique: false,
-        defaultValue: "now()",
-        comment: "",
-      },
-      {
-        name: "xata_id",
-        type: "text",
-        notNull: true,
-        unique: true,
-        defaultValue: null,
-        comment: "",
-      },
-      {
-        name: "xata_updatedat",
-        type: "datetime",
-        notNull: true,
-        unique: false,
-        defaultValue: "now()",
-        comment: "",
-      },
-      {
-        name: "xata_version",
-        type: "int",
-        notNull: true,
-        unique: false,
-        defaultValue: "0",
-        comment: "",
-      },
-    ],
-  },
-  {
-    name: "todos",
-    checkConstraints: {},
-    foreignKeys: {},
-    primaryKey: ["title"],
-    uniqueConstraints: {},
-    columns: [
-      {
-        name: "description",
-        type: "string",
-        notNull: true,
-        unique: false,
-        defaultValue: null,
-        comment: "",
-      },
-      {
-        name: "tasks",
-        type: "multiple",
-        notNull: false,
-        unique: false,
-        defaultValue: "ARRAY[]::text[]",
-        comment: "",
-      },
-      {
-        name: "title",
-        type: "text",
-        notNull: true,
-        unique: true,
         defaultValue: null,
         comment: "",
       },
@@ -196,12 +317,20 @@ const tables = [
     ],
   },
   {
-    name: "users",
+    name: "User",
     checkConstraints: {},
     foreignKeys: {},
-    primaryKey: ["email"],
+    primaryKey: ["id"],
     uniqueConstraints: {},
     columns: [
+      {
+        name: "createdAt",
+        type: "timestamp(3) without time zone",
+        notNull: true,
+        unique: false,
+        defaultValue: "CURRENT_TIMESTAMP",
+        comment: "",
+      },
       {
         name: "email",
         type: "text",
@@ -211,8 +340,113 @@ const tables = [
         comment: "",
       },
       {
+        name: "emailVerified",
+        type: "timestamp(3) without time zone",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
         name: "hash",
-        type: "string",
+        type: "text",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "id",
+        type: "text",
+        notNull: true,
+        unique: true,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "image",
+        type: "text",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "name",
+        type: "text",
+        notNull: false,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "updatedAt",
+        type: "timestamp(3) without time zone",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "xata_createdat",
+        type: "timestamp(6) with time zone",
+        notNull: true,
+        unique: false,
+        defaultValue: "CURRENT_TIMESTAMP",
+        comment: "",
+      },
+      {
+        name: "xata_id",
+        type: "text",
+        notNull: true,
+        unique: true,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "xata_updatedat",
+        type: "timestamp(6) with time zone",
+        notNull: true,
+        unique: false,
+        defaultValue: "CURRENT_TIMESTAMP",
+        comment: "",
+      },
+      {
+        name: "xata_version",
+        type: "int",
+        notNull: true,
+        unique: false,
+        defaultValue: "0",
+        comment: "",
+      },
+    ],
+  },
+  {
+    name: "VerificationToken",
+    checkConstraints: {},
+    foreignKeys: {},
+    primaryKey: ["identifier", "token"],
+    uniqueConstraints: {},
+    columns: [
+      {
+        name: "expires",
+        type: "timestamp(3) without time zone",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "identifier",
+        type: "text",
+        notNull: true,
+        unique: false,
+        defaultValue: null,
+        comment: "",
+      },
+      {
+        name: "token",
+        type: "text",
         notNull: true,
         unique: false,
         defaultValue: null,
@@ -257,29 +491,33 @@ const tables = [
 export type SchemaTables = typeof tables;
 export type InferredTypes = SchemaInference<SchemaTables>;
 
-export type Inquiries = InferredTypes["inquiries"];
-export type InquiriesRecord = Inquiries & XataRecord;
+export type Account = InferredTypes["Account"];
+export type AccountRecord = Account & XataRecord;
 
-export type Posts = InferredTypes["posts"];
-export type PostsRecord = Posts & XataRecord;
+export type Inquiry = InferredTypes["Inquiry"];
+export type InquiryRecord = Inquiry & XataRecord;
 
-export type Todos = InferredTypes["todos"];
-export type TodosRecord = Todos & XataRecord;
+export type Session = InferredTypes["Session"];
+export type SessionRecord = Session & XataRecord;
 
-export type Users = InferredTypes["users"];
-export type UsersRecord = Users & XataRecord;
+export type User = InferredTypes["User"];
+export type UserRecord = User & XataRecord;
+
+export type VerificationToken = InferredTypes["VerificationToken"];
+export type VerificationTokenRecord = VerificationToken & XataRecord;
 
 export type DatabaseSchema = {
-  inquiries: InquiriesRecord;
-  posts: PostsRecord;
-  todos: TodosRecord;
-  users: UsersRecord;
+  Account: AccountRecord;
+  Inquiry: InquiryRecord;
+  Session: SessionRecord;
+  User: UserRecord;
+  VerificationToken: VerificationTokenRecord;
 };
 
 const DatabaseClient = buildClient();
 
 const defaultOptions = {
-  databaseURL: "https://micholin-enni6o.eu-central-1.xata.sh/db/micholin:stage",
+  databaseURL: "https://micholin-enni6o.eu-central-1.xata.sh/db/micholin:main",
 };
 
 export class XataClient extends DatabaseClient<DatabaseSchema> {

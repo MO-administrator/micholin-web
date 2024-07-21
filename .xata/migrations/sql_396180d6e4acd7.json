@@ -1,0 +1,18 @@
+{
+  "done": true,
+  "migration": {
+    "name": "sql_396180d6e4acd7",
+    "operations": [
+      {
+        "sql": {
+          "up": "CREATE TABLE \"Session\" (\"sessionToken\" text NOT NULL, \"userId\" text NOT NULL, expires timestamp(3) NOT NULL, \"createdAt\" timestamp(3) NOT NULL DEFAULT current_timestamp, \"updatedAt\" timestamp(3) NOT NULL, xata_id text NOT NULL, xata_version int NOT NULL DEFAULT 0, xata_createdat timestamptz(6) NOT NULL DEFAULT current_timestamp, xata_updatedat timestamptz(6) NOT NULL DEFAULT current_timestamp)"
+        }
+      }
+    ]
+  },
+  "migrationType": "inferred",
+  "name": "sql_396180d6e4acd7",
+  "parent": "sql_de8d27df8cff16",
+  "schema": "public",
+  "startedAt": "2024-07-21T17:08:21.933486Z"
+}
