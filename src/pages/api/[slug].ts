@@ -13,7 +13,7 @@ const inquiryDtoSchema = z.object({
 });
 
 export const POST: APIRoute = async ({ params, request, redirect }) => {
-  if (params['slug'] === "inquiry") {
+  if (params["slug"] === "inquiry") {
     try {
       const contentType = request.headers.get("Content-Type");
       if (!contentType?.includes("multipart/form-data")) {
@@ -25,7 +25,7 @@ export const POST: APIRoute = async ({ params, request, redirect }) => {
         Object.fromEntries(formData.entries())
       );
 
-      await prisma.inquiries.create({ data });
+      await prisma.inquiry.create({ data });
 
       return new Response(JSON.stringify({ message: "inquiry added" }));
     } catch (error) {

@@ -1,13 +1,10 @@
 import { type APIRoute } from "astro";
-import { handleErrors, prisma } from "../../../utils";
+import { handleErrors } from "../../../utils";
 
 export const GET: APIRoute = async () => {
   try {
-    const posts = await prisma.posts.findMany({
-      select: { xata_id: true, author: true },
-    });
     return new Response(
-      JSON.stringify({ data: posts, message: "retreive posts success." }),
+      JSON.stringify({ message: "retreive posts success." }),
       {
         status: 200,
       }

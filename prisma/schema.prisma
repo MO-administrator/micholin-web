@@ -8,41 +8,79 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-model posts {
-  xata_version   Int      @default(0)
-  xata_createdat DateTime @default(now()) @db.Timestamptz(6)
-  xata_updatedat DateTime @default(now()) @db.Timestamptz(6)
-  xata_id        String   @unique(map: "_pgroll_new_posts_xata_id_key") @default(uuid())
-  author         String?
-  users          users?   @relation(fields: [author], references: [xata_id], onDelete: Restrict, onUpdate: NoAction, map: "author_link")
+model User {
+  id             String    @id @default(cuid())
+  name           String?
+  email          String    @unique
+  hash           String?
+  emailVerified  DateTime?
+  image          String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  xata_updatedat DateTime  @default(now()) @db.Timestamptz(6)
+  xata_id        String    @unique(map: "User__pgroll_new_xata_id_key") @default(cuid())
+  xata_version   Int       @default(0)
+  xata_createdat DateTime  @default(now()) @db.Timestamptz(6)
+  accounts       Account[]
+  sessions       Session[]
 }
 
-model users {
-  xata_version   Int      @default(0)
-  xata_createdat DateTime @default(now()) @db.Timestamptz(6)
-  xata_updatedat DateTime @default(now()) @db.Timestamptz(6)
-  xata_id        String   @unique(map: "_pgroll_new_users_xata_id_key") @default(uuid())
-  email          String   @id
-  hash           String   @db.VarChar(244)
-  posts          posts[]
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  xata_id           String   @unique(map: "Account__pgroll_new_xata_id_key") @default(cuid())
+  xata_version      Int      @default(0)
+  xata_createdat    DateTime @default(now()) @db.Timestamptz(6)
+  xata_updatedat    DateTime @default(now()) @db.Timestamptz(6)
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
 }
 
-model todos {
+model Session {
+  sessionToken   String   @unique
+  userId         String
+  expires        DateTime
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  xata_id        String   @unique(map: "Session__pgroll_new_xata_id_key") @default(cuid())
   xata_version   Int      @default(0)
   xata_createdat DateTime @default(now()) @db.Timestamptz(6)
   xata_updatedat DateTime @default(now()) @db.Timestamptz(6)
-  xata_id        String   @unique(map: "_pgroll_new_todos_xata_id_key") @default(uuid())
-  title          String   @id
-  description    String   @db.VarChar(244)
-  tasks          String[] @default([])
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model inquiries {
+model VerificationToken {
+  identifier     String
+  token          String
+  expires        DateTime
   xata_version   Int      @default(0)
   xata_createdat DateTime @default(now()) @db.Timestamptz(6)
   xata_updatedat DateTime @default(now()) @db.Timestamptz(6)
-  xata_id        String   @unique(map: "_pgroll_new_inquiries_xata_id_key") @default(uuid())
-  name           String   @db.Text
-  email          String   @db.VarChar(50)
-  message        String   @db.Text
+  xata_id        String   @unique(map: "VerificationToken__pgroll_new_xata_id_key") @default(cuid())
+
+  @@id([identifier, token])
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model Inquiry {
+  xata_updatedat DateTime @default(now()) @db.Timestamptz(6)
+  xata_id        String   @unique(map: "Inquiry__pgroll_new_xata_id_key") @default(cuid())
+  xata_version   Int      @default(0)
+  xata_createdat DateTime @default(now()) @db.Timestamptz(6)
+  email          String
+  name           String
+  message        String
 }

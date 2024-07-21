@@ -1,9 +1,12 @@
 import { PrismaClient } from "@prisma/client";
+import { Resend } from 'resend';
 import { ZodError } from "zod";
 export * as argon from "argon2";
+export * from './salt-hash-password';
 import JwtService from "./jwt-service";
 
 export const prisma = new PrismaClient();
+export const resend = new Resend(import.meta.env.AUTH_RESEND_KEY);
 export const { generateToken, decodeToken } = new JwtService();
 
 /**

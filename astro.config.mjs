@@ -4,24 +4,21 @@ import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import compress from "astro-compress";
 import netlify from "@astrojs/netlify";
-
 import icon from "astro-icon";
+
+import auth from "auth-astro";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [
-    tailwind(),
-    react(),
-    sitemap(),
-    compress(),
-    icon({ iconDir: "src/content/icons" }),
-  ],
+  integrations: [tailwind(), react(), sitemap(), compress(), icon({
+    iconDir: "src/content/icons"
+  }), auth()],
   image: {
-    service: passthroughImageService(),
+    service: passthroughImageService()
   },
   output: "server",
   adapter: netlify({
     edgeMiddleware: true,
   }),
-  site: "https://micholin.netlify.app/",
+  site: "https://micholin.com/"
 });
