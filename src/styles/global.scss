@@ -16,6 +16,11 @@
   --tw-gradient-to: rgb(142, 85, 172) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 html {
   font-family: "Lato", system-ui, sans-serif;
   background: var(--page-bg-color);

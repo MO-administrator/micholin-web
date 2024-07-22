@@ -1,10 +1,9 @@
 ---
 import { getCollection } from "astro:content";
 import CardTestimonial from "./Card:Testimonial.astro";
+import { sortByPubDate } from "../utils";
 
-const testimonials = (await getCollection("testimonials")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const testimonials = (await getCollection("testimonials")).sort(sortByPubDate);
 ---
 
 <section class="container">
@@ -13,17 +12,17 @@ const testimonials = (await getCollection("testimonials")).sort(
       {testimonials.map(testimonial => <CardTestimonial {...testimonial} />)}
     </ul>
   </div>
-</section>
 
-<style>
-  .container {
-    @apply grid;
-  }
-  .wrapper {
-    @apply grid w-full max-w-screen-sm p-4 place-self-center;
-  }
-  .testimonials {
-    @apply flex flex-wrap flex-row place-self-center
-    gap-4 justify-center place-items-center;
-  }
-</style>
+  <style lang="scss">
+    .container {
+      @apply grid;
+    }
+    .wrapper {
+      @apply grid w-full max-w-screen-sm p-4 place-self-center;
+    }
+    .testimonials {
+      @apply flex flex-wrap flex-row place-self-center
+      gap-4 justify-center place-items-center;
+    }
+  </style>
+</section>

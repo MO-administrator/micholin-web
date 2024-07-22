@@ -13,6 +13,7 @@ const { projects } = Astro.props;
   <div>
     {projects.map(project => <CardProject {...project} />)}
   </div>
+
   <style>
     div {
       @apply p-8 rounded-3xl grid gap-8 grid-cols-1

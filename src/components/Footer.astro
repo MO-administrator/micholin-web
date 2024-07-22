@@ -12,16 +12,16 @@ const year = new Date().getFullYear().toString();
     </div>
   </div>
   <div>Resources</div>
-</section>
 
-<style lang="scss">
-  .footer {
-    @apply flex justify-between w-dvw;
-    & > div {
-      @apply flex place-items-center;
+  <style lang="scss">
+    .footer {
+      @apply flex justify-between w-dvw;
+      & > div {
+        @apply flex place-items-center;
+      }
+      & > div:is(:last-child) {
+        @apply hidden md:block;
+      }
     }
-    & > div:is(:last-child) {
-      @apply hidden md:block;
-    }
-  }
-</style>
+  </style>
+</section>

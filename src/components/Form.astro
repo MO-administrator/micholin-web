@@ -1,4 +1,6 @@
 ---
+import { SITE_FAVICON, SITE_NAME } from "../constants";
+
 type Props = {
   name: string;
   title: string;
@@ -15,37 +17,56 @@ const { netlify = false, name, title } = Astro.props;
   action="/success"
   data-netlify={netlify}
   data-netlify-honeypot="bot-field"
-  class="py-6 grid h-full justify-center gap-4 bg-slate-800 opacity-90 rounded-b-3xl"
+  class="wrapper"
 >
   {
     netlify && (
       <>
         <input type="hidden" name="form-name" value={name} />
         <p class="hidden">
-          <label for="bot-field">Don't fill this out if you're human:</label>
-          <input name="bot-field" />
+          <label for="bot-field">
+            Don't fill this out if you're human: <input name="bot-field" />
+          </label>
         </p>
       </>
     )
   }
   <legend class="grid">
-    <h1 class="mb-4 text-center">{title}</h1>
-    <div
-      class="grid place-self-center place-items-center bg-black p-4 pb-6 rounded-3xl"
-    >
-      <div class="block w-20 h-20 motion-safe:animate-pulse">
-        <img src="/favicon.svg" alt={`${name}`} loading="eager" />
+    <h1>{title}</h1>
+    <div>
+      <div>
+        <img src={SITE_FAVICON()} alt={SITE_NAME()} loading="eager" />
       </div>
     </div>
   </legend>
   <slot name="form-copy" />
-  <fieldset class="grid justify-center">
+  <fieldset>
     <slot name="fields" />
   </fieldset>
-  <input
-    class="flex justify-center w-full max-w-40 max-h-12 p-2 mx-auto mt-4 text-center duration-300 ease-in-out transform border-2 border-white rounded-full cursor-pointer place-items-center bg-slate-600 rounded-bl-3xl rounded-tr-3xl hover:scale-110"
-    type="submit"
-    form={name}
-    value="Submit"
-  />
+  <input type="submit" form={name} value="Submit" />
+  <style lang="scss">
+    .wrapper {
+      @apply py-6 grid h-full justify-center gap-4
+      bg-slate-800 opacity-90 rounded-b-3xl;
+      legend {
+        @apply grid place-items-center;
+        h1 {
+          @apply mb-4 text-center;
+        }
+        div {
+          @apply block w-20 h-20 motion-safe:animate-pulse;
+        }
+      }
+      fieldset {
+        @apply grid justify-center;
+      }
+      input[type="submit"] {
+        @apply flex justify-center w-full max-w-40 max-h-12
+        p-2 mt-4 mx-auto text-center duration-300 ease-in-out transform
+        border-2 border-white rounded-full cursor-pointer place-items-center
+        bg-slate-600 rounded-bl-3xl rounded-tr-3xl
+        hover:scale-110 hover:bg-violet-600;
+      }
+    }
+  </style>
 </form>

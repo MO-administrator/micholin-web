@@ -4,22 +4,23 @@ import { ViewTransitions } from "astro:transitions";
 
 type Props = {
   title?: string;
-}
+};
 
 const { title } = Astro.props;
 ---
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="description" content={SITE_DESCRIPTION} />
+  <meta name="description" content={SITE_DESCRIPTION()} />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="generator" content={Astro.generator} />
   <meta name="background_color" content="#333333" />
   <meta name="theme_color" content="#f8f8f8" />
 
-  <link rel="icon" href={SITE_FAVICON} />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <link rel="icon" href={SITE_FAVICON()} />
 
-  <title>{title ? `${title} | ${SITE_NAME}` : SITE_NAME}</title>
+  <title>{title ? `${title} | ${SITE_NAME()}` : SITE_NAME()}</title>
 
   <ViewTransitions />
 </head>

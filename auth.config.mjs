@@ -1,19 +1,32 @@
+// @ts-check
 import { defineConfig } from "auth-astro";
 import { ZodError, z } from "zod";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import Resend from "@auth/core/providers/resend";
 import Credentials from "@auth/core/providers/credentials";
-import { PrismaAdapter } from "@auth/prisma-adapter";
+import { CredentialsSignin } from "@auth/core/errors";
 import argon from "argon2";
 import { prisma } from "./src/utils";
 
-const signInSchema = z.object({
+const signInDtoSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8, "password must be at least 8 characters."),
 });
 
+const userDtoSchema = z.object({
+  id: z.string().optional(),
+  email: z.string().email().optional().nullable(),
+  name: z.string().optional().nullable(),
+  image: z.string().optional().nullable(),
+});
+
 export default defineConfig({
+  debug: true,
   adapter: PrismaAdapter(prisma),
   trustHost: true,
+  theme: {
+    logo: "/favicon.svg",
+  },
   providers: [
     Resend({
       apiKey: import.meta.env.AUTH_RESEND_KEY,
@@ -22,38 +35,48 @@ export default defineConfig({
     }),
     Credentials({
       credentials: {
-        email: { label: "Email", type: "email", required: true },
-        password: { label: "Password", type: "password", required: true },
+        csrfToken: {},
+        callbackUrl: {},
       },
-      authorize: async credentials => {
+      authorize: async (_, request) => {
         let user = null;
         try {
-          const { email, password } = signInSchema.parse(credentials);
+          const url = new URL(request.url);
+          const payload = {
+            email: url.searchParams.get("username"),
+            password: url.searchParams.get("password"),
+          };
+          const { email, password } = signInDtoSchema.parse(payload);
           user = await prisma.user.findUnique({ where: { email } });
           if (!user) {
-            throw new Error("User not found.");
-          }
-          const isValid =
-            user.hash && (await argon.verify(user.hash, password));
-          if (isValid) {
-            return user;
-          } else if (user.emailVerified) {
-            const hash = await argon.hash(password);
-            user = await prisma.user.update({
-              where: { email },
-              data: { hash },
+            throw new CredentialsSignin("User not found.", {
+              cause: ["invalid-credentials"],
             });
-            return user;
+          }
+          if (user.hash) {
+            const authenticated = await argon.verify(user.hash, password);
+            if (authenticated) return userDtoSchema.parse(user);
+            else
+              throw new CredentialsSignin("invalid credentials.", {
+                cause: ["invalid-credentials"],
+              });
           } else {
-            throw new Error('email verification pending.')
+            throw new CredentialsSignin("email verification pending.", {
+              cause: ["email-unverified"],
+            });
           }
         } catch (error) {
+          if (error instanceof CredentialsSignin) {
+            throw error;
+          }
           if (error instanceof ZodError) {
             return null;
           }
           if (error instanceof Error) {
             return null;
           }
+          console.log(error);
+          return null;
         }
       },
     }),

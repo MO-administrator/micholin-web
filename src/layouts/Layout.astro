@@ -3,8 +3,8 @@ import { getEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import "../styles/global.css";
 import Loading from "../components/Loading.astro";
+import "../styles/global.scss";
 
 const currentPage = Astro.url.pathname.replace("/", "");
 const pageMeta = currentPage
@@ -16,6 +16,7 @@ if (
   !currentPage.includes("projects") &&
   !currentPage.includes("admin") &&
   !currentPage.includes("api") &&
+  !currentPage.includes('favicon.ico') &&
   !currentPage.includes('netlify')
 ) {
   console.warn(`Page meta missing for current page: ${currentPage}`);

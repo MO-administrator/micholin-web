@@ -10,6 +10,7 @@ import {
   createContext,
   useRef,
 } from "react";
+import { signIn } from 'auth-astro/client';
 import { useLocalStorage } from "../hooks";
 
 type AuthContext = {
@@ -70,24 +71,18 @@ export const AuthProvider: FC<ProviderProps> = ({ children }) => {
     btnRef.current?.classList.add("animate-pulse");
     try {
       const formData = new FormData(e.currentTarget);
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        body: formData,
+      const payload = new URLSearchParams();
+      formData.entries().forEach(([k, v]) => {
+        if (!(v instanceof File)){
+          payload.append(k, v);
+        }
       });
-      if (response.ok) {
-        const res = await response.json();
+      setTimeout(() => {
         btnRef.current?.classList.replace("animate-pulse", "animate-ping-forward");
-        setTimeout(() => {
-          setLocalStore(response.headers.get("user"));
-          console.log(`Authentication successfull\r\n${JSON.stringify(res)}`);
-        }, 12e2);
-      } else {
-        btnRef.current?.classList.remove('animate-pulse');
-        const res = await response.json();
-        throw res;
-      }
+        signIn("credentials", {}, payload);
+      }, 1.2e3);
     } catch (error) {
-      let message = JSON.stringify(error);
+      let message
       if (Array.isArray(error)) {
         message = error
           .map(item => Object.entries(item).join("- ").replace(",", ": "))
@@ -95,6 +90,7 @@ export const AuthProvider: FC<ProviderProps> = ({ children }) => {
       }
       btnRef.current?.classList.remove("animate-pulse");
       /** TODO - Add a error handler to display error toast on FE. */
+      message = JSON.stringify(error);
       alert(message);
     }
   };

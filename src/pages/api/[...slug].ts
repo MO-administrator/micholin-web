@@ -13,11 +13,11 @@ const inquiryDtoSchema = z.object({
 });
 
 export const POST: APIRoute = async ({ params, request, redirect }) => {
-  if (params["slug"] === "inquiry") {
+  if (params["slug"]?.includes("inquiry")) {
     try {
       const contentType = request.headers.get("Content-Type");
       if (!contentType?.includes("multipart/form-data")) {
-        throw new Error("Invalid content-type. Expected multipart/form-data");
+        throw new TypeError("Invalid content-type. Expected multipart/form-data");
       }
       const formData = await request.formData();
 

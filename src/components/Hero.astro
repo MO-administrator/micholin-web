@@ -6,18 +6,15 @@ type Props = {
   title?: string;
   description: string[] | null;
   descriptionOptions?: TypedOptions;
-}
+};
 
 const { title = "", description = "", descriptionOptions = {} } = Astro.props;
 ---
 
 <section class="container">
-  <div
-    class="wrapper">
+  <div class="wrapper">
     <div class="wrapper-left">
-      <h1>
-        {title}
-      </h1>
+      <h1>{title}</h1>
       {
         description && (
           <Typed
@@ -28,27 +25,25 @@ const { title = "", description = "", descriptionOptions = {} } = Astro.props;
         )
       }
     </div>
-    <div
-      class="wrapper-right">
+    <div class="wrapper-right">
       <slot name="cta" />
       <slot />
     </div>
   </div>
-</section>
-
-<style lang="scss">
-  .wrapper {
-    @apply grid grid-flow-row py-20 justify-center contain-content
+  <style lang="scss">
+    .wrapper {
+      @apply grid grid-flow-row py-20 justify-center contain-content
     place-items-center bg-gradient-to-br rounded-b-3xl
     lg:grid lg:grid-cols-2 lg:grid-flow-row lg:gap-8;
-    &-left {
-      @apply grid gap-2 min-h-52;
-      h1 {
-        @apply text-center text-blue-100 text-6xl mb-8;
+      &-left {
+        @apply grid gap-2 min-h-52;
+        h1 {
+          @apply text-center text-blue-100 text-6xl mb-8;
+        }
+      }
+      &-right {
+        @apply grid place-items-center gap-8;
       }
     }
-    &-right {
-      @apply grid place-items-center gap-8;
-    }
-  }
-</style>
+  </style>
+</section>

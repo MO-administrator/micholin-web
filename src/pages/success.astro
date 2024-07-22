@@ -17,35 +17,26 @@ if (Astro.request.method === "POST") {
 ---
 
 <Layout>
-  <div
-    class="container grid place-self-center place-items-center h-full animate-ping-reverse"
-  >
-    <article class="p-4 rounded-lg bg-slate-800 bg-blend-overlay">
+  <div class="container">
+    <article>
       <h1>Submission Received! 👍🏽</h1>
       <p>
-        Thank you for your feedback!<br />Head back to the <a
-          href="/"
-          class="decoration-green-600 underline underline-offset-2">home page</a
+        Thank you for your feedback!<br />Head back to the <a href="/"
+          >home page</a
         >
       </p>
     </article>
+    <style lang="scss">
+      .container {
+        @apply grid place-self-center place-items-center
+        h-full animate-ping-reverse;
+        article {
+          @apply p-4 rounded-lg bg-slate-800 bg-blend-overlay;
+          a {
+            @apply decoration-green-600 underline underline-offset-2;
+          }
+        }
+      }
+    </style>
   </div>
 </Layout>
-
-<div class="hidden">
-  <form
-    name="contact v1"
-    method="POST"
-    data-netlify
-    data-netlify-honeypot="bot-field"
-  >
-    <input type="hidden" name="form-name" value="contact v1" />
-    <p class="hidden">
-      <label for="bot-field">Don't type here if you're human.</label>
-      <input id="bot-field" name="bot-field" />
-    </p>
-    <input type="email" name="email" required />
-    <input type="text" name="name" required />
-    <textarea name="message" required></textarea>
-  </form>
-</div>

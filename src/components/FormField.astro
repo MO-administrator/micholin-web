@@ -2,34 +2,35 @@
 type Props = {
   type: "text" | "password" | "email" | "textarea";
   name: string;
-  label?: string;
-  required?: boolean;
+  label: string;
+  required: boolean;
 };
 
 const { type, name, label, required } = Astro.props;
 ---
 
-<p class="px-8 grid md:grid-cols-2 gap-2 place-items-start">
-  <label for={name}>{label || name}:</label>
+<p class="fieldset">
+  <label for={name}>{label}:</label>
   <Fragment>
     {
       type === "textarea" ? (
-        <textarea
-          class="p-2 px-4 font-serif rounded-3xl text-slate-600"
-          id={name}
-          rows={4}
-          {name}
-          {required}
-        />
+        <textarea id={name} rows={4} {name} {required} />
       ) : (
-        <input
-          class="px-2 py-1 w-full font-serif rounded-full text-slate-600"
-          id={name}
-          {type}
-          {name}
-          {required}
-        />
+        <input id={name} {type} {name} {required} />
       )
     }
   </Fragment>
+
+  <style lang="scss">
+    .fieldset {
+      @apply px-8 grid gap-2 place-items-start
+      md:grid-cols-2;
+      textarea {
+        @apply p-2 px-4 font-serif rounded-sm text-slate-600;
+      }
+      input {
+        @apply px-2 py-1 w-full font-serif rounded-sm text-slate-600;
+      }
+    }
+  </style>
 </p>
