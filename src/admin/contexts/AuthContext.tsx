@@ -72,7 +72,7 @@ export const AuthProvider: FC<ProviderProps> = ({ children }) => {
     try {
       const formData = new FormData(e.currentTarget);
       const payload = new URLSearchParams();
-      formData.entries().forEach(([k, v]) => {
+      formData.forEach((v, k) => {
         if (!(v instanceof File)){
           payload.append(k, v);
         }
