@@ -1,4 +1,3 @@
-// @ts-check
 import { defineConfig } from "auth-astro";
 import { ZodError, z } from "zod";
 import { PrismaAdapter } from "@auth/prisma-adapter";
@@ -21,7 +20,6 @@ const userDtoSchema = z.object({
 });
 
 export default defineConfig({
-  debug: true,
   adapter: PrismaAdapter(prisma),
   trustHost: true,
   theme: {
@@ -34,10 +32,6 @@ export default defineConfig({
       from: import.meta.env.AUTH_RESEND_FROM,
     }),
     Credentials({
-      credentials: {
-        csrfToken: {},
-        callbackUrl: {},
-      },
       authorize: async (_, request) => {
         let user = null;
         try {
