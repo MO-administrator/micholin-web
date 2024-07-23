@@ -2,7 +2,7 @@
 import { getEntry } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
-import { Typed } from "../components/Typed";
+import Typed from "../components/Typed.svelte";
 
 const {
   data: { title, description },
@@ -18,7 +18,7 @@ Astro.response.headers.set(
   <Hero {title}>
     <Fragment slot="description">
       <Typed
-        client:only="react"
+        client:only="svelte"
         strings={description}
         options={{ typeSpeed: 1, backDelay: 2e3 }}
       />

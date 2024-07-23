@@ -1,6 +1,6 @@
 import { type APIRoute } from "astro";
-import { AstroAuth } from "auth-astro/server";
 import config from 'auth:config';
+import { AstroAuth } from "auth-astro/server";
 
 export const { GET, POST } = AstroAuth(config);
 

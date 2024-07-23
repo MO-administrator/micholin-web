@@ -3,7 +3,6 @@ import { describe, expect, it, beforeEach } from "vitest";
 import Card from "../components/Card.astro";
 
 describe("<Card />", async () => {
-  let renderResult: string;
   let container: AstroContainer;
   beforeEach(async () => {
     container = await AstroContainer.create();

@@ -4,6 +4,6 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "pretty": true,
-    "alwaysStrict": true
-  }
+    "alwaysStrict": true,
+  },
 }

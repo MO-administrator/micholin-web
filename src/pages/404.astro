@@ -3,7 +3,7 @@ import { getEntry } from "astro:content";
 import { Icon } from "astro-icon/components";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
-import { Typed } from "../components/Typed";
+import Typed from "../components/Typed.svelte";
 
 if (/api/i.test(Astro.request.url)) {
   return Astro.redirect("/api", 307);
@@ -18,7 +18,7 @@ const {
   <Hero title={title}>
     <Fragment slot="description">
       <Typed
-        client:only="react"
+        client:only="svelte"
         strings={description}
         options={{ loop: false }}
       />
