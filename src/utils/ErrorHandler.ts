@@ -1,10 +1,8 @@
 import { ZodError } from "zod";
-
 /**
  * Class to organise error handler responses.
  */
 class ErrorHandler {
-  constructor() {}
   /**
    * Error response of ZodError
    * @param  {ZodError} error Instance of ZodError

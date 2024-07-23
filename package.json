@@ -10,7 +10,8 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "test": "vitest",
-    "astro": "astro"
+    "astro": "astro",
+    "prepare": "node .husky/install.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.7.0",
@@ -25,7 +26,6 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@types/react-router-dom": "^5.3.3",
-    "@xata.io/client": "^0.0.0-next.v64f10283eb9a098c575590d3ea17600e350321c9",
     "@xata.io/netlify": "^0.1.32",
     "argon2": "^0.40.3",
     "astro": "^4.11.3",
