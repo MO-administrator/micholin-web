@@ -1,7 +1,7 @@
 ---
 import { getEntry } from "astro:content";
 import Hero from "./Hero.astro";
-import { Typed } from './Typed';
+import Typed from './Typed.svelte';
 
 const {
   data: { title, description },
@@ -11,7 +11,7 @@ const {
 <Hero {title}>
   <Fragment slot="description">
     <Typed
-      client:only="react"
+      client:only="svelte"
       strings={description}
       options={{
         typeSpeed: 10,
