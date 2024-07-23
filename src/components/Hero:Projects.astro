@@ -1,19 +1,24 @@
 ---
 import { getEntry } from "astro:content";
 import Hero from "./Hero.astro";
+import { Typed } from './Typed';
 
 const {
   data: { title, description },
 } = await getEntry("pagemetas", "projects");
 ---
 
-<Hero
-  {title}
-  {description}
-  descriptionOptions={{
-    typeSpeed: 10,
-    backSpeed: 10,
-    backDelay: 2e3,
-    smartBackspace: true,
-  }}
-/>
+<Hero {title}>
+  <Fragment slot="description">
+    <Typed
+      client:only="react"
+      strings={description}
+      options={{
+        typeSpeed: 10,
+        backSpeed: 10,
+        backDelay: 2e3,
+        smartBackspace: true,
+      }}
+    />
+  </Fragment>
+</Hero>

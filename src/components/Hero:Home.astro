@@ -1,22 +1,28 @@
 ---
-import { getEntry } from 'astro:content';
+import { getEntry } from "astro:content";
 import Hero from "./Hero.astro";
 import Button from "./Button.astro";
+import { Typed } from './Typed';
 
 const {
   data: { title, description },
 } = await getEntry("pagemetas", "home");
 ---
 
-<Hero {title} {description} descriptionOptions={{ loop: false }}>
+<Hero {title}>
+  <Fragment slot="description">
+    <Typed
+      client:only="react"
+      strings={description}
+      options={{loop:false}}
+    />
+  </Fragment>
   <Fragment slot="cta">
     <div class="wrapper">
       <Button id="contact" href="/contact" class="wrapper-cta">
         Contact Me
       </Button>
-      <Button id="work" href="/projects" class="wrapper-cta">
-        Our Work
-      </Button>
+      <Button id="work" href="/projects" class="wrapper-cta"> Our Work </Button>
     </div>
     <style lang="scss">
       .wrapper {
