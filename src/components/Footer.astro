@@ -1,14 +1,13 @@
 ---
 import Brand from "./Brand.astro";
-
-const year = new Date().getFullYear().toString();
+import FormattedDate from './FormattedDate.astro';
 ---
 
 <section class="footer">
   <div>
     <Brand showFull />
     <div>
-      &copy; <span>{year}</span>. All Rights Reserved.
+      &copy; <FormattedDate date={new Date()} yearOnly />. All Rights Reserved.
     </div>
   </div>
   <div>Resources</div>

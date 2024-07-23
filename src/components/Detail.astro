@@ -24,11 +24,11 @@ const { title = "" } = Astro.props;
   <style lang="scss">
     .wrapper {
       @apply relative grid overflow-y-scroll
-    bg-gradient-to-bl rounded-xl max-h-full place-items-center;
+      bg-gradient-to-bl rounded-xl max-h-full place-items-center;
       .content-grid {
         @apply grid grid-cols-1 w-screen max-w-screen-sm
-      place-items-center p-8 gap-4 rounded-t-3xl
-      lg:max-w-screen-md xl:max-w-screen-lg;
+        place-items-center p-8 gap-4 rounded-t-3xl
+        lg:max-w-screen-md xl:max-w-screen-lg;
         background-image: linear-gradient(
           transparent 0,
           #333 30rem,
@@ -43,7 +43,7 @@ const { title = "" } = Astro.props;
         }
         &-body {
           @apply flex flex-col flex-wrap
-        p-16 w-auto xl:h-auto;
+          p-16 w-auto xl:h-auto;
         }
       }
     }

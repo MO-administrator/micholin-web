@@ -1,16 +1,19 @@
 ---
 type Props = {
   date: Date;
-}
+  yearOnly?: boolean;
+};
 
-const { date } = Astro.props;
+const { date, yearOnly } = Astro.props;
+const options: Intl.DateTimeFormatOptions = yearOnly
+  ? { year: "numeric" }
+  : { dateStyle: "medium" };
 ---
 
 <time datetime={date.toISOString()}>
   {
-    date.toLocaleDateString("en", {
-      dateStyle: "medium",
-      timeZone: "IST",
+    date.toLocaleDateString(undefined, {
+      ...options,
     })
   }
 </time>
