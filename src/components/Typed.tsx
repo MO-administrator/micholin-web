@@ -3,7 +3,7 @@ import type { TypedOptions } from "typed.js";
 import TypedJs from "typed.js";
 
 type Props = {
-  strings: string[];
+  strings: string[] | null;
   options?: TypedOptions;
 };
 
@@ -11,7 +11,7 @@ export const Typed: FC<Props> = ({ strings, options }) => {
   const el = useRef(null);
 
   const defaultOptions = {
-    strings,
+    strings: strings || [],
     typeSpeed: 5,
     loop: true,
     startDelay: 1e3,

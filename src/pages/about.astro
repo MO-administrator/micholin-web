@@ -2,6 +2,7 @@
 import { getEntry } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
+import { Typed } from "../components/Typed";
 
 const {
   data: { title, description },
@@ -14,9 +15,13 @@ Astro.response.headers.set(
 ---
 
 <Layout>
-  <Hero
-    {title}
-    {description}
-    descriptionOptions={{ typeSpeed: 1, backDelay: 2e3 }}
-  />
+  <Hero {title}>
+    <Fragment slot="description">
+      <Typed
+        client:only="react"
+        strings={description}
+        options={{ typeSpeed: 1, backDelay: 2e3 }}
+      />
+    </Fragment>
+  </Hero>
 </Layout>

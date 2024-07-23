@@ -3,9 +3,10 @@ import { getEntry } from "astro:content";
 import { Icon } from "astro-icon/components";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
+import { Typed } from "../components/Typed";
 
 if (/api/i.test(Astro.request.url)) {
-  return Astro.redirect('/api', 307);
+  return Astro.redirect("/api", 307);
 }
 
 const {
@@ -14,11 +15,14 @@ const {
 ---
 
 <Layout title={`${text} ${title}`}>
-  <Hero
-    title={title}
-    description={description ?? []}
-    descriptionOptions={{ loop: false }}
-  >
+  <Hero title={title}>
+    <Fragment slot="description">
+      <Typed
+        client:only="react"
+        strings={description}
+        options={{ loop: false }}
+      />
+    </Fragment>
     {image && <Icon name={image} size={100} color="#ffae32" />}
   </Hero>
 </Layout>
