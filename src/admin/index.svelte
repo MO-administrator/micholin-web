@@ -1,6 +1,5 @@
 <script lang="ts">
   import App from "./App.svelte";
-  import Login from "./components/login/Login.svelte";
   import { sessionStore } from "./stores";
 
   type Session = {
@@ -20,5 +19,5 @@
 {#if session}
   <App />
 {:else}
-  <Login />
+  <h1>Session not found</h1>
 {/if}

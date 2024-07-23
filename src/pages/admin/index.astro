@@ -2,19 +2,13 @@
 import { getSession } from "auth-astro/server";
 import Layout from "../../layouts/Layout.astro";
 import Admin from "../../admin/index.svelte";
-import Login from "../../admin/components/login/Login.svelte";
 
 const session = await getSession(Astro.request);
+if (!session) return Astro.redirect('/api/auth/signin')
 ---
 
 <Layout>
   <section class="grid place-items-center p-4 h-full w-full max-w-screen">
-    {
-      session ? (
-        <Admin {session} client:only="svelte" />
-      ) : (
-        <Login client:only="svelte" />
-      )
-    }
+    <Admin {session} client:only="svelte" />
   </section>
 </Layout>

@@ -1,7 +1,7 @@
 <script lang="ts">
   import Menu from "./components/Menu.svelte";
   import { sessionStore } from './stores';
-  let session = $sessionStore
+  $: session = $sessionStore
 </script>
 
 <div class="flex w-full h-full max-h-lvh">
