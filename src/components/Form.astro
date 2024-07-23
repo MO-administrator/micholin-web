@@ -44,6 +44,7 @@ const { netlify = false, name, title } = Astro.props;
     <slot name="fields" />
   </fieldset>
   <input type="submit" form={name} value="Submit" />
+
   <style lang="scss">
     .wrapper {
       @apply py-6 grid h-full justify-center gap-4
