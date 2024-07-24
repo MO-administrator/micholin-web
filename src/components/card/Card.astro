@@ -1,0 +1,16 @@
+---
+import classes from "./card.module.scss";
+
+type Props = {
+  href: string;
+};
+
+const { href } = Astro.props;
+---
+
+<li class={classes.link_card}>
+  <a href={href}>
+    <slot />
+  </a>
+  <slot name="content" />
+</li>

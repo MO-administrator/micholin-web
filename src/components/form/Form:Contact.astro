@@ -1,0 +1,21 @@
+---
+import Form from "./Form.astro";
+import { formMap } from './form.service';
+import FormField from "./FormField.astro";
+
+const contactForm = formMap.get('contact');
+if(!contactForm) return Astro.redirect('/');
+const { props, fields } = contactForm;
+---
+
+<Form {...props}>
+  <Fragment slot="form-copy">
+    <article>
+      <h2>Get in Touch and Transform Your Experience!</h2>
+      <p>Are you ready to take your journey to the next level?</p>
+    </article>
+  </Fragment>
+  <Fragment slot="fields">
+    {fields.map(field => <FormField {...field} />)}
+  </Fragment>
+</Form>

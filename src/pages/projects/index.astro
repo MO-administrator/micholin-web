@@ -1,13 +1,7 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
-import Hero from "../../components/Hero:Projects.astro";
-import Higlights from "../../components/Highlights.astro";
-import { sortByPubDate } from '../../utils';
-
-const projects: CollectionEntry<"projects">[] = (
-  await getCollection("projects", project => !project.data.isDraft)
-).sort(sortByPubDate);
+import Hero from "../../components/hero/Hero:Projects.astro";
+import HiglightsProjects from "../../components/highlights/Highlights:Projects.astro";
 
 Astro.response.headers.set(
   "CDN-Cache-Control",
@@ -17,5 +11,5 @@ Astro.response.headers.set(
 
 <Layout>
   <Hero />
-  <Higlights {projects} />
+  <HiglightsProjects />
 </Layout>

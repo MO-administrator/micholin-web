@@ -1,0 +1,7 @@
+---
+import Highlights from "./Highlights.astro";
+import { projectsMap } from "./highlights.service";
+const projects = projectsMap.get('home')?.data || [];
+---
+
+<Highlights {projects} />

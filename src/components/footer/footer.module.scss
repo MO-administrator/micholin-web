@@ -1,0 +1,9 @@
+.footer {
+  @apply flex justify-between w-dvw;
+  & > div {
+    @apply flex place-items-center;
+  }
+  & > div:is(:last-child) {
+    @apply hidden md:block;
+  }
+}

@@ -5,6 +5,7 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /admin/
+Disallow: /profile/
 Disallow: /forms.html
 
 Sitemap: ${new URL("sitemap-index.xml", import.meta.env.SITE).href}

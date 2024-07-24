@@ -1,0 +1,19 @@
+.navbar {
+  ul {
+    @apply hidden
+        lg:flex lg:flex-row lg:justify-between;
+    li {
+      @apply mr-4 hover:animate-pulse;
+      .link {
+        @apply flex flex-auto gap-2
+        place-items-center
+        transition duration-300 ease-in
+        opacity-70 border-solid border-b-2 border-b-transparent
+        hover:opacity-100 hover:border-b-green-600;
+        &--active {
+          @apply border-b-green-600 opacity-100;
+        }
+      }
+    }
+  }
+}

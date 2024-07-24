@@ -1,0 +1,29 @@
+.wrapper {
+  @apply container grid;
+  &__content {
+    @apply relative grid overflow-y-scroll
+  bg-gradient-to-bl rounded-xl max-h-full place-items-center;
+    &__grid {
+      @apply grid grid-cols-1 w-screen max-w-screen-sm
+    place-items-center p-8 gap-4 rounded-t-3xl
+    lg:max-w-screen-md xl:max-w-screen-lg;
+      background-image: linear-gradient(
+        transparent 0,
+        #333 30rem,
+        transparent 34rem,
+        transparent 100%
+      );
+      &__showcase {
+        @apply block object-contain max-w-96;
+      }
+      &__title {
+        @apply text-purple-400 text-5xl text-center
+      underline underline-offset-8 decoration-green-600;
+      }
+      &__body {
+        @apply flex flex-col flex-wrap
+      p-16 w-auto xl:h-auto;
+      }
+    }
+  }
+}

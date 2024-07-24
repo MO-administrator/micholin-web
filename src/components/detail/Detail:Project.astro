@@ -1,0 +1,29 @@
+---
+import { type CollectionEntry } from "astro:content";
+import { Picture } from "astro:assets";
+import Detail from "./Detail.astro";
+
+type Props = CollectionEntry<"projects">;
+
+const {
+  data: { title, image },
+  render
+} = Astro.props;
+
+const { Content } = await render();
+---
+
+<Detail {title}>
+  <Fragment slot="content">
+    <Content />
+  </Fragment>
+  <Fragment slot="cover-image">
+    <Picture
+      class="rounded-3xl"
+      src={image}
+      alt={title}
+      loading="eager"
+      format="webp"
+    />
+  </Fragment>
+</Detail>

@@ -1,0 +1,12 @@
+---
+import { getSession } from "auth-astro/server";
+import Layout from "../../layouts/Layout.astro";
+import Profile from "../../components/profile/index.svelte";
+
+const session = await getSession(Astro.request);
+if (!session) return Astro.redirect("/api/auth/signin");
+---
+
+<Layout>
+  <Profile {session} client:only="svelte" />
+</Layout>

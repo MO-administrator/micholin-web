@@ -1,42 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
-
-if (Astro.request.method === "POST") {
-  try {
-    const formData = await Astro.request.formData();
-    await fetch(`${Astro.url.origin}/api/inquiry`, {
-      method: "POST",
-      body: formData,
-    });
-  } catch (error) {
-    if (error instanceof Error) {
-      console.warn(error.message);
-    }
-  }
-}
+import SuccessView from "../components/success/Success.astro";
 ---
 
 <Layout>
-  <div class="container">
-    <article>
-      <h1>Submission Received! 👍🏽</h1>
-      <p>
-        Thank you for your feedback!<br />Head back to the <a href="/"
-          >home page</a
-        >
-      </p>
-    </article>
-    <style lang="scss">
-      .container {
-        @apply grid place-self-center place-items-center
-        h-full animate-ping-reverse;
-        article {
-          @apply p-4 rounded-lg bg-slate-800 bg-blend-overlay;
-          a {
-            @apply decoration-green-600 underline underline-offset-2;
-          }
-        }
-      }
-    </style>
-  </div>
+  <SuccessView />
 </Layout>

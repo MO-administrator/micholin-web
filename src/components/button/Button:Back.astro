@@ -1,0 +1,12 @@
+---
+import Button from './Button.astro';
+import classes from "./button.module.scss";
+---
+
+<Button
+  onclick="window.history.back()"
+  href="#"
+  class:list={[classes.wrapper, classes.wrapper__back]}
+>
+  &larr;
+</Button>
