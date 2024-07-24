@@ -1,0 +1,99 @@
+.link_card {
+  display: flex;
+  padding: 1px;
+  list-style: none;
+  background-image: none;
+  background-color: #23262d;
+  background-size: 400%;
+  border-radius: 7px;
+  border-width: 2px;
+  border-color: transparent;
+  border-bottom-color: #23262d;
+  border-right-color: #23262d;
+  background-position: 100%;
+  transition: border 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.3s,
+    background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s,
+    background-image 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  & > a {
+    width: 100%;
+    text-decoration: none;
+    line-height: 1.7;
+    padding: calc(1.5rem - 1px);
+    border-radius: 8px;
+    color: white;
+    background-color: #23262d;
+    opacity: 0.8;
+    cursor: pointer;
+  }
+  &:is(:hover, :focus-within) {
+    background-position: 0;
+    background-image: var(--accent-gradient);
+    transform: scale(1.05);
+    border: none;
+  }
+  & &:is(:hover, :focus-within) h2 {
+    color: rgb(var(--accent-light));
+  }
+  h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  p {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+  }
+}
+
+.project {
+  &__content {
+    @apply grid grid-flow-row gap-4;
+    &__body {
+      @apply grid grid-flow-row;
+      span {
+        @apply grid grid-flow-col justify-between;
+        h2 {
+          @apply text-blue-100 line-clamp-1;
+        }
+        i {
+          @apply place-self-center;
+        }
+      }
+    }
+    &__tags {
+      @apply flex flex-wrap justify-start;
+    }
+  }
+  &__showcase {
+    @apply mx-auto w-48 flex place-items-center
+      justify-center contain-content;
+    img {
+      @apply h-auto w-20 rounded-3xl;
+    }
+  }
+}
+
+.testimonial {
+  @apply grid max-w-screen-sm rounded-3xl;
+  grid-template-columns: 1fr 2fr 2fr;
+  &__header {
+    @apply flex flex-col flex-auto gap-4 col-span-1;
+    &__avatar {
+      @apply object-contain;
+      img {
+        @apply w-16 h-16 rounded-full;
+      }
+    }
+    &__bio {
+      @apply flex flex-col flex-auto gap-2 col-span-2 overflow-hidden;
+    }
+  }
+  &__body {
+    @apply flex place-self-center py-2 px-3;
+    blockquote {
+      @apply my-auto line-clamp-6;
+    }
+  }
+}

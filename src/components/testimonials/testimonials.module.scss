@@ -1,0 +1,10 @@
+.wrapper {
+  @apply container grid;
+  &__container {
+    @apply grid w-full max-w-screen-sm p-4 place-self-center;
+    &__testimonials {
+      @apply flex flex-wrap flex-row place-self-center
+          gap-4 justify-center place-items-center;
+    }
+  }
+}

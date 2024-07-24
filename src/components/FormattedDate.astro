@@ -11,9 +11,5 @@ const options: Intl.DateTimeFormatOptions = yearOnly
 ---
 
 <time datetime={date.toISOString()}>
-  {
-    date.toLocaleDateString(undefined, {
-      ...options,
-    })
-  }
+  {date.toLocaleDateString(undefined, { ...options })}
 </time>

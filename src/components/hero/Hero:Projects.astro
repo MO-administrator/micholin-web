@@ -1,0 +1,23 @@
+---
+import Hero from "./Hero.astro";
+import Typed from "../typed/Typed.svelte";
+import { heroMap } from "./hero.service";
+const projectHero = heroMap.get("projects");
+if (!projectHero) throw new Error("error in hero service");
+const { title, description } = projectHero;
+---
+
+<Hero {title}>
+  <Fragment slot="description">
+    <Typed
+      client:only="svelte"
+      strings={description}
+      options={{
+        typeSpeed: 10,
+        backSpeed: 10,
+        backDelay: 2e3,
+        smartBackspace: true,
+      }}
+    />
+  </Fragment>
+</Hero>

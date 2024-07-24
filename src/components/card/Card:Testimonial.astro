@@ -1,0 +1,37 @@
+---
+import { type CollectionEntry } from "astro:content";
+import { Picture } from "astro:assets";
+import classes from "./card.module.scss";
+import Card from "./Card.astro";
+import FormattedDate from "../FormattedDate.astro";
+
+type Props = CollectionEntry<"testimonials">;
+
+const {
+  data: { href, author, avatar, pubDate, designation },
+  render,
+} = Astro.props;
+
+const { Content } = await render();
+---
+
+<Card href={href}>
+  <span class={classes.testimonial}>
+    <div class={classes.testimonial__header}>
+      <span class={classes.testimonial__header__avatar}>
+        <Picture src={avatar} alt={author} />
+      </span>
+      <span class={classes.testimonial__header__bio}>
+        <span>
+          <FormattedDate date={pubDate} />
+          <span class="line-clamp-2">{designation}</span>
+        </span>
+      </span>
+    </div>
+  </span>
+  <div slot="content" class={classes.testimonial__body}>
+    <blockquote>
+      <Content />
+    </blockquote>
+  </div>
+</Card>

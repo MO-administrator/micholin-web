@@ -63,6 +63,17 @@ section {
   margin: 0 auto;
   padding: 1rem;
 }
+input {
+  color: #1e293b;
+}
+input[type='submit'] {
+  color: #f2f2f2;
+  background: #1e293b;
+  padding: 0.5rem 1rem;
+  text-transform: capitalize;
+  border-radius: 2rem;
+  cursor: pointer;
+}
 .header {
   margin-top: 0;
   background-image: linear-gradient(transparent, #303030, transparent);

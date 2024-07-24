@@ -1,0 +1,34 @@
+---
+import { Picture } from "astro:assets";
+import { IMAGE_SIZE, SITE_FAVICON, SITE_NAME } from "../../constants";
+import classes from "./brand.module.scss";
+
+type Props = {
+  showFull?: boolean;
+};
+
+const { showFull = false } = Astro.props;
+const [first, second] = SITE_NAME().split(" ");
+---
+
+<div aria-label="brand" class={classes.logo}>
+  <a href="/">
+    <Picture
+      src={SITE_FAVICON()}
+      alt={SITE_NAME()}
+      height={IMAGE_SIZE()}
+      width={IMAGE_SIZE()}
+      loading="eager"
+      format="webp"
+    />
+    {
+      showFull && (
+        <Fragment>
+          <span class={classes.brand_first}>{first}</span>
+          &nbsp;
+          <span class={classes.brand_second}>{second}</span>
+        </Fragment>
+      )
+    }
+  </a>
+</div>

@@ -1,0 +1,18 @@
+---
+import classes from './button.module.scss';
+
+export type Props = {
+  id?: string;
+  href?: string;
+  class?: string;
+  onclick?: string;
+};
+
+const { props } = Astro;
+
+const Element = props.href ? "a" : "button";
+---
+
+<Element class={classes.wrapper} {...props}>
+  <slot />
+</Element>

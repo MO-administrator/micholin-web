@@ -1,7 +1,7 @@
 ---
 import { type CollectionEntry, getEntry } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
-import Detail from "../../components/Detail:Project.astro";
+import DetailProject from "../../components/detail/Detail:Project.astro";
 
 const { slug } = Astro.params;
 
@@ -21,5 +21,5 @@ Astro.response.headers.set(
 ---
 
 <Layout title={`${project.data.title} | Projects`}>
-  <Detail {...project} />
+  <DetailProject {...project} />
 </Layout>

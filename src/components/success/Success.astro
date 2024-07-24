@@ -1,0 +1,28 @@
+---
+import classes from "./success.module.scss";
+
+if (Astro.request.method === "POST") {
+  try {
+    const formData = await Astro.request.formData();
+    await fetch(`${Astro.url.origin}/api/inquiry`, {
+      method: "POST",
+      body: formData,
+    });
+  } catch (error) {
+    if (error instanceof Error) {
+      console.warn(error.message);
+    }
+  }
+}
+---
+
+<div class={classes.container}>
+  <article>
+    <h1>Submission Received! 👍🏽</h1>
+    <p>
+      Thank you for your feedback!<br />Head back to the <a href="/"
+        >home page</a
+      >
+    </p>
+  </article>
+</div>

@@ -1,0 +1,9 @@
+---
+import { pages } from "./navbar.service";
+import classes from "./navbar.module.scss";
+import NavItem from './NavItem.astro';
+---
+
+<div class={classes.navbar} role="navigation" aria-label="navbar">
+  <ul>{pages.map((_, index) => <NavItem {index} />)}</ul>
+</div>

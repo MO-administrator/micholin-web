@@ -1,0 +1,37 @@
+---
+import { Picture } from "astro:assets";
+import { type CollectionEntry } from "astro:content";
+import classes from './card.module.scss';
+import Card from "./Card.astro";
+import Tag from "../tag/Tag.astro";
+import FormattedDate from "../FormattedDate.astro";
+
+type Props = CollectionEntry<"projects">;
+
+const {
+  data: { title, tags, pubDate, image },
+  slug,
+} = Astro.props;
+---
+
+<Card href={`/projects/${slug}`}>
+  <div class={classes.project__content}>
+    <span class={classes.project__content__body}>
+      <span>
+        <h2>
+          {title}
+        </h2>
+        <i>&rarr;</i>
+      </span>
+      <sub>
+        <FormattedDate date={pubDate} />
+      </sub>
+    </span>
+    <ul class={classes.project__content__tags}>
+      {tags.map(tag => <Tag {tag} isIcon />)}
+    </ul>
+  </div>
+  <div class={classes.project__showcase} slot="content">
+    <Picture src={image} alt={title} loading="eager" format="webp" />
+  </div>
+</Card>

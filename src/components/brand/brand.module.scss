@@ -1,0 +1,17 @@
+.logo {
+  @apply ml-0 mr-auto
+  hover:animate-pulse;
+  a {
+    @apply flex place-items-center
+    cursor-pointer;
+    .brand_first {
+      @apply text-violet-400 text-opacity-80;
+    }
+    .brand_second {
+      @apply text-green-400 text-opacity-80;
+    }
+    img {
+      @apply max-w-12 h-auto mr-2;
+    }
+  }
+}

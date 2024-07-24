@@ -2,10 +2,26 @@ import { PrismaClient } from "@prisma/client";
 import { Resend } from "resend";
 import ErrorHandler from "./ErrorHandler";
 export * as argon from "argon2";
+import sha256 from "crypto-js/sha256";
 
 export const prisma = new PrismaClient();
 export const resend = new Resend(import.meta.env.AUTH_RESEND_KEY);
 export const { handleErrors } = new ErrorHandler();
+
+/**
+ * Returns a gravatar url string from email source
+ * @param {string|null|undefined} email Source email string
+ * @param {number|undefined} size Size of image
+ * @returns {string} gravatar url string
+ */
+export const getGravatarUrl = (
+  email: string | null | undefined = "",
+  size: number | undefined = 32
+): string => {
+  const trimmedEmail = email?.trim().toLowerCase();
+  const hash = trimmedEmail && sha256(trimmedEmail);
+  return `https://gravatar.com/avatar/${hash}?size=${size}&d=robohash`;
+};
 
 /**
  * Sorts collection array by pubDate

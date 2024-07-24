@@ -1,37 +1,14 @@
 ---
-import { getEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+import Header from "../components/header/Header.astro";
+import Footer from "../components/footer/Footer.astro";
 import Loading from "../components/Loading.astro";
 import "../styles/global.scss";
-
-const currentPage = Astro.url.pathname.replace("/", "");
-const pageMeta = currentPage
-  ? await getEntry("pagemetas", currentPage)
-  : undefined;
-if (
-  currentPage &&
-  !pageMeta &&
-  !currentPage.includes("projects") &&
-  !currentPage.includes("admin") &&
-  !currentPage.includes("api") &&
-  !currentPage.includes('favicon.ico') &&
-  !currentPage.includes('netlify')
-) {
-  console.warn(`Page meta missing for current page: ${currentPage}`);
-}
-
-type Props = {
-  title?: string;
-};
-
-const { title = pageMeta?.data.title } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
-  <BaseHead {title} />
+  <BaseHead />
   <body>
     <Header />
     <main>

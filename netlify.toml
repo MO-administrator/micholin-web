@@ -1,5 +1,6 @@
 [build]
-  command = "npx prisma generate && npm run build"
-  publish = "dist"
+command = "npx prisma generate && npm run build"
+publish = "dist"
+
 [[plugins]]
-  package = "@xata.io/netlify"
+package = "@xata.io/netlify"

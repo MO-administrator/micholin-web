@@ -1,0 +1,22 @@
+---
+import classes from './hero.module.scss';
+
+type Props = {
+  title?: string;
+};
+
+const { title } = Astro.props;
+---
+
+<section class="container">
+  <div class={classes.wrapper}>
+    <div class={classes.wrapper__left}>
+      <h1>{title || Astro.site?.hostname}</h1>
+      <slot name="description" />
+    </div>
+    <div class={classes.wrapper__right}>
+      <slot />
+      <slot name="cta" />
+    </div>
+  </div>
+</section>

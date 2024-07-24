@@ -20,6 +20,6 @@ interface ImportMeta {
 
 declare namespace App {
   interface Locals {
-    [x: string]: import("typed.js").TypedOptions | undefined;
+    [x: string]: any;
   }
 }
