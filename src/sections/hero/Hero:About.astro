@@ -1,0 +1,18 @@
+---
+import Hero from "./Hero.astro";
+import { heroMap } from "./hero.service";
+import Typed from "@islands/svelte/typed/Typed.svelte";
+const heroAbout = heroMap.get("about");
+if (!heroAbout) return Astro.redirect("/");
+const { title, description } = heroAbout;
+---
+
+<Hero {title}>
+  <Fragment slot="description">
+    <Typed
+      strings={description}
+      options={{ typeSpeed: 1, backDelay: 2e3 }}
+      client:load
+    />
+  </Fragment>
+</Hero>

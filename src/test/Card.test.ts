@@ -1,6 +1,6 @@
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import { describe, expect, it, beforeEach } from "vitest";
-import Card from "../components/card/Card.astro";
+import Card from "@components/card/Card.astro";
 
 describe("<Card />", async () => {
   let container: AstroContainer;

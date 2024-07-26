@@ -1,0 +1,45 @@
+---
+import { getEntry } from "astro:content";
+import { ViewTransitions } from "astro:transitions";
+import { SITE_NAME, SITE_DESCRIPTION, SITE_FAVICON_URL } from "../constants";
+
+const [_, currentPage] = Astro.url.pathname.split("/");
+const pageMeta = currentPage
+  ? await getEntry("pagemetas", currentPage)
+  : undefined;
+
+if (
+  currentPage &&
+  !pageMeta &&
+  !currentPage.includes("projects") &&
+  !currentPage.includes("admin") &&
+  !currentPage.includes("profile") &&
+  !currentPage.includes("api") &&
+  !currentPage.includes("favicon") &&
+  !currentPage.includes("netlify")
+) {
+  console.warn(`Page meta missing for current page: ${currentPage}`);
+}
+
+type Props = {
+  title?: string;
+};
+
+const { title = pageMeta?.data.title } = Astro.props;
+---
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content={SITE_DESCRIPTION} />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="generator" content={Astro.generator} />
+  <meta name="background_color" content="#333333" />
+  <meta name="theme_color" content="#f8f8f8" />
+
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <link rel="icon" href={SITE_FAVICON_URL} />
+
+  <title>{title ? `${title} | ${SITE_NAME}` : SITE_NAME}</title>
+
+  <ViewTransitions />
+</head>

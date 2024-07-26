@@ -11,6 +11,29 @@ export const collections = {
         image: z.string().optional().nullable().default(null),
       }),
   }),
+  forms: defineCollection({
+    type: "data",
+    schema: z.object({
+      props: z.object({
+        name: z.string(),
+        title: z.string(),
+        showLogo: z.boolean(),
+        netlify: z.boolean(),
+        action: z.string(),
+        method: z.string()
+      }),
+      fields: z.array(z.object({
+        type: z.string(),
+        name: z.string(),
+        label: z.string(),
+        required: z.boolean().optional().default(false),
+        disabled: z.boolean().optional().default(false),
+        autofocus: z.boolean().optional().default(false),
+        autocomplete: z.string().optional(),
+        placeholder: z.string().optional(),
+      }))
+    })
+  }),
   projects: defineCollection({
     type: "content",
     schema: ({ image }) =>

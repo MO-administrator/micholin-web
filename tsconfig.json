@@ -5,5 +5,23 @@
     "jsxImportSource": "react",
     "pretty": true,
     "alwaysStrict": true,
-  },
+    "baseUrl": ".",
+    "paths": {
+      "@layouts/*": [
+        "src/layouts/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@islands/*": [
+        "src/islands/*"
+      ],
+      "@utils": [
+        "src/utils/index.ts"
+      ],
+      "@/*": [
+        "src/*"
+      ]
+    }
+  }
 }

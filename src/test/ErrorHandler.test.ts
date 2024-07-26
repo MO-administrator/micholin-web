@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { ZodError } from "zod";
-import ErrorHandler from "../utils/ErrorHandler";
+import ErrorHandler from "@/utils/ErrorHandler";
 
 describe("ErrorHandler", () => {
   const { handleErrors } = new ErrorHandler();

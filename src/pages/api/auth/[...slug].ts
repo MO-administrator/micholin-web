@@ -1,4 +1,4 @@
-import { type APIRoute } from "astro";
+import type { APIRoute } from "astro";
 import config from 'auth:config';
 import { AstroAuth } from "auth-astro/server";
 

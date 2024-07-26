@@ -1,0 +1,33 @@
+{
+  "props": {
+    "name": "contact v1",
+    "title": "Contact Form",
+    "showLogo": true,
+    "netlify": true,
+    "action": "/success",
+    "method": "POST"
+  },
+  "fields": [
+    {
+      "type": "email",
+      "name": "email",
+      "label": "Email",
+      "required": true,
+      "autofocus": true,
+      "autocomplete": "email"
+    },
+    {
+      "type": "text",
+      "name": "name",
+      "label": "Name",
+      "required": false,
+      "autocomplete": "name"
+    },
+    {
+      "type": "textarea",
+      "name": "message",
+      "label": "Message",
+      "required": true
+    }
+  ]
+}

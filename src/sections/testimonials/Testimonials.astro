@@ -1,0 +1,13 @@
+---
+import { testimonials } from './testimonials.service';
+import classes from "./testimonials.module.scss";
+import CardTestimonial from "../../components/card/Card:Testimonial.astro";
+---
+
+<section class={classes.wrapper}>
+  <div class={classes.wrapper__container}>
+    <ul class={classes.wrapper__container__testimonials}>
+      {testimonials.map((testimonial) => <CardTestimonial {...testimonial} />)}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+.wrapper {
+  @apply grid grid-flow-row py-20 justify-center contain-content
+  place-items-center bg-gradient-to-br rounded-b-3xl rounded-t-xl
+  border-2 border-slate-200 border-b-slate-800 border-r-slate-800 shadow-green-600 shadow-lg
+  lg:grid lg:grid-cols-2 lg:grid-flow-row lg:gap-8;
+  &__left {
+    @apply grid gap-2 min-h-52;
+    h1 {
+      @apply text-center text-blue-100 text-6xl mb-8 capitalize;
+    }
+  }
+  &__right {
+    @apply grid place-items-center gap-8;
+  }
+}

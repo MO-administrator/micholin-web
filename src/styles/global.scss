@@ -28,10 +28,12 @@ html {
   color: #fff;
 }
 body {
-  height: 100lvh;
+  height: 100dvh;
   background-image: linear-gradient(#000, #333, #000);
   scrollbar-width: thin;
   scroll-behavior: smooth;
+  display: grid;
+  grid-template-rows: 4rem auto 4rem;
 }
 main {
   position: relative;
@@ -40,11 +42,10 @@ main {
   background-repeat: no-repeat;
   background-position: center;
   background-color: #00000030;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: calc(100dvh - 11.5rem);
-  overflow-y: auto;
+  max-height: calc(100dvh - 8rem);
+  display: grid;
+  grid-template-rows: auto;
+  overflow-y: scroll;
   h1,
   h2,
   h3,
@@ -65,27 +66,25 @@ section {
 }
 input {
   color: #1e293b;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
 }
 input[type='submit'] {
   color: #f2f2f2;
   background: #1e293b;
-  padding: 0.5rem 1rem;
   text-transform: capitalize;
   border-radius: 2rem;
   cursor: pointer;
+  transition: all 0.3s ease-in-out 0.1s;
 }
-.header {
-  margin-top: 0;
-  background-image: linear-gradient(transparent, #303030, transparent);
+input[type='submit']:hover {
+  transform: scale(1.1);
+  background-color: #7c3aed;
+}
+.header, .footer {
+  background-image: linear-gradient(transparent, #3f3f3f, transparent);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-}
-.footer {
-  margin-top: auto;
-  margin-bottom: 0;
-  background-image: linear-gradient(transparent, #303030, transparent);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+
 }

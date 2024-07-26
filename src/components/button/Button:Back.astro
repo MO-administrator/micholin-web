@@ -1,12 +1,17 @@
 ---
-import Button from './Button.astro';
-import classes from "./button.module.scss";
+import Button from "./Button.astro";
 ---
 
-<Button
-  onclick="window.history.back()"
-  href="#"
-  class:list={[classes.wrapper, classes.wrapper__back]}
->
-  &larr;
-</Button>
+<Button onclick="window.history.back()" class="back"> &larr; </Button>
+
+<style lang="scss">
+  .back {
+    @apply absolute z-50 top-0 -left-7 ml-7 mb-4 w-10 border-4 shadow-black shadow-sm
+      p-2 px-5 bg-slate-800 text-2xl text-center rounded-xl rounded-l-2xl cursor-pointer
+      transition duration-300 ease-in-out;
+    &:hover {
+      @apply bg-slate-900 border-green-600 text-green-600
+      opacity-90 scale-110 translate-x-1 translate-y-1;
+    }
+  }
+</style>

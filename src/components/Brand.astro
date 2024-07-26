@@ -1,0 +1,53 @@
+---
+import { Picture } from "astro:assets";
+import { IMAGE_SIZE, SITE_FAVICON_URL, SITE_NAME } from "@/constants";
+
+type Props = {
+  showFull?: boolean;
+};
+
+const { showFull = false } = Astro.props;
+const [first, second] = SITE_NAME.split(" ");
+---
+
+<div aria-label="brand" class={"logo"}>
+  <a href="/">
+    <Picture
+      src={SITE_FAVICON_URL}
+      alt={SITE_NAME}
+      height={IMAGE_SIZE}
+      width={IMAGE_SIZE}
+      loading="eager"
+      format="webp"
+    />
+    {
+      showFull && (
+        <Fragment>
+          <span class={"brand_first"}>{first}</span>
+          &nbsp;
+          <span class={"brand_second"}>{second}</span>
+        </Fragment>
+      )
+    }
+  </a>
+  <style lang="scss">
+    .logo {
+      @apply ml-0 mr-auto;
+      &:hover {
+        @apply animate-pulse;
+      }
+      a {
+        @apply flex place-items-center cursor-pointer;
+        .brand_first {
+          @apply text-violet-400/80;
+        }
+        .brand_second {
+          @apply text-green-400/80;
+        }
+        img {
+          @apply max-w-12 h-auto mr-2;
+        }
+      }
+    }
+  </style>
+</div>

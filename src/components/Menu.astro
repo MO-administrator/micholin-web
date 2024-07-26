@@ -1,0 +1,26 @@
+---
+import { getSession } from "auth-astro/server";
+import { getGravatarUrl } from "@utils";
+import { Picture } from 'astro:assets';
+import { IMAGE_SIZE } from '@/constants';
+const session = await getSession(Astro.request);
+---
+
+<a href="/profile" title={session?.user?.name}>
+  <div class="menu">
+    <Picture
+      src={session?.user?.image || getGravatarUrl(session?.user?.email)}
+      alt="user-profile"
+      height={IMAGE_SIZE}
+      width={IMAGE_SIZE}
+    />
+  </div>
+
+  <style lang="scss">
+    .menu {
+      @apply grid place-self-center h-10 w-10 bg-slate-600
+      rounded-full contain-content place-items-center
+      object-contain hover:animate-pulse;
+    }
+  </style>
+</a>

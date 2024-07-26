@@ -1,9 +1,8 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/header/Header.astro";
-import Footer from "../components/footer/Footer.astro";
-import Loading from "../components/Loading.astro";
-import "../styles/global.scss";
+import BaseHead from "@/sections/BaseHead.astro";
+import Header from "@/sections/Header.astro";
+import Footer from "@/sections/Footer.astro";
+import "@/styles/global.scss";
 ---
 
 <!doctype html>
@@ -12,9 +11,7 @@ import "../styles/global.scss";
   <body>
     <Header />
     <main>
-      <slot>
-        <Loading />
-      </slot>
+      <slot />
     </main>
     <Footer />
   </body>

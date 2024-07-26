@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { Resend } from "resend";
 import ErrorHandler from "./ErrorHandler";
 export * as argon from "argon2";
-import sha256 from "crypto-js/sha256";
+import SHA256 from "crypto-js/sha256";
 
 export const prisma = new PrismaClient();
 export const resend = new Resend(import.meta.env.AUTH_RESEND_KEY);
@@ -12,15 +12,18 @@ export const { handleErrors } = new ErrorHandler();
  * Returns a gravatar url string from email source
  * @param {string|null|undefined} email Source email string
  * @param {number|undefined} size Size of image
+ * @param {string|undefined} defaultTheme Default image to use on gravatar
  * @returns {string} gravatar url string
+ * @see [Gravatar](https://docs.gravatar.com/api/avatars/images/)
  */
 export const getGravatarUrl = (
   email: string | null | undefined = "",
-  size: number | undefined = 32
+  size: number | undefined = 256,
+  defaultTheme: string | undefined = "robohash"
 ): string => {
   const trimmedEmail = email?.trim().toLowerCase();
-  const hash = trimmedEmail && sha256(trimmedEmail);
-  return `https://gravatar.com/avatar/${hash}?size=${size}&d=robohash`;
+  const hash = trimmedEmail && SHA256(trimmedEmail);
+  return `https://gravatar.com/avatar/${hash}?size=${size}&d=${defaultTheme}`;
 };
 
 /**
@@ -61,10 +64,13 @@ export const getRandomItem = (list: any[]): any => {
 };
 
 /**
- * Scroll to the target section
- * @param {string} id target section id
- * @returns {void}
+ * Generates a 6-digit verification code.
+ * @returns {string} 6-digit verification code
  */
-export const scrollIntoView = (id: string): void => {
-  document.querySelector(`#${id}`)?.scrollIntoView({ behavior: "smooth" });
+export const generateVerificationToken = async (): Promise<string> => {
+  let code = Math.floor(Math.random() * 1e6).toString();
+  while (code.length < 6) {
+    code = await generateVerificationToken();
+  }
+  return code.toString();
 };
