@@ -1,6 +1,6 @@
 import { describe, expect, it, beforeEach } from "vitest";
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
-import Detail from "../components/detail/Detail.astro";
+import Detail from "@components/detail/Detail.astro";
 
 describe("<Detail />", () => {
   let renderResult: string;

@@ -1,7 +1,5 @@
 ---
-import classes from './button.module.scss';
-
-export type Props = {
+type Props = {
   id?: string;
   href?: string;
   class?: string;
@@ -13,6 +11,17 @@ const { props } = Astro;
 const Element = props.href ? "a" : "button";
 ---
 
-<Element class={classes.wrapper} {...props}>
+<Element class="wrapper" {...props}>
   <slot />
 </Element>
+
+<style lang="scss">
+  .wrapper {
+    @apply p-2 px-5 rounded-3xl border-4 shadow-black shadow-sm
+    bg-slate-800 cursor-pointer transition duration-300 ease-in-out;
+    &:hover {
+      @apply bg-slate-900 border-green-600 text-green-600
+      opacity-90 scale-110;
+    }
+  }
+</style>

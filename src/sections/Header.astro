@@ -1,0 +1,18 @@
+---
+import Brand from "../components/Brand.astro";
+import Navbar from "../components/navbar/Navbar.astro";
+import Menu from "../components/Menu.astro";
+---
+
+<section class="header">
+  <Brand />
+  <Navbar />
+  <Menu />
+
+  <style lang="scss">
+    .header {
+      @apply w-dvw mt-0 flex flex-row justify-evenly place-items-center
+      border-b-2 border-b-slate-600;
+    }
+  </style>
+</section>

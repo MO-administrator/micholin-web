@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { handleErrors } from "../../../utils";
+import { handleErrors } from "@utils";
 
 export const PUT: APIRoute = ({ params }) => {
   const { slug } = params;

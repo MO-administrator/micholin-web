@@ -1,0 +1,26 @@
+---
+import Brand from "../components/Brand.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+---
+
+<section class="footer">
+  <div>
+    <Brand showFull />
+    <div>
+      &copy; <FormattedDate date={new Date()} yearOnly />. All Rights Reserved.
+    </div>
+  </div>
+  <div>Resources</div>
+
+  <style lang="scss">
+    .footer {
+      @apply flex justify-between w-full border-t-2 border-t-slate-600;
+      & > div {
+        @apply flex place-items-center;
+      }
+      & > div:is(:last-child) {
+        @apply hidden md:block;
+      }
+    }
+  </style>
+</section>

@@ -1,1 +1,0 @@
-export { getGravatarUrl } from '../../utils'

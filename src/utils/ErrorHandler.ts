@@ -16,6 +16,7 @@ class ErrorHandler {
     );
     return new Response(JSON.stringify(response), {
       status: 400,
+      statusText: "ZodError",
     });
   };
   /**
@@ -26,6 +27,7 @@ class ErrorHandler {
   syntaxErrorResponse = (error: SyntaxError): Response => {
     return new Response(JSON.stringify({ message: error.message }), {
       status: 400,
+      statusText: "SyntaxError",
     });
   };
   /**
@@ -36,6 +38,7 @@ class ErrorHandler {
   typeErrorResponse = (error: TypeError): Response => {
     return new Response(JSON.stringify({ message: error.message }), {
       status: 400,
+      statusText: "TypeError",
     });
   };
   /**
@@ -53,6 +56,14 @@ class ErrorHandler {
    * by type checking the error instance.
    * @param  {unknown} error Unknown error type
    * @returns {Response}
+   * @example
+   * async (request: Request) => {
+   *   try {
+   *     ...
+   *   } catch (error) {
+   *     return handleErrors(error)
+   *   }
+   * }
    */
   public handleErrors = (error: unknown): Response => {
     if (error instanceof ZodError) return this.zodErrorResponse(error);

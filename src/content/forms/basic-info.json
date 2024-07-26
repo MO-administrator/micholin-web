@@ -1,0 +1,26 @@
+{
+  "props": {
+    "name": "general info",
+    "action": "/api/profile",
+    "method": "POST",
+    "showLogo": false,
+    "netlify": false,
+    "title": "Basic"
+  },
+  "fields": [
+    {
+      "type": "text",
+      "name": "name",
+      "label": "name",
+      "autocomplete": "name",
+      "required": true
+    },
+    {
+      "type": "email",
+      "name": "email",
+      "label": "email",
+      "autocomplete": "email",
+      "disabled": true
+    }
+  ]
+}

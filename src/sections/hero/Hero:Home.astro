@@ -1,0 +1,38 @@
+---
+import Hero from "./Hero.astro";
+import Button from "@components/button/Button.astro";
+import Typed from "@islands/svelte/typed/Typed.svelte";
+import { heroMap } from "./hero.service";
+const heroHome = heroMap.get("home");
+if (!heroHome) throw new Error("error in hero service");
+const { title, description } = heroHome;
+---
+
+<Hero {title}>
+  <Fragment slot="description">
+    <Typed strings={description} options={{ loop: false }} client:load />
+  </Fragment>
+  <Fragment slot="cta">
+    <div class="wrapper">
+      <Button id="contact" href="/contact" class="wrapper__cta">
+        Contact Me
+      </Button>
+      <Button id="work" href="/projects" class="wrapper__cta">
+        Our Work
+      </Button>
+
+      <style lang="scss">
+        .wrapper {
+          @apply mx-2 mt-8 flex flex-row w-full max-w-screen-sm
+          justify-center place-items-center gap-4;
+          &__cta {
+            @apply rounded-3xl bg-slate-700 p-2 px-4 border-2
+          border-t-green-600 border-l-green-600
+            border-transparent transition duration-300 ease-in
+          hover:border-green-600 hover:scale-110;
+          }
+        }
+      </style>
+    </div>
+  </Fragment>
+</Hero>

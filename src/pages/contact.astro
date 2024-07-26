@@ -1,8 +1,12 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import FormContact from "../components/form/Form:Contact.astro";
+import Layout from "@layouts/Layout.astro";
+import FormContact from "@islands/svelte/form/Form:Contact.svelte";
+import ButtonBack from '@components/button/Button:Back.astro';
 ---
 
 <Layout>
-  <FormContact />
+  <div class="relative">
+    <ButtonBack />
+    <FormContact />
+  </div>
 </Layout>

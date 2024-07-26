@@ -1,5 +1,5 @@
-import { type APIRoute } from "astro";
-import { handleErrors } from "../../../utils";
+import type { APIRoute } from "astro";
+import { handleErrors } from "@utils";
 
 export const GET: APIRoute = async () => {
   try {
