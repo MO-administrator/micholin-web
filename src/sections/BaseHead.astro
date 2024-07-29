@@ -1,6 +1,5 @@
 ---
 import { getEntry } from "astro:content";
-import { ViewTransitions } from "astro:transitions";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_FAVICON_URL } from "../constants";
 
 const [_, currentPage] = Astro.url.pathname.split("/");
@@ -40,6 +39,4 @@ const { title = pageMeta?.data.title } = Astro.props;
   <link rel="icon" href={SITE_FAVICON_URL} />
 
   <title>{title ? `${title} | ${SITE_NAME}` : SITE_NAME}</title>
-
-  <ViewTransitions />
 </head>

@@ -1,12 +1,27 @@
 ---
-import { getSession } from "auth-astro/server";
 import Layout from "@layouts/Layout.astro";
-import Profile from "@islands/svelte/profile/index.svelte";
+import Profile from "@svelte/profile/index.svelte";
 
-const session = await getSession(Astro.request);
-if (!session) return Astro.redirect("/api/auth/signin");
+const currentUser = await Astro.locals.currentUser();
+const { sessionId, userId, sessionClaims, redirectToSignIn } =
+  Astro.locals.auth();
+
+if (!sessionId || !userId || !sessionClaims || !currentUser){
+  return redirectToSignIn();
+}
+
+const session = {
+  id: sessionId,
+  expires: `${sessionClaims.exp}`,
+  user: {
+    id: userId,
+    name: currentUser.fullName,
+    email: currentUser.primaryEmailAddress?.emailAddress,
+    image: currentUser.imageUrl,
+  },
+};
 ---
 
 <Layout>
-  <Profile {session} client:load />
+  <Profile {session} client:only="svelte" />
 </Layout>

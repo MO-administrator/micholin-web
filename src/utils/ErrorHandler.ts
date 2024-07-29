@@ -1,6 +1,6 @@
 import { ZodError } from "zod";
 /**
- * Class to organise error handler responses.
+ * Class to organise api error handler responses.
  */
 class ErrorHandler {
   /**
@@ -70,7 +70,7 @@ class ErrorHandler {
     if (error instanceof SyntaxError) return this.syntaxErrorResponse(error);
     if (error instanceof TypeError) return this.typeErrorResponse(error);
     if (error instanceof Error) return this.genericErrorResponse(error);
-    console.warn(error);
+    console.error(error);
     return new Response(JSON.stringify(error), {
       status: 500,
     });

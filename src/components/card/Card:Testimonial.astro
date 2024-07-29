@@ -1,7 +1,7 @@
 ---
 import { type CollectionEntry } from "astro:content";
 import { Picture } from "astro:assets";
-import classes from "./card.module.scss";
+import styles from "./card.module.scss";
 import Card from "./Card.astro";
 import FormattedDate from "../FormattedDate.astro";
 
@@ -16,12 +16,12 @@ const { Content } = await render();
 ---
 
 <Card href={href}>
-  <span class={classes.testimonial}>
-    <div class={classes.testimonial__header}>
-      <span class={classes.testimonial__header__avatar}>
+  <span class={styles.testimonial}>
+    <div class={styles.testimonial__header}>
+      <span class={styles.testimonial__header__avatar}>
         <Picture src={avatar} alt={author} />
       </span>
-      <span class={classes.testimonial__header__bio}>
+      <span class={styles.testimonial__header__bio}>
         <span>
           <FormattedDate date={pubDate} />
           <span class="line-clamp-2">{designation}</span>
@@ -29,7 +29,7 @@ const { Content } = await render();
       </span>
     </div>
   </span>
-  <div slot="content" class={classes.testimonial__body}>
+  <div slot="content" class={styles.testimonial__body}>
     <blockquote>
       <Content />
     </blockquote>

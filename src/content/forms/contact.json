@@ -4,7 +4,7 @@
     "title": "Contact Form",
     "showLogo": true,
     "netlify": true,
-    "action": "/success",
+    "action": "/contact/success",
     "method": "POST"
   },
   "fields": [
@@ -13,7 +13,6 @@
       "name": "email",
       "label": "Email",
       "required": true,
-      "autofocus": true,
       "autocomplete": "email"
     },
     {

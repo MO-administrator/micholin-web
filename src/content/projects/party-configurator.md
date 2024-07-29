@@ -5,7 +5,7 @@ pubDate: 2019-08-19
 tags:
   - azure
   - dotnet
-  - mongo
+  - mongodb
   - react
   - sass
 image: ./images/party-configurator.jpeg
@@ -30,11 +30,11 @@ get updates of every steps. The platform also helps to calculate the total cost 
 - Helped front end team to achieve tasks
 - Worked with the architect to find solutions for frontend problems
 
-[mongodbIcon]: ../icons/mongo.svg "MongoDB"
-[reactIcon]: ../icons/react.svg "ReactJS"
-[sassIcon]: ../icons/sass.svg "SaSS"
-[azureIcon]: ../icons//azure.svg "Azure Cloud"
-[dotnetIcon]: ../icons/dotnet.svg "DotNet"
+[mongodbIcon]: ./icons/mongo.svg "MongoDB"
+[reactIcon]: ./icons/react.svg "ReactJS"
+[sassIcon]: ./icons/sass.svg "SaSS"
+[azureIcon]: ./icons//azure.svg "Azure Cloud"
+[dotnetIcon]: ./icons/dotnet.svg "DotNet"
 [reactUrl]: https://react.dev
 [sassUrl]: https://sass-lang.com
 [mongodbUrl]: https://www.mongodb.com

@@ -1,7 +1,7 @@
 ---
 import Hero from "./Hero.astro";
 import { heroMap } from "./hero.service";
-import Typed from "@islands/svelte/typed/Typed.svelte";
+import Typed from "@svelte/typed/Typed.svelte";
 const heroAbout = heroMap.get("about");
 if (!heroAbout) return Astro.redirect("/");
 const { title, description } = heroAbout;

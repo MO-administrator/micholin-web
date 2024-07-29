@@ -1,22 +1,27 @@
 ---
-import { Icon } from 'astro-icon/components';
-import { pages, isActive } from './navbar.service';
-import classes from './navbar.module.scss';
+import { Icon } from "astro-icon/components";
+import { pages, isActive } from "./navbar.service";
+import styles from "./navbar.module.scss";
 type Props = { index: number };
 const [_, currentPage] = Astro.url.pathname.split("/");
-const { index } = Astro.props;
-const page = pages[index];
+const { userId } = Astro.locals.auth();
+const page = pages[Astro.props.index];
+const show: boolean = !!(page.private && userId) || !page.private;
 ---
 
 <li>
-  <a
-    href={page.href}
-    class:list={[
-      classes.link,
-      isActive(page, currentPage) && classes["link--active"],
-    ]}
-  >
-    {page.image && <Icon name={page.image} />}
-    {page.text}
-  </a>
+  {
+    show ? (
+      <a
+        href={page.href}
+        class:list={[
+          styles.link,
+          isActive(page, currentPage) && styles["link--active"],
+        ]}
+      >
+        {page.image && <Icon name={`mdi:${page.image}`} />}
+        {page.text}
+      </a>
+    ) : null
+  }
 </li>

@@ -43,12 +43,12 @@ This application helps users organize and manage rituals for better health and f
 - Ea amet ullamco eu eu laboris nisi in occaecat consequat dolor culpa ut exercitation.
 - Do laborum cupidatat ea id officia tempor nisi duis sit ex.
 
-[dockerIcon]: ../icons/docker.svg "Docker"
-[nodejsIcon]: ../icons//nodejs.svg "NodeJS"
-[expressjsIcon]: ../icons/express.svg "ExpressJS"
-[nestjsIcon]: ../icons/nestjs.svg "NestJS"
-[prismaIcon]: ../icons/prisma.svg "Prisma"
-[postgresIcon]: ../icons/postgresql.svg "PostgreSQL"
+[dockerIcon]: ./icons/docker.svg "Docker"
+[nodejsIcon]: ./icons//nodejs.svg "NodeJS"
+[expressjsIcon]: ./icons/express.svg "ExpressJS"
+[nestjsIcon]: ./icons/nestjs.svg "NestJS"
+[prismaIcon]: ./icons/prisma.svg "Prisma"
+[postgresIcon]: ./icons/postgresql.svg "PostgreSQL"
 [dockerUrl]: https://www.docker.com
 [nodejsUrl]: https://nodejs.org
 [expressjsUrl]: https://expressjs.com

@@ -1,9 +1,14 @@
 ---
-import { getSession } from "auth-astro/server";
 import { getGravatarUrl } from "@utils";
 import { Picture } from 'astro:assets';
 import { IMAGE_SIZE } from '@/constants';
-const session = await getSession(Astro.request);
+let session = {
+  user: {
+    name: 'Olin Fernandes',
+    image: null,
+    email: 'olin.f@live.com'
+  }
+}
 ---
 
 <a href="/profile" title={session?.user?.name}>
@@ -13,6 +18,7 @@ const session = await getSession(Astro.request);
       alt="user-profile"
       height={IMAGE_SIZE}
       width={IMAGE_SIZE}
+      loading='eager'
     />
   </div>
 

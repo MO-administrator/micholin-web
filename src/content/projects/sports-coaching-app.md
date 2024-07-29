@@ -33,13 +33,13 @@ enables coaches to efficiently create, modify and design drills and plans for th
 - Ensured all content was localised.
 - Integrated Google Trackers for analytics info.
 
-[dockerIcon]: ../icons/docker.svg "Docker"
-[nodejsIcon]: ../icons/nodejs.svg "NodeJS"
-[laravelIcon]: ../icons/laravel.svg "Laravel"
-[graphqlIcon]: ../icons/graphql.svg "GraphQL"
-[postgresIcon]: ../icons/postgresql.svg "PostgreSQL"
-[reactIcon]: ../icons/react.svg "ReactJS"
-[sassIcon]: ../icons/sass.svg "SaSS"
+[dockerIcon]: ./icons/docker.svg "Docker"
+[nodejsIcon]: ./icons/nodejs.svg "NodeJS"
+[laravelIcon]: ./icons/laravel.svg "Laravel"
+[graphqlIcon]: ./icons/graphql.svg "GraphQL"
+[postgresIcon]: ./icons/postgresql.svg "PostgreSQL"
+[reactIcon]: ./icons/react.svg "ReactJS"
+[sassIcon]: ./icons/sass.svg "SaSS"
 [dockerUrl]: https://www.docker.com
 [nodejsUrl]: https://nodejs.org
 [laravelUrl]: https://laravel.com
