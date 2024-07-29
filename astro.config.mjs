@@ -4,20 +4,18 @@ import sitemap from "@astrojs/sitemap";
 import compress from "astro-compress";
 import netlify from "@astrojs/netlify";
 import icon from "astro-icon";
-import auth from "auth-astro";
 import svelte from "@astrojs/svelte";
-import react from "@astrojs/react";
+import clerk from '@clerk/astro';
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [
     tailwind(),
     svelte(),
-    react(),
     sitemap(),
     compress(),
-    auth(),
-    icon({ iconDir: "src/content/icons" }),
+    icon(),
+    clerk(),
   ],
   image: {
     service: passthroughImageService(),

@@ -1,7 +1,7 @@
 ---
 import Hero from "./Hero.astro";
 import Button from "@components/button/Button.astro";
-import Typed from "@islands/svelte/typed/Typed.svelte";
+import Typed from "@svelte/typed/Typed.svelte";
 import { heroMap } from "./hero.service";
 const heroHome = heroMap.get("home");
 if (!heroHome) throw new Error("error in hero service");

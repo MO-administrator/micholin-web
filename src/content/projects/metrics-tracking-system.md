@@ -31,12 +31,12 @@ This application helps with tracking trainer and student performance.
 - Added custom functions and logic for rating and performance calculations.
 - Implemented export data to csv functionality.
 
-[dockerIcon]: ../icons/docker.svg "Docker"
-[nodejsIcon]: ../icons/nodejs.svg "NodeJS"
-[expressjsIcon]: ../icons/express.svg "ExpressJS"
-[postgresIcon]: ../icons/postgresql.svg "PostgreSQL"
-[reactIcon]: ../icons/react.svg "ReactJS"
-[sassIcon]: ../icons/sass.svg "SaSS"
+[dockerIcon]: ./icons/docker.svg "Docker"
+[nodejsIcon]: ./icons/nodejs.svg "NodeJS"
+[expressjsIcon]: ./icons/express.svg "ExpressJS"
+[postgresIcon]: ./icons/postgresql.svg "PostgreSQL"
+[reactIcon]: ./icons/react.svg "ReactJS"
+[sassIcon]: ./icons/sass.svg "SaSS"
 [dockerUrl]: https://www.docker.com
 [nodejsUrl]: https://nodejs.org
 [reactUrl]: https://react.dev

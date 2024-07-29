@@ -1,7 +1,7 @@
 ---
 import { Picture } from "astro:assets";
 import { type CollectionEntry } from "astro:content";
-import classes from './card.module.scss';
+import styles from './card.module.scss';
 import Card from "./Card.astro";
 import Tag from "../Tag.astro";
 import FormattedDate from "../FormattedDate.astro";
@@ -15,8 +15,8 @@ const {
 ---
 
 <Card href={`/projects/${slug}`}>
-  <div class={classes.project__content}>
-    <span class={classes.project__content__body}>
+  <div class={styles.project__content}>
+    <span class={styles.project__content__body}>
       <span>
         <h2>
           {title}
@@ -27,11 +27,11 @@ const {
         <FormattedDate date={pubDate} />
       </sub>
     </span>
-    <ul class={classes.project__content__tags}>
-      {tags.map(tag => <Tag {tag} isIcon />)}
+    <ul class={styles.project__content__tags}>
+      {tags.map(tag => <Tag {tag} />)}
     </ul>
   </div>
-  <div class={classes.project__showcase} slot="content">
+  <div class={styles.project__showcase} slot="content">
     <Picture src={image} alt={title} loading="eager" format="webp" />
   </div>
 </Card>

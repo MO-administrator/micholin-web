@@ -4,6 +4,7 @@ export const pages = [
   (await getEntry("pagemetas", "home")).data,
   (await getEntry("pagemetas", "projects")).data,
   (await getEntry("pagemetas", "about")).data,
+  (await getEntry("pagemetas", "profile")).data,
 ] as CollectionEntry<"pagemetas">["data"][];
 
 export const isActive: (

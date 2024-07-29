@@ -1,5 +1,5 @@
 ---
-import classes from "./detail.module.scss";
+import styles from "./detail.module.scss";
 import ButtonBack from "@components/button/Button:Back.astro";
 import Prose from '../Prose.astro';
 
@@ -8,15 +8,15 @@ type Props = { title?: string };
 const { title = "" } = Astro.props;
 ---
 
-<section class={classes.wrapper}>
-  <div class={classes.wrapper__content}>
+<section class={styles.wrapper}>
+  <div class={styles.wrapper__content}>
     <ButtonBack />
-    <div class={classes.wrapper__content__grid}>
-      <div class={classes.wrapper__content__grid__showcase}>
+    <div class={styles.wrapper__content__grid}>
+      <div class={styles.wrapper__content__grid__showcase}>
         <slot name="cover-image" />
       </div>
-      {title && <h1 class={classes.wrapper__content__grid__title}>{title}</h1>}
-      <div class={classes.wrapper__content__grid__body}>
+      {title && <h1 class={styles.wrapper__content__grid__title}>{title}</h1>}
+      <div class={styles.wrapper__content__grid__body}>
         <Prose>
           <slot name="content" />
         </Prose>

@@ -1,12 +1,12 @@
 ---
 import { testimonials } from './testimonials.service';
-import classes from "./testimonials.module.scss";
+import styles from "./testimonials.module.scss";
 import CardTestimonial from "../../components/card/Card:Testimonial.astro";
 ---
 
-<section class={classes.wrapper}>
-  <div class={classes.wrapper__container}>
-    <ul class={classes.wrapper__container__testimonials}>
+<section class={styles.wrapper}>
+  <div class={styles.wrapper__container}>
+    <ul class={styles.wrapper__container__testimonials}>
       {testimonials.map((testimonial) => <CardTestimonial {...testimonial} />)}
     </ul>
   </div>

@@ -1,5 +1,6 @@
 {
   "extends": "astro/tsconfigs/strict",
+  "exclude": ["node_modules"],
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "react",
@@ -13,8 +14,8 @@
       "@components/*": [
         "src/components/*"
       ],
-      "@islands/*": [
-        "src/islands/*"
+      "@svelte/*": [
+        "src/svelte/*"
       ],
       "@utils": [
         "src/utils/index.ts"

@@ -1,5 +1,6 @@
 href: /profile
-text: profile
 title: Profile
+private: true
 description: null
-image: null
+text: Profile
+image: user

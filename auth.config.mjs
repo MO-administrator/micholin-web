@@ -10,6 +10,7 @@ export default defineConfig({
   theme: { logo: SITE_FAVICON_URL },
   providers: [
     Resend({
+      name: "Email",
       apiKey: import.meta.env.AUTH_RESEND_KEY,
       secret: import.meta.env.AUTH_SECRET,
       from: import.meta.env.AUTH_RESEND_FROM,

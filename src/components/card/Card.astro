@@ -1,5 +1,5 @@
 ---
-import classes from "./card.module.scss";
+import styles from "./card.module.scss";
 
 type Props = {
   href: string;
@@ -8,7 +8,7 @@ type Props = {
 const { href } = Astro.props;
 ---
 
-<li class={classes.link_card}>
+<li class={styles.link_card}>
   <a href={href}>
     <slot />
   </a>

@@ -5,7 +5,8 @@
     "method": "POST",
     "showLogo": false,
     "netlify": false,
-    "title": "Basic"
+    "title": "Basic",
+    "disabled": true
   },
   "fields": [
     {

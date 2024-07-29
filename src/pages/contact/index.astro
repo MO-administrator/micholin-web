@@ -1,0 +1,12 @@
+---
+import Layout from "@layouts/Layout.astro";
+import FormContact from "@svelte/form/Form:Contact.svelte";
+import ButtonBack from "@components/button/Button:Back.astro";
+---
+
+<Layout>
+  <div class="container relative place-self-center">
+    <ButtonBack />
+    <FormContact client:only="svelte" />
+  </div>
+</Layout>

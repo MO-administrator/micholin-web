@@ -1,0 +1,24 @@
+---
+import Layout from "@layouts/Layout.astro";
+import SuccessView from "@svelte/success/Success.svelte";
+let message: string = '';
+if (Astro.request.method === "POST") {
+  try {
+    const formData = await Astro.request.formData();
+    const response = await fetch(`${Astro.url.origin}/api/inquiry`, {
+      method: "POST",
+      body: formData,
+    });
+    message = (await response.json()).message;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.warn(error.message);
+      message = error.message;
+    }
+  }
+}
+---
+
+<Layout>
+  <SuccessView client:load {message} />
+</Layout>

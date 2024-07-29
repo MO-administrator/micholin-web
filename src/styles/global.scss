@@ -29,7 +29,7 @@ html {
 }
 body {
   height: 100dvh;
-  background-image: linear-gradient(#000, #333, #000);
+  background-image: var(--accent-gradient);
   scrollbar-width: thin;
   scroll-behavior: smooth;
   display: grid;
@@ -41,8 +41,8 @@ main {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: #00000030;
-  max-height: calc(100dvh - 8rem);
+  background-color: #00000080;
+  height: calc(100dvh - 8rem);
   display: grid;
   grid-template-rows: auto;
   overflow-y: scroll;
@@ -57,12 +57,13 @@ main {
   }
   section {
     height: 100%;
+    width: 100%;
   }
 }
 section {
   scroll-snap-align: start;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 2rem;
 }
 input {
   color: #1e293b;
@@ -76,13 +77,22 @@ input[type='submit'] {
   border-radius: 2rem;
   cursor: pointer;
   transition: all 0.3s ease-in-out 0.1s;
-}
-input[type='submit']:hover {
-  transform: scale(1.1);
-  background-color: #7c3aed;
+  &:hover {
+    transform: scale(1.1);
+    background-color: #7c3aed;
+  }
+  &:disabled {
+    opacity: 0.8 !important;
+    cursor: not-allowed !important;
+    transition: none !important;
+    &:hover {
+      transform: none !important;
+      background-color: #1e293b !important;
+    }
+  }
 }
 .header, .footer {
-  background-image: linear-gradient(transparent, #3f3f3f, transparent);
+  background-image: linear-gradient(#333, #3f3f3f, #333);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

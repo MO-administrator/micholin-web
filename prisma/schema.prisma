@@ -12,7 +12,6 @@ model User {
   id             String    @id @default(cuid())
   name           String?
   email          String    @unique
-  hash           String?
   emailVerified  DateTime?
   image          String?
   createdAt      DateTime  @default(now())
@@ -21,6 +20,7 @@ model User {
   xata_id        String    @unique(map: "User__pgroll_new_xata_id_key") @default(cuid())
   xata_version   Int       @default(0)
   xata_createdat DateTime  @default(now()) @db.Timestamptz(6)
+  hash           String?
   accounts       Account[]
   sessions       Session[]
 }
@@ -73,14 +73,12 @@ model VerificationToken {
   @@id([identifier, token])
 }
 
-/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model Inquiry {
-  xata_updatedat DateTime @default(now()) @db.Timestamptz(6)
-  xata_id        String   @unique(map: "Inquiry__pgroll_new_xata_id_key") @default(cuid())
-  xata_version   Int      @default(0)
-  xata_createdat DateTime @default(now()) @db.Timestamptz(6)
   email          String
   name           String
   message        String
+  xata_version   Int      @default(0)
+  xata_createdat DateTime @default(now()) @db.Timestamptz(6)
+  xata_updatedat DateTime @default(now()) @db.Timestamptz(6)
+  xata_id        String   @unique(map: "Inquiry__pgroll_new_xata_id_key") @default(cuid())
 }

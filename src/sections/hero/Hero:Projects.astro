@@ -1,6 +1,6 @@
 ---
 import Hero from "./Hero.astro";
-import Typed from "@islands/svelte/typed/Typed.svelte";
+import Typed from "@svelte/typed/Typed.svelte";
 import { heroMap } from "./hero.service";
 const projectHero = heroMap.get("projects");
 if (!projectHero) throw new Error("error in hero service");
