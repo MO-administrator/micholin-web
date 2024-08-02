@@ -1,4 +1,5 @@
 ---
+import type { Session } from '@svelte/stores';
 import Layout from "@layouts/Layout.astro";
 import Profile from "@svelte/profile/index.svelte";
 
@@ -10,7 +11,7 @@ if (!sessionId || !userId || !sessionClaims || !currentUser){
   return redirectToSignIn();
 }
 
-const session = {
+const session: Session = {
   id: sessionId,
   expires: `${sessionClaims.exp}`,
   user: {

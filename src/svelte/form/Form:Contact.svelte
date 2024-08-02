@@ -1,31 +1,31 @@
 <script lang="ts">
-  import Loading from "../loading/Loading.svelte";
+  import Loading from '@svelte/loading/Loading.svelte';
   import Form from "./Form.svelte";
   import FormInputs from "./FormInputs.svelte";
-  import { getFormMeta } from "./form.service";
+  import { formStore } from "./form.service";
+
+  $: contactForm = $formStore.find(({ id }) => id === "contact")?.data;
 </script>
 
-{#await getFormMeta("contact")}
-  <Loading />
-{:then response}
-  {#await response.json() then contactForm}
-    {#if contactForm}
-      <Form {...contactForm.props}>
-        <svelte:fragment slot="form-copy">
-          <hgroup>
-            <h1>Transform your experience!</h1>
-            <p>Are you ready?</p>
-          </hgroup>
-        </svelte:fragment>
-        <svelte:fragment slot="fields">
-          {#each contactForm.fields as field}
-            <FormInputs {...field} />
-          {/each}
-        </svelte:fragment>
-      </Form>
-    {/if}
+{#if contactForm}
+  <Form {...contactForm.props}>
+    <svelte:fragment slot="form-copy">
+      <hgroup>
+        <h1>Transform your experience!</h1>
+        <p>Are you ready?</p>
+      </hgroup>
+    </svelte:fragment>
+    <svelte:fragment slot="fields">
+      {#each contactForm.fields as field}
+        <FormInputs {...field} />
+      {/each}
+    </svelte:fragment>
+  </Form>
+{:else}
+  {#await formStore.fetchForms()}
+    <Loading />
   {/await}
-{/await}
+{/if}
 
 <style lang="scss">
   hgroup {

@@ -1,20 +1,21 @@
 <script lang="ts">
-  import { routePrefix, handleClick, activeRoute } from "./menu.service";
+  import { routeStore } from "./menu.service";
   export let item: string;
   export let name: string | undefined = undefined;
   export let preventDefault: boolean = true;
+  const { activeRoute } = routeStore;
   $: isActive = (item: string) => $activeRoute === item;
 </script>
 
 {#if preventDefault}
   <li class="menu-item" class:menu-item--active={isActive(item)}>
-    <a href={item} on:click|preventDefault={handleClick}
-      >{name ? name : item.replace(routePrefix, "") || "home"}</a
+    <a href={item} on:click|preventDefault={routeStore.handleUpdateView}
+      >{name ? name : item.replace(routeStore.routePrefix, "") || "home"}</a
     >
   </li>
 {:else}
-  <li class="menu-item" class:active={isActive(item)}>
-    <a href={item}>{name ? name : item.replace(routePrefix, "") || "home"}</a>
+  <li class="menu-item" class:menu-item--active={isActive(item)}>
+    <a href={item}>{name ? name : item.replace(routeStore.routePrefix, "") || "home"}</a>
   </li>
 {/if}
 

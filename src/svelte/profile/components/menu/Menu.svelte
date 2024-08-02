@@ -1,14 +1,12 @@
 <script lang="ts">
-  import { routeMap, logoutItemProps } from "./menu.service";
+  import { routeStore } from "./menu.service";
   import Item from "./Item.svelte";
-  const routeList = routeMap.keys();
 </script>
 
 <menu class="menu-list">
-  {#each routeList as item}
+  {#each routeStore.routes as item}
     <Item {item} />
   {/each}
-  <Item {...logoutItemProps} />
 </menu>
 
 <style lang="scss">

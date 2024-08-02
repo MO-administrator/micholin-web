@@ -2,7 +2,7 @@
 import Layout from "@layouts/Layout.astro";
 import HeroHome from "@/sections/hero/Hero:Home.astro";
 import HighlightsHome from "@/sections/highlights/Highlights:Home.astro";
-
+import Counter from '@components/counter/Counter.astro';
 Astro.response.headers.set(
   "CDN-Cache-Control",
   "public, max-age=45, must-revalidate"
@@ -11,5 +11,6 @@ Astro.response.headers.set(
 
 <Layout>
   <HeroHome />
+  <Counter />
   <HighlightsHome />
 </Layout>

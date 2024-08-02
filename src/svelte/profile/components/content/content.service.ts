@@ -1,1 +1,1 @@
-export { activeRoute, routeMap } from "@/svelte/stores";
+export { routeStore } from "@svelte/stores";

@@ -1,22 +1,18 @@
 <script lang="ts">
-  import { getContext } from 'svelte';
+  import type { SessionStore } from "@svelte/stores/";
+  import { getContext } from "svelte";
   import FormBasicInfo from "@svelte/form/Form:BasicInfo.svelte";
-  import {
-    getGravatarUrl,
-    handleSubmit,
-  } from "./general.service";
-  import type { Session } from '@svelte/stores';
+  import { getGravatarUrl, handleSubmit } from "./general.service";
 
-  const session = getContext<Session>('session');
-  console.log(session);
+  const session = getContext<SessionStore>("session");
 
-  $: imageSrc = session.user?.image || getGravatarUrl(session.user?.email);
-  $: imageAlt = session.user?.name || "";
+  $: imageSrc = $session.user?.image || getGravatarUrl($session.user?.email);
+  $: imageAlt = $session.user?.name || "";
 </script>
 
 <div class="container general-container">
   <div class="general-container__left">
-    <FormBasicInfo user={session?.user} onSubmit={handleSubmit} />
+    <FormBasicInfo user={$session?.user} onSubmit={handleSubmit} />
   </div>
   <div class="general-container__right">
     <img src={imageSrc} alt={imageAlt} />

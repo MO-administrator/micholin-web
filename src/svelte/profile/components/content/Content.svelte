@@ -1,11 +1,19 @@
 <script lang="ts">
-  import { activeRoute, routeMap } from "./content.service";
-  $: View = routeMap.get($activeRoute);
+  import { routeStore } from "./content.service";
+  const { activeRoute } = routeStore;
+  $: viewComponent = routeStore.getViewComponent($activeRoute);
+
+  const handleTodoAdded = (event: CustomEvent) => {
+    console.log(event.detail);
+  }
+  const handleTodoError = (event: CustomEvent) => {
+    console.log(event.detail);
+  }
 </script>
 
 <div class="content-wrapper">
-  {#if View}
-    <svelte:component this={View()} />
+  {#if viewComponent}
+    <svelte:component this={viewComponent()} on:todo-added={handleTodoAdded} on:todo-error={handleTodoError} />
   {/if}
 </div>
 

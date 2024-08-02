@@ -12,5 +12,5 @@ const { title, description, image } = heroNotFound;
   <Fragment slot="description">
     <Typed strings={description} options={{ loop: false }} client:load />
   </Fragment>
-  {image && <Icon name={image} size={100} color="#ffae32" />}
+  {image && <Icon name={`mdi:${image}`} size={100} color="#ffae32" />}
 </Hero>

@@ -14,10 +14,11 @@ const show: boolean = !!(page.private && userId) || !page.private;
     show ? (
       <a
         href={page.href}
-        class:list={[
-          styles.link,
-          isActive(page, currentPage) && styles["link--active"],
-        ]}
+        class:list={{
+          [styles.link]: true,
+          [styles["link--active"]]: isActive(page, currentPage),
+        }}
+        title={page.text}
       >
         {page.image && <Icon name={`mdi:${page.image}`} />}
         {page.text}

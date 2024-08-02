@@ -1,14 +1,15 @@
 <script lang="ts">
   import type { FormEventHandler } from "svelte/elements";
-  import type { User } from "../stores";
+  import type { User } from "@svelte/stores";
+  import Loading from "@svelte/loading/Loading.svelte";
   import Form from "./Form.svelte";
   import FormInputs from "./FormInputs.svelte";
-  import { getFormMeta } from "./form.service";
-  import Loading from "../loading/Loading.svelte";
+  import { formStore } from "./form.service";
 
   export let onSubmit: FormEventHandler<HTMLFormElement>;
-  export let user: User = {};
+  export let user: User | undefined = undefined;
 
+  $: basicForm = $formStore.find(({ id }) => id === "basic-info")?.data;
   $: getPlaceholder = (name: string) => {
     switch (name) {
       case "email":
@@ -22,27 +23,25 @@
 </script>
 
 <div class="basic-info-form-wrapper">
-  {#await getFormMeta("basic-info")}
-    <Loading />
-  {:then response}
-    {#await response.json() then generalForm}
-      {#if generalForm}
-        <Form {...generalForm.props} {onSubmit}>
-          <svelte:fragment slot="form-copy">
-            <hgroup>
-              <h1>Basic</h1>
-              <p>User's basic info</p>
-            </hgroup>
-          </svelte:fragment>
-          <svelte:fragment slot="fields">
-            {#each generalForm.fields as field}
-              <FormInputs {...field} placeholder={getPlaceholder(field.name)} />
-            {/each}
-          </svelte:fragment>
-        </Form>
-      {/if}
+  {#if basicForm}
+    <Form {...basicForm.props} {onSubmit}>
+      <svelte:fragment slot="form-copy">
+        <hgroup>
+          <h1>Basic</h1>
+          <p>User's basic info</p>
+        </hgroup>
+      </svelte:fragment>
+      <svelte:fragment slot="fields">
+        {#each basicForm.fields as field}
+          <FormInputs {...field} placeholder={getPlaceholder(field.name)} />
+        {/each}
+      </svelte:fragment>
+    </Form>
+  {:else}
+    {#await formStore.fetchForms()}
+      <Loading />
     {/await}
-  {/await}
+  {/if}
 </div>
 
 <style lang="scss">

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { getContext } from "svelte";
   import Menu from "./components/menu/Menu.svelte";
   import Content from "./components/content/Content.svelte";
 </script>
@@ -13,11 +12,12 @@
       <Content />
     </div>
   </div>
+  <div class="wrapper__toast-container">Toast</div>
 </section>
 
 <style lang="scss">
   .wrapper {
-    @apply w-full h-full p-4 grid place-items-center overflow-auto;
+    @apply relative w-full h-full p-4 grid place-items-center overflow-auto;
     &__container {
       @apply flex w-full h-full overflow-auto;
       &__menu {
@@ -29,6 +29,9 @@
       &__content {
         @apply w-full px-4;
       }
+    }
+    &__toast-container {
+      @apply absolute top-0 right-4;
     }
   }
 </style>
