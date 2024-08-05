@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Loading from '@svelte/loading/Loading.svelte';
+  import Loading from "@svelte/loading/Loading.svelte";
   import Form from "./Form.svelte";
   import FormInputs from "./FormInputs.svelte";
   import { formStore } from "./form.service";
@@ -22,9 +22,7 @@
     </svelte:fragment>
   </Form>
 {:else}
-  {#await formStore.fetchForms()}
-    <Loading />
-  {/await}
+  <Loading />
 {/if}
 
 <style lang="scss">

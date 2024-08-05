@@ -38,9 +38,7 @@
       </svelte:fragment>
     </Form>
   {:else}
-    {#await formStore.fetchForms()}
-      <Loading />
-    {/await}
+    <Loading />
   {/if}
 </div>
 

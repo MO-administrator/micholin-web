@@ -7,11 +7,18 @@ import {
   writable,
 } from "svelte/store";
 
+let instance: FormStore;
+
 class FormStore {
   private _forms: Writable<CollectionEntry<"forms">[]>;
 
   constructor() {
+    if(instance) {
+      throw new Error('Only one instance is allowed.');
+    }
+    instance = this;
     this._forms = writable([]);
+    this.fetchForms();
   }
 
   subscribe(run: Subscriber<CollectionEntry<"forms">[]>) {
