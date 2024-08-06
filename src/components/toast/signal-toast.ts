@@ -1,7 +1,8 @@
-class ToastTemplate extends HTMLElement {
-  get template() {
-    let t = document.createElement("template");
-    t.innerHTML = `
+window.addEventListener("DOMContentLoaded", () => {
+  class ToastTemplate extends HTMLElement {
+    get template() {
+      let t = document.createElement("template");
+      t.innerHTML = `
       <div class="toast-wrapper slide-in-right">
         <div class="toast-wrapper__icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
@@ -23,13 +24,13 @@ class ToastTemplate extends HTMLElement {
         </div>
       </div>
     `;
-    return t;
-  }
+      return t;
+    }
 
-  get styles() {
-    let s = new CSSStyleSheet();
-    s.replaceSync(
-      `
+    get styles() {
+      let s = new CSSStyleSheet();
+      s.replaceSync(
+        `
       .toast-wrapper {
         position: absolute;
         z-index: 1124;
@@ -103,45 +104,46 @@ class ToastTemplate extends HTMLElement {
         }
       }
     `
-    );
-    return s;
-  }
-}
-
-class SignalToast extends ToastTemplate {
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    let shadowDOM = this.shadowRoot;
-    if (shadowDOM) {
-      shadowDOM.adoptedStyleSheets.push(this.styles);
-      shadowDOM.appendChild(this.template.content.cloneNode(true));
-      let titleEl = shadowDOM.querySelector("#toast-title");
-      if (titleEl && this.hasAttribute("title")) {
-        titleEl.textContent = this.getAttribute("title");
-      }
-      let messageEl = shadowDOM.querySelector("#toast-message");
-      if (messageEl && this.hasAttribute("message")) {
-        messageEl.textContent = this.getAttribute("message");
-      }
+      );
+      return s;
     }
   }
 
-  connectedCallback() {
-    let instance = this;
-    let titleEl = this.shadowRoot?.querySelector("#toast-title");
-    let messageEl = this.shadowRoot?.querySelector("#toast-message");
-    if (!titleEl || !messageEl || !this) return;
+  class SignalToast extends ToastTemplate {
+    constructor() {
+      super();
+      this.attachShadow({ mode: "open" });
+      let shadowDOM = this.shadowRoot;
+      if (shadowDOM) {
+        shadowDOM.adoptedStyleSheets.push(this.styles);
+        shadowDOM.appendChild(this.template.content.cloneNode(true));
+        let titleEl = shadowDOM.querySelector("#toast-title");
+        if (titleEl && this.hasAttribute("title")) {
+          titleEl.textContent = this.getAttribute("title");
+        }
+        let messageEl = shadowDOM.querySelector("#toast-message");
+        if (messageEl && this.hasAttribute("message")) {
+          messageEl.textContent = this.getAttribute("message");
+        }
+      }
+    }
 
-    let wrapperEl = instance.shadowRoot?.querySelector('.toast-wrapper');
-    if (wrapperEl) {
-      wrapperEl.addEventListener('click', () => {
-        wrapperEl.classList.replace("slide-in-right", "slide-out-top");
-      })
-      setTimeout(() => {
-        wrapperEl.classList.replace("slide-in-right", "slide-out-top");
-      }, 6e3);
+    connectedCallback() {
+      let instance = this;
+      let titleEl = this.shadowRoot?.querySelector("#toast-title");
+      let messageEl = this.shadowRoot?.querySelector("#toast-message");
+      if (!titleEl || !messageEl || !this) return;
+
+      let wrapperEl = instance.shadowRoot?.querySelector(".toast-wrapper");
+      if (wrapperEl) {
+        wrapperEl.addEventListener("click", () => {
+          wrapperEl.classList.replace("slide-in-right", "slide-out-top");
+        });
+        setTimeout(() => {
+          wrapperEl.classList.replace("slide-in-right", "slide-out-top");
+        }, 6e3);
+      }
     }
   }
-}
-window.customElements.define("signal-toast", SignalToast);
+  window.customElements.define("signal-toast", SignalToast);
+});

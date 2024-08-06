@@ -1,7 +1,45 @@
-class CounterTemplate extends HTMLElement {
-  get template() {
-    let t = document.createElement("template");
-    t.innerHTML = `
+window.addEventListener("DOMContentLoaded", () => {
+  class SignalElement extends HTMLElement {
+    subscriber: Function | null = null;
+
+    signal(value?: any) {
+      const subscriptions = new Set<Function>();
+      let instance = this;
+
+      return {
+        get value() {
+          let subscriber = instance.subscriber;
+          if (subscriber) {
+            subscriptions.add(subscriber);
+          }
+          return value;
+        },
+        set value(updated) {
+          value = updated;
+          subscriptions.forEach(fn => fn());
+        },
+      };
+    }
+
+    effect(fn: Function) {
+      this.subscriber = fn;
+      fn();
+      this.subscriber = null;
+    }
+
+    derived(fn: Function) {
+      const derived = this.signal();
+      this.effect(() => {
+        derived.value = fn();
+      });
+      return derived;
+    }
+  }
+
+  class CounterTemplate extends SignalElement {
+    get template() {
+      let t = document.createElement("template");
+      t.innerHTML = `
       <div class="counter-container">
         <button id="button" class="btn">
           Increment Count: <span id="count"></span>
@@ -9,12 +47,12 @@ class CounterTemplate extends HTMLElement {
         <button id="reset" class="btn"> Reset Count </button>
       </div>
     `;
-    return t;
-  }
-  get styles() {
-    let s = new CSSStyleSheet();
-    s.replaceSync(
-      `
+      return t;
+    }
+    get styles() {
+      let s = new CSSStyleSheet();
+      s.replaceSync(
+        `
       .counter-container {
         display: flex;
         gap: 1rem;
@@ -42,89 +80,55 @@ class CounterTemplate extends HTMLElement {
         border-left: 0.25rem solid #f8f8f8;
       }
       `
-    );
-    return s;
-  }
-}
-
-class SignalCounter extends CounterTemplate {
-  subscriber: Function | null;
-  count: { value: any };
-  constructor() {
-    super();
-    this.subscriber = null;
-    this.count = this.signal(parseInt(this.getAttribute("count") || "0"));
-    this.style.display = "grid";
-    this.attachShadow({ mode: "open" });
-    this.shadowRoot?.adoptedStyleSheets.push(this.styles)
-    this.shadowRoot?.appendChild(this.template.content.cloneNode(true));
+      );
+      return s;
+    }
   }
 
-  connectedCallback() {
-    let btnEl = this.shadowRoot?.querySelector("#button");
-    let countEl = this.shadowRoot?.querySelector("#count");
-    let resetEl = this.shadowRoot?.querySelector("#reset");
-    if (!btnEl || !countEl || !resetEl) return;
+  class SignalCounter extends CounterTemplate {
+    count: { value: any };
+    constructor() {
+      super();
+      this.count = this.signal(parseInt(this.getAttribute("count") || "0"));
+      this.style.display = "grid";
+      this.attachShadow({ mode: "open" });
+      this.shadowRoot?.adoptedStyleSheets.push(this.styles);
+      this.shadowRoot?.appendChild(this.template.content.cloneNode(true));
+    }
 
-    let instance = this;
-    countEl.innerHTML = instance.count.value;
+    connectedCallback() {
+      let btnEl = this.shadowRoot?.querySelector("#button");
+      let countEl = this.shadowRoot?.querySelector("#count");
+      let resetEl = this.shadowRoot?.querySelector("#reset");
+      if (!btnEl || !countEl || !resetEl) return;
 
-    this.effect(() => {
+      let instance = this;
       countEl.innerHTML = instance.count.value;
-    });
 
-    btnEl.addEventListener("click", () => {
-      instance.count.value++;
-    });
-    resetEl.addEventListener("click", () => {
-      instance.count.value = parseInt(instance.getAttribute("count") || "0");
-    });
+      this.effect(() => {
+        countEl.innerHTML = instance.count.value;
+      });
+
+      btnEl.addEventListener("click", () => {
+        instance.count.value++;
+      });
+      resetEl.addEventListener("click", () => {
+        instance.count.value = parseInt(instance.getAttribute("count") || "0");
+      });
+    }
+
+    disconnectedCallback() {
+      let btnEl = this.shadowRoot?.querySelector("#button");
+      let resetEl = this.shadowRoot?.querySelector("#reset");
+      if (!btnEl || !resetEl) return;
+      let instance = this;
+      btnEl.removeEventListener("click", () => {
+        instance.count.value++;
+      });
+      resetEl.removeEventListener("click", () => {
+        instance.count.value = 0;
+      });
+    }
   }
-
-  disconnectedCallback() {
-    let btnEl = this.shadowRoot?.querySelector("#button");
-    let resetEl = this.shadowRoot?.querySelector("#reset");
-    if (!btnEl || !resetEl) return;
-    let instance = this;
-    btnEl.removeEventListener("click", () => {
-      instance.count.value++;
-    });
-    resetEl.removeEventListener("click", () => {
-      instance.count.value = 0;
-    });
-  }
-
-  signal(value?: any) {
-    const subscriptions = new Set<Function>();
-    let instance = this;
-
-    return {
-      get value() {
-        let subscriber = instance.subscriber;
-        if (subscriber) {
-          subscriptions.add(subscriber);
-        }
-        return value;
-      },
-      set value(updated) {
-        value = updated;
-        subscriptions.forEach(fn => fn());
-      },
-    };
-  }
-
-  effect(fn: Function) {
-    this.subscriber = fn;
-    fn();
-    this.subscriber = null;
-  }
-
-  derived(fn: Function) {
-    const derived = this.signal();
-    this.effect(() => {
-      derived.value = fn();
-    });
-    return derived;
-  }
-}
-window.customElements.define("signal-counter", SignalCounter);
+  window.customElements.define("signal-counter", SignalCounter);
+});

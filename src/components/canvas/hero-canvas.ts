@@ -1,4 +1,4 @@
-import shadowDog from "./shadow_dog.png";
+import shadowDog from "./character/shadow_dog.png";
 
 type CanvasPropTypes = {
   ctx: CanvasRenderingContext2D | null;
@@ -55,38 +55,38 @@ class SignalElement extends HTMLElement {
   }
 }
 
-class SignalCanvasTemplate extends SignalElement {
+class HeroCanvasTemplate extends SignalElement {
   get template() {
     let t = document.createElement("template");
     t.innerHTML = `
-    <canvas id="primary-canvas"></canvas>
-    <div class='button-wrapper'>
-      <button id="cycle-anim">
-        Cycle
-      </button>
-      <select id="select-anim" />
-    </div>
-    `;
+  <canvas id="primary-canvas"></canvas>
+  <div class='button-wrapper'>
+    <button id="cycle-anim">
+      Cycle
+    </button>
+    <select id="select-anim" />
+  </div>
+  `;
     return t;
   }
   get styles() {
     let s = new CSSStyleSheet();
     s.replaceSync(
       `
-      .button-wrapper{
-        display: grid;
-        place-content: center;
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-        padding: 0.5rem 1rem;
-      }
-      `
+    .button-wrapper{
+      display: grid;
+      place-content: center;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      padding: 0.5rem 1rem;
+    }
+    `
     );
     return s;
   }
 }
 
-class SignalCanvas extends SignalCanvasTemplate {
+class HeroCanvas extends HeroCanvasTemplate {
   canvasProps: CanvasPropTypes = {
     ctx: null,
     playerImage: new Image(),
@@ -114,7 +114,7 @@ class SignalCanvas extends SignalCanvasTemplate {
       border: "0.25rem solid #f139dd",
       maxWidth: "800px",
       marginTop: "2rem",
-      zIndex: '1024',
+      zIndex: "1024",
       position: "relative",
     });
   }
@@ -176,7 +176,7 @@ class SignalCanvas extends SignalCanvasTemplate {
     );
   }
 
-  animateCanvas(instance: SignalCanvas) {
+  animateCanvas(instance: HeroCanvas) {
     instance.canvasProps.ctx?.clearRect(
       0,
       0,
@@ -210,7 +210,7 @@ class SignalCanvas extends SignalCanvasTemplate {
     requestAnimationFrame(() => instance.animateCanvas(instance));
   }
 
-  cycleAnimations(instance: SignalCanvas) {
+  cycleAnimations(instance: HeroCanvas) {
     let currentAnimationIndex = instance.animationSets.findIndex(
       ({ name }) => name === instance.canvasProps.activeAnimation.value
     );
@@ -223,7 +223,7 @@ class SignalCanvas extends SignalCanvasTemplate {
     instance.canvasProps.activeAnimation.value = nextAnimation;
   }
 
-  selectAnimation(instance: SignalCanvas, target?: string) {
+  selectAnimation(instance: HeroCanvas, target?: string) {
     if (!target) {
       instance.canvasProps.activeAnimation.value =
         instance.animationSets[0].name;
@@ -260,5 +260,6 @@ class SignalCanvas extends SignalCanvasTemplate {
     ];
   }
 }
-
-window.customElements.define("signal-canvas", SignalCanvas);
+window.addEventListener("DOMContentLoaded", () => {
+  window.customElements.define("hero-canvas", HeroCanvas);
+});
