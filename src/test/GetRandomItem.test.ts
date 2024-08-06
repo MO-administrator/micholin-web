@@ -1,5 +1,5 @@
 import { getRandomItem } from '@/utils/get-random-item';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 describe('getRandomItem()', () => {
   let mockArray = new Array();
