@@ -173,8 +173,8 @@ class TriggerCanvas extends TriggerCanvasTempate {
 
     this.canvas.ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
     this.canvas.position = canvas.getBoundingClientRect();
-    canvas.width = this.canvas.width;
-    canvas.height = this.canvas.height;
+    this.canvas.width = canvas.width = 500;
+    this.canvas.height = canvas.height = 700;
   }
 
   connectedCallback() {
@@ -214,7 +214,10 @@ class TriggerCanvas extends TriggerCanvasTempate {
     if (instance && instance.canvas.position) {
       let positionX = e.x - instance.canvas.position.left;
       let positionY = e.y - instance.canvas.position.top * 0.325;
-      instance.canvas.explosions.push(new Explosion(positionX, positionY));
+      instance.canvas.explosions = [
+        ...instance.canvas.explosions,
+        new Explosion(positionX, positionY),
+      ];
     }
   }
 }

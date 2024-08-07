@@ -28,7 +28,7 @@ enemyType4.height = 207;
 enemyType4.width = 212;
 enemyType4.dataset.frames = "9";
 
-const enemyTypes = [enemyType1, enemyType2, enemyType3, enemyType4];
+const enemyTypes = [enemyType2];
 
 type TEnemy = {
   x: number;
@@ -82,17 +82,17 @@ class Enemy implements TEnemy {
     this.type = type;
     this.flap_speed = Math.floor(Math.random() * 0.25 + 5.5);
     this.angle = 0;
-    this.angle_speed = Math.random() * 0.25 + 0.25;
+    this.angle_speed = Math.random() * 0.15 + 0.15;
   }
   update(game_frame: number) {
     let prevX = this.x;
     // animation motion
     this.x =
-      this.canvas_width * 1 * Math.sin((this.angle * Math.PI) / 90) +
+      this.canvas_width * 0.5 * Math.sin((this.angle * Math.PI) / 90) +
       (this.canvas_width - this.width) * 0.5;
     this.y =
-      this.canvas_height * 1 * Math.cos((this.angle * Math.PI) / 360) +
-      (this.canvas_height - this.height) * 0.35;
+      this.canvas_height * 0.25 * Math.cos((this.angle * Math.PI) / 360) +
+      (this.canvas_height - this.height) * 0.5;
     this.angle += this.angle_speed;
 
     // animation speed
@@ -100,27 +100,32 @@ class Enemy implements TEnemy {
       this.frame == this.frames - 1 ? (this.frame = 0) : this.frame++;
     }
 
-    // animation orientation
-    if(this.x - prevX > 0) {
-      // to right
+    // animation direction
+    if(prevX > this.x){
+      // to the left
       this.direction_x = 1;
-    } else if (this.x - prevX < 0) {
-      // to left
+    } else if (prevX < this.x){
+      // to the right
       this.direction_x = -1;
     }
   }
   draw(ctx: CanvasRenderingContext2D) {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.translate(this.x, 0);
+    ctx.scale(this.direction_x, 1);
     ctx.drawImage(
       this.type,
       this.frame * this.sprite_width,
       0,
       this.sprite_width,
       this.sprite_height,
-      this.x,
-      this.y,
+      0,
+      0,
       this.width,
       this.height
     );
+    ctx.restore();
 
   }
   start(ctx: CanvasRenderingContext2D, game_frame: number) {
@@ -218,7 +223,7 @@ class EnemyCanvas extends EnemyCanvasTemplate {
     position: null,
     width: 500,
     height: 700,
-    number_of_enemies: 15,
+    number_of_enemies: 5,
     enemy_types: enemyTypes,
     enemy_objects: [],
     game_frame: 0,
