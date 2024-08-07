@@ -87,7 +87,7 @@ class HeroCanvasTemplate extends SignalElement {
 }
 
 class HeroCanvas extends HeroCanvasTemplate {
-  canvasProps: CanvasPropTypes = {
+  props: CanvasPropTypes = {
     ctx: null,
     playerImage: new Image(),
     CANVAS_WIDTH: 600,
@@ -105,7 +105,7 @@ class HeroCanvas extends HeroCanvasTemplate {
     let shadowDOM = this.shadowRoot;
     shadowDOM?.adoptedStyleSheets.push(this.styles);
     shadowDOM?.appendChild(this.template.content.cloneNode(true));
-    this.canvasProps.playerImage.src = shadowDog.src;
+    this.props.playerImage.src = shadowDog.src;
 
     Object.assign(this.style, {
       display: "grid",
@@ -125,9 +125,9 @@ class HeroCanvas extends HeroCanvasTemplate {
       "#primary-canvas"
     ) as HTMLCanvasElement | null;
     if (canvas) {
-      instance.canvasProps.CANVAS_WIDTH = canvas.width = 600;
-      instance.canvasProps.CANVAS_HEIGHT = canvas.height = 600;
-      instance.canvasProps.ctx = canvas.getContext("2d");
+      instance.props.CANVAS_WIDTH = canvas.width = 600;
+      instance.props.CANVAS_HEIGHT = canvas.height = 600;
+      instance.props.ctx = canvas.getContext("2d");
       instance.animateCanvas(instance);
     }
 
@@ -145,11 +145,11 @@ class HeroCanvas extends HeroCanvasTemplate {
         loc: [] as { x: number; y: number }[],
       };
       for (let j = 0; j < state.frames; j++) {
-        let positionX = j * instance.canvasProps.SPRITE_WIDTH;
-        let positionY = index * instance.canvasProps.SPRITE_HEIGHT;
+        let positionX = j * instance.props.SPRITE_WIDTH;
+        let positionY = index * instance.props.SPRITE_HEIGHT;
         frames.loc.push({ x: positionX, y: positionY });
       }
-      instance.canvasProps.SPRITE_ANIMATIONS.set(state.name, frames);
+      instance.props.SPRITE_ANIMATIONS.set(state.name, frames);
       let option = document.createElement("option");
       option.setAttribute("value", state.name);
       option.innerText = state.name;
@@ -163,7 +163,7 @@ class HeroCanvas extends HeroCanvasTemplate {
 
     instance.effect(() => {
       selectAnimBtn.selectedIndex = instance.animationSets.findIndex(
-        ({ name }) => name === instance.canvasProps.activeAnimation.value
+        ({ name }) => name === instance.props.activeAnimation.value
       );
     });
   }
@@ -177,42 +177,42 @@ class HeroCanvas extends HeroCanvasTemplate {
   }
 
   animateCanvas(instance: HeroCanvas) {
-    instance.canvasProps.ctx?.clearRect(
+    instance.props.ctx?.clearRect(
       0,
       0,
-      instance.canvasProps.CANVAS_WIDTH,
-      instance.canvasProps.CANVAS_HEIGHT
+      instance.props.CANVAS_WIDTH,
+      instance.props.CANVAS_HEIGHT
     );
 
     let position =
       Math.floor(
-        instance.canvasProps.gameFrame / instance.canvasProps.staggerFrames
+        instance.props.gameFrame / instance.props.staggerFrames
       ) % instance.totalAnimationFrames;
-    let frameX = instance.canvasProps.SPRITE_WIDTH * position;
+    let frameX = instance.props.SPRITE_WIDTH * position;
     let frameY =
-      instance.canvasProps.SPRITE_ANIMATIONS.get(
-        instance.canvasProps.activeAnimation.value
+      instance.props.SPRITE_ANIMATIONS.get(
+        instance.props.activeAnimation.value
       )?.loc[position].y || 0;
 
-    instance.canvasProps.ctx?.drawImage(
-      instance.canvasProps.playerImage,
+    instance.props.ctx?.drawImage(
+      instance.props.playerImage,
       frameX,
       frameY,
-      instance.canvasProps.SPRITE_WIDTH,
-      instance.canvasProps.SPRITE_HEIGHT,
+      instance.props.SPRITE_WIDTH,
+      instance.props.SPRITE_HEIGHT,
       0,
       0,
-      instance.canvasProps.SPRITE_WIDTH,
-      instance.canvasProps.SPRITE_HEIGHT
+      instance.props.SPRITE_WIDTH,
+      instance.props.SPRITE_HEIGHT
     );
 
-    instance.canvasProps.gameFrame++;
+    instance.props.gameFrame++;
     requestAnimationFrame(() => instance.animateCanvas(instance));
   }
 
   cycleAnimations(instance: HeroCanvas) {
     let currentAnimationIndex = instance.animationSets.findIndex(
-      ({ name }) => name === instance.canvasProps.activeAnimation.value
+      ({ name }) => name === instance.props.activeAnimation.value
     );
     let nextAnimation: string;
     if (currentAnimationIndex === 9) {
@@ -220,12 +220,12 @@ class HeroCanvas extends HeroCanvasTemplate {
     } else {
       nextAnimation = instance.animationSets[currentAnimationIndex + 1].name;
     }
-    instance.canvasProps.activeAnimation.value = nextAnimation;
+    instance.props.activeAnimation.value = nextAnimation;
   }
 
   selectAnimation(instance: HeroCanvas, target?: string) {
     if (!target) {
-      instance.canvasProps.activeAnimation.value =
+      instance.props.activeAnimation.value =
         instance.animationSets[0].name;
       return;
     }
@@ -234,14 +234,14 @@ class HeroCanvas extends HeroCanvasTemplate {
       ({ name }) => name === target
     );
     if (validAnimationName) {
-      instance.canvasProps.activeAnimation.value = validAnimationName.name;
+      instance.props.activeAnimation.value = validAnimationName.name;
       return;
     }
   }
 
   get totalAnimationFrames() {
-    let currentAnimation = this.canvasProps.activeAnimation.value;
-    let frames = this.canvasProps.SPRITE_ANIMATIONS.get(currentAnimation);
+    let currentAnimation = this.props.activeAnimation.value;
+    let frames = this.props.SPRITE_ANIMATIONS.get(currentAnimation);
     return frames?.loc.length || 6;
   }
 

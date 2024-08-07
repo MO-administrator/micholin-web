@@ -29,111 +29,252 @@ enemyType4.width = 212;
 enemyType4.dataset.frames = "9";
 
 const enemyTypes = [enemyType1, enemyType2, enemyType3, enemyType4];
-const CANVAS_WIDTH = 500;
-const CANVAS_HEIGHT = 800;
-
 
 type TEnemy = {
   x: number;
   y: number;
+  canvas_width: number;
+  canvas_height: number;
   width: number;
   height: number;
+  sprite_width: number;
+  sprite_height: number;
+  frames: number;
+  frame: number;
   type: HTMLImageElement;
-  flapSpeed: number;
+  flap_speed: number;
   angle: number;
-  angleSpeed: number;
+  angle_speed: number;
 };
 
 class Enemy implements TEnemy {
   x: number;
   y: number;
+  canvas_width: number;
+  canvas_height: number;
   width: number;
   height: number;
-  spriteWidth: number;
-  spriteHeight: number;
+  sprite_width: number;
+  sprite_height: number;
   frames: number;
   frame: number;
   type: HTMLImageElement;
-  flapSpeed: number;
+  flap_speed: number;
   angle: number;
-  angleSpeed: number;
+  angle_speed: number;
+  direction_x: number = 1;
 
-  constructor(type: HTMLImageElement) {
-    this.spriteWidth = type.width;
-    this.spriteHeight = type.height;
-    this.width = this.spriteWidth * 0.25;
-    this.height = this.spriteHeight * 0.25;
-    this.x = Math.random() * (CANVAS_WIDTH - this.width);
-    this.y = Math.random() * (CANVAS_HEIGHT - this.height);
+  constructor(
+    type: HTMLImageElement,
+    canvas_width: number,
+    canvas_height: number
+  ) {
+    this.sprite_width = type.width;
+    this.sprite_height = type.height;
+    this.canvas_width = canvas_width;
+    this.canvas_height = canvas_height;
+    this.width = this.sprite_width * 0.25;
+    this.height = this.sprite_height * 0.25;
+    this.x = Math.random() * (canvas_width - this.width);
+    this.y = Math.random() * (canvas_height - this.height);
     this.frames = +(type.dataset.frames || "6");
     this.frame = 0;
     this.type = type;
-    this.flapSpeed = Math.floor(Math.random() * 0.25 + 5.5);
+    this.flap_speed = Math.floor(Math.random() * 0.25 + 5.5);
     this.angle = 0;
-    this.angleSpeed = Math.random() * 0.25 + 0.25;
+    this.angle_speed = Math.random() * 0.25 + 0.25;
   }
-  update(gameFrame: number) {
+  update(game_frame: number) {
+    let prevX = this.x;
+    // animation motion
     this.x =
-      (CANVAS_WIDTH / 3.5) * Math.sin((this.angle * Math.PI) / 360) +
-      (CANVAS_WIDTH - this.width) / 2.5;
+      this.canvas_width * 1 * Math.sin((this.angle * Math.PI) / 90) +
+      (this.canvas_width - this.width) * 0.5;
     this.y =
-      (CANVAS_HEIGHT / 3.5) * Math.cos((this.angle * Math.PI) / 90) +
-      (CANVAS_HEIGHT - this.height) / 2.5;
-    this.angle += this.angleSpeed;
+      this.canvas_height * 1 * Math.cos((this.angle * Math.PI) / 360) +
+      (this.canvas_height - this.height) * 0.35;
+    this.angle += this.angle_speed;
 
-    if (this.x < -CANVAS_WIDTH) this.x = CANVAS_WIDTH;
-    if (this.y > CANVAS_HEIGHT) this.y = -this.width;
-
-    if (gameFrame % this.flapSpeed === 0) {
+    // animation speed
+    if (game_frame % this.flap_speed === 0) {
       this.frame == this.frames - 1 ? (this.frame = 0) : this.frame++;
+    }
+
+    // animation orientation
+    if(this.x - prevX > 0) {
+      // to right
+      this.direction_x = 1;
+    } else if (this.x - prevX < 0) {
+      // to left
+      this.direction_x = -1;
     }
   }
   draw(ctx: CanvasRenderingContext2D) {
-    ctx.fillStyle = "transparent";
-    ctx.fillRect(this.x, this.y, this.width, this.height);
     ctx.drawImage(
       this.type,
-      this.frame * this.spriteWidth,
+      this.frame * this.sprite_width,
       0,
-      this.spriteWidth,
-      this.spriteHeight,
+      this.sprite_width,
+      this.sprite_height,
       this.x,
       this.y,
       this.width,
       this.height
     );
+
   }
-  start(ctx: CanvasRenderingContext2D, gameFrame: number) {
-    this.update(gameFrame);
+  start(ctx: CanvasRenderingContext2D, game_frame: number) {
+    this.update(game_frame);
     this.draw(ctx);
   }
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-  const canvas = document.getElementById("enemy-canvas") as HTMLCanvasElement;
-  const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+class SignalElement extends HTMLElement {
+  subscriber: Function | null = null;
 
-  canvas.width = 500;
-  canvas.height = 800;
-
-  let gameFrame = 0;
-  let numberOfEnemies = 5;
-  let enemyObjects: Enemy[] = [];
-
-
-  for (let i = 0; i < numberOfEnemies; i++) {
-    let randomEnemyType: HTMLImageElement = getRandomItem(enemyTypes);
-    let newEnemy = new Enemy(randomEnemyType);
-    enemyObjects.push(newEnemy);
+  signal(value?: any) {
+    const subscriptions = new Set<Function>();
+    let instance = this;
+    return {
+      get value() {
+        if (instance.subscriber) {
+          subscriptions.add(instance.subscriber);
+        }
+        return value;
+      },
+      set value(updated) {
+        value = updated;
+        subscriptions.forEach(fn => fn());
+      },
+    };
   }
 
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    enemyObjects.forEach(enemyObject => {
-      enemyObject.start(ctx, gameFrame);
+  effect(fn: Function) {
+    this.subscriber = fn;
+    fn();
+    this.subscriber = null;
+  }
+
+  derived(fn: Function) {
+    const derived = this.signal();
+    this.effect(() => {
+      derived.value = fn();
     });
-    gameFrame++;
-    requestAnimationFrame(animate);
+    return derived;
   }
-  animate();
-});
+}
+
+class EnemyCanvasTemplate extends SignalElement {
+  get template() {
+    let t = document.createElement("template");
+    t.innerHTML = `
+      <div class="enemy-canvas-wrapper">
+        <div class="canvas-container">
+          <canvas id="enemy-canvas"></canvas>
+        </div>
+      </div>
+    `;
+    return t;
+  }
+  get styles() {
+    let s = new CSSStyleSheet();
+    s.replaceSync(
+      `
+      .enemy-canvas-wrapper {
+        background: grey;
+      }
+      .canvas-container {
+        border: 2px solid black;
+        position: absolute;
+        width: 500px;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+      }
+      #enemy-canvas {
+        position: relative;
+        aspect-ratio: 4/16;
+      }
+      `
+    );
+    return s;
+  }
+}
+
+type EnemyCanvasProps = {
+  ctx: CanvasRenderingContext2D | null;
+  position: DOMRect | null;
+  width: number;
+  height: number;
+  number_of_enemies: number;
+  enemy_types: HTMLImageElement[];
+  enemy_objects: Enemy[];
+  game_frame: number;
+};
+
+class EnemyCanvas extends EnemyCanvasTemplate {
+  canvas: EnemyCanvasProps = {
+    ctx: null,
+    position: null,
+    width: 500,
+    height: 700,
+    number_of_enemies: 15,
+    enemy_types: enemyTypes,
+    enemy_objects: [],
+    game_frame: 0,
+  };
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot?.adoptedStyleSheets.push(this.styles);
+    this.shadowRoot?.appendChild(this.template.content.cloneNode(true));
+
+    let canvas = this.shadowRoot?.querySelector(
+      "#enemy-canvas"
+    ) as HTMLCanvasElement;
+
+    this.canvas.ctx = canvas.getContext("2d");
+    this.canvas.position = canvas.getBoundingClientRect();
+    canvas.width = this.canvas.width;
+    canvas.height = this.canvas.height;
+  }
+
+  connectedCallback() {
+    let instance = this;
+    for (let i = 0; i < instance.canvas.number_of_enemies; i++) {
+      if (instance.canvas.game_frame % 30 === 0){
+        instance.canvas.enemy_objects = [
+          ...instance.canvas.enemy_objects,
+          new Enemy(
+            getRandomItem(instance.canvas.enemy_types),
+            instance.canvas.width,
+            instance.canvas.height
+          ),
+        ];
+      }
+    }
+    instance.loop(instance);
+  }
+
+  disconnectedCallback() {}
+
+  loop(instance: EnemyCanvas) {
+    if (instance.canvas.ctx) {
+      instance.canvas.ctx.clearRect(
+        0,
+        0,
+        instance.canvas.width,
+        instance.canvas.height
+      );
+      instance.canvas.enemy_objects.forEach(object => {
+        if (instance.canvas.ctx) {
+          object.start(instance.canvas.ctx, instance.canvas.game_frame);
+        }
+      });
+    }
+    instance.canvas.game_frame++;
+    requestAnimationFrame(() => instance.loop(instance));
+  }
+}
+
+window.customElements.define("enemy-canvas", EnemyCanvas);
