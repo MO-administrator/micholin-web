@@ -1,8 +1,11 @@
-import { getRandomItem } from "@/utils/get-random-item";
 import enemy1Png from "./enemies/enemy1.png";
 import enemy2Png from "./enemies/enemy2.png";
 import enemy3Png from "./enemies/enemy3.png";
 import enemy4Png from "./enemies/enemy4.png";
+
+const getRandomItem = (list: any[]): any => {
+  return list[Math.floor(Math.random() * list.length)];
+};
 
 const enemyType1 = new Image();
 enemyType1.src = enemy1Png.src;
@@ -28,7 +31,7 @@ enemyType4.height = 207;
 enemyType4.width = 212;
 enemyType4.dataset.frames = "9";
 
-const enemyTypes = [enemyType2];
+const enemyTypes = [enemyType1, enemyType2, enemyType3, enemyType4];
 
 type TEnemy = {
   x: number;
@@ -101,10 +104,10 @@ class Enemy implements TEnemy {
     }
 
     // animation direction
-    if(prevX > this.x){
+    if (prevX > this.x) {
       // to the left
       this.direction_x = 1;
-    } else if (prevX < this.x){
+    } else if (prevX < this.x) {
       // to the right
       this.direction_x = -1;
     }
@@ -126,7 +129,6 @@ class Enemy implements TEnemy {
       this.height
     );
     ctx.restore();
-
   }
   start(ctx: CanvasRenderingContext2D, game_frame: number) {
     this.update(game_frame);
@@ -247,7 +249,7 @@ class EnemyCanvas extends EnemyCanvasTemplate {
   connectedCallback() {
     let instance = this;
     for (let i = 0; i < instance.canvas.number_of_enemies; i++) {
-      if (instance.canvas.game_frame % 30 === 0){
+      if (instance.canvas.game_frame % 30 === 0) {
         instance.canvas.enemy_objects = [
           ...instance.canvas.enemy_objects,
           new Enemy(

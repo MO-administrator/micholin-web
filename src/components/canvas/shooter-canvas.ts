@@ -1,6 +1,17 @@
 import ravenPng from "./enemies/enemy5.png";
 import explosionPng from "./effects/boom.png";
 import explosionSfx from "./effects/boom.wav";
+import gameMusicSfx from "./sounds/game_music.mp3";
+import marsMusicSfx from "./sounds/Mars.wav";
+import mercuryMusicSfx from "./sounds/Mercury.wav";
+import venusMusicSfx from "./sounds/Venus.wav";
+
+let music_playlist = [
+  gameMusicSfx,
+  marsMusicSfx,
+  mercuryMusicSfx,
+  venusMusicSfx,
+];
 
 class Particles {}
 
@@ -124,7 +135,10 @@ class Raven {
 
     this.x -= this.directionX;
     this.y += this.directionY;
-    if (this.x < -this.width) game_over.value = true;
+    if (this.x < -this.width) {
+      this.marked_for_deletion = true;
+      game_over.value = true;
+    }
 
     this.last_flap += dTime;
     if (this.last_flap > this.flap_interval) {
@@ -247,20 +261,30 @@ type ShooterCanvasProps = {
   position: DOMRect;
   width: number;
   height: number;
-  enemy_objects: Raven[];
-  explosion_objects: Explosion[];
+  enemy_objects: { value: Raven[] };
+  explosion_objects: { value: Explosion[] };
   enemy_number: { value: number };
   game_speed: { value: number };
-  game_frame: number;
+  game_frame: { value: number };
   stagger_frame: number;
-  time_to_spawn: number;
-  spawn_interval: number;
-  prev_timestamp: number;
+  time_to_spawn: { value: number };
+  spawn_interval: { value: number };
+  prev_timestamp: { value: number };
   player_score: { value: number };
   game_over: { value: boolean };
+  game_music: HTMLAudioElement;
 };
 
 class ShooterCanvas extends ShooterCanvasTemplate {
+  private getCanvasContext(c: HTMLCanvasElement) {
+    const contextOption = { willReadFrequently: true };
+    const context = c.getContext(
+      "2d",
+      contextOption
+    ) as CanvasRenderingContext2D;
+    return context;
+  }
+
   canvas: ShooterCanvasProps;
   constructor() {
     super();
@@ -268,35 +292,33 @@ class ShooterCanvas extends ShooterCanvasTemplate {
     this.shadowRoot?.adoptedStyleSheets.push(this.styles);
     this.shadowRoot?.appendChild(this.template.content.cloneNode(true));
 
-    let canvas = this.shadowRoot?.querySelector(
+    const canvas = this.shadowRoot?.querySelector(
       "#shooter-canvas"
     ) as HTMLCanvasElement;
-    let collision_canvas = this.shadowRoot?.querySelector(
+    const collision_canvas = this.shadowRoot?.querySelector(
       "#collision-canvas"
     ) as HTMLCanvasElement;
 
     this.canvas = {
-      ctx: canvas.getContext("2d", {
-        willReadFrequently: true,
-      }) as CanvasRenderingContext2D,
-      col_ctx: collision_canvas.getContext("2d", {
-        willReadFrequently: true,
-      }) as CanvasRenderingContext2D,
+      ctx: this.getCanvasContext(canvas),
+      col_ctx: this.getCanvasContext(collision_canvas),
       position: canvas.getBoundingClientRect(),
       width: 500,
       height: 700,
-      enemy_objects: [],
-      explosion_objects: [],
-      enemy_number: this.signal(1),
-      game_speed: this.signal(5),
-      game_frame: 0,
+      enemy_objects: super.signal([]),
+      explosion_objects: super.signal([]),
+      enemy_number: super.signal(1),
+      game_speed: super.signal(5),
+      game_frame: super.signal(0),
       stagger_frame: 5,
-      time_to_spawn: 0,
-      spawn_interval: 2e3,
-      prev_timestamp: 0,
-      player_score: this.signal(0),
-      game_over: this.signal(false),
+      time_to_spawn: super.signal(0),
+      spawn_interval: super.signal(2e3),
+      prev_timestamp: super.signal(0),
+      player_score: super.signal(0),
+      game_over: super.signal(false),
+      game_music: new Audio(),
     };
+
     this.canvas.width =
       canvas.width =
       collision_canvas.width =
@@ -309,144 +331,279 @@ class ShooterCanvas extends ShooterCanvasTemplate {
   }
 
   connectedCallback() {
-    let instance = this;
-    let numberOfEnemies = this.derived(
-      () => instance.canvas.enemy_number.value
-    );
+    super.effect(this.gameDifficulty);
 
-    this.effect(() => {
-      for (let i = 0; i < numberOfEnemies.value; i++) {
-        instance.canvas.enemy_objects = [
-          ...instance.canvas.enemy_objects,
-          new Raven(instance.canvas),
-        ];
-      }
-    });
+    this.addEventListener("click", this.handleClick);
 
-    window.addEventListener("click", e => {
-      const detectPixelColor = instance.canvas.col_ctx.getImageData(
-        e.offsetX,
-        e.offsetY,
-        1,
-        1
-      ).data;
-
-      instance.canvas.enemy_objects.forEach(object => {
-        let isMatch = detectPixelColor.reduce((result, current, i) => {
-          if (result === false) return false;
-          if (i === 3) return result;
-          return current === object.random_colors[i];
-        }, true);
-
-        if (isMatch) {
-          object.marked_for_deletion = true;
-          instance.canvas.player_score.value++;
-          instance.canvas.explosion_objects.push(
-            new Explosion(object.x, object.y, object.width)
-          );
-          if (instance.canvas.game_frame % 1e3 === 0) {
-            instance.canvas.enemy_number.value++;
-          }
-        }
-      });
-    });
-
-    instance.loop(instance, 0);
+    this.drawGameStart();
   }
 
   disconnectedCallback() {
-    window.removeEventListener("click", () => {});
+    this.removeEventListener("click", this.handleClick);
   }
 
-  loop(instance: ShooterCanvas, timestamp: number) {
-    instance.canvas.ctx.clearRect(
-      0,
-      0,
-      instance.canvas.width,
-      instance.canvas.height
-    );
-    instance.canvas.col_ctx.clearRect(
-      0,
-      0,
-      instance.canvas.width,
-      instance.canvas.height
-    );
+  loop(timestamp: number, instance: ShooterCanvas = this) {
+    const {
+      canvas: {
+        ctx,
+        col_ctx,
+        width,
+        height,
+        prev_timestamp,
+        time_to_spawn,
+        spawn_interval,
+        enemy_objects,
+        explosion_objects,
+        game_over,
+        game_speed,
+        game_frame,
+      },
+    } = instance;
 
-    let dTime = timestamp - instance.canvas.prev_timestamp;
-    instance.canvas.prev_timestamp = timestamp;
-    instance.canvas.time_to_spawn += dTime;
-
-    if (instance.canvas.time_to_spawn > instance.canvas.spawn_interval) {
-      instance.canvas.enemy_objects.push(new Raven(instance.canvas));
-      instance.canvas.time_to_spawn = 0;
+    {
+      ctx.clearRect(0, 0, width, height);
+      col_ctx.clearRect(0, 0, width, height);
+      this.drawPlayerScore();
     }
 
-    instance.canvas.enemy_objects = instance.canvas.enemy_objects.filter(
-      ({ marked_for_deletion }) => !marked_for_deletion
-    );
-    instance.canvas.explosion_objects =
-      instance.canvas.explosion_objects.filter(
+    {
+      enemy_objects.value = enemy_objects.value.filter(
         ({ marked_for_deletion }) => !marked_for_deletion
       );
+      explosion_objects.value = explosion_objects.value.filter(
+        ({ marked_for_deletion }) => !marked_for_deletion
+      );
+    }
 
-    instance.canvas.enemy_objects.sort((a, b) => a.size - b.size);
+    {
+      let dTime = timestamp - prev_timestamp.value;
+      prev_timestamp.value = timestamp;
+      time_to_spawn.value += dTime;
 
-    instance.drawPlayerScore(instance);
+      if (time_to_spawn.value > spawn_interval.value) {
+        enemy_objects.value.push(new Raven({ width, height }));
+        time_to_spawn.value = 0;
+      }
 
-    [
-      ...instance.canvas.enemy_objects,
-      ...instance.canvas.explosion_objects,
-    ].forEach(object => {
-      let { ctx, col_ctx, game_over } = instance.canvas;
-      object.start({ ctx, col_ctx }, dTime, game_over);
-    });
+      enemy_objects.value.sort((a, b) => a.size - b.size);
 
-    if (!instance.canvas.game_over.value) {
-      instance.canvas.game_frame += instance.canvas.game_speed.value;
-      requestAnimationFrame(t => instance.loop(instance, t));
-    } else {
-      instance.drawGameOver(instance);
+      [...enemy_objects.value, ...explosion_objects.value].forEach(object => {
+        object.start({ ctx, col_ctx }, dTime, game_over);
+      });
+    }
+
+    {
+      if (!game_over.value) {
+        game_frame.value += game_speed.value;
+        requestAnimationFrame(t => instance.loop(t));
+      } else {
+        instance.drawGameOver();
+      }
     }
   }
 
-  drawPlayerScore(instance: ShooterCanvas) {
-    instance.canvas.ctx.fillStyle = "#333";
-    instance.canvas.ctx.fillText(
-      "Score: " + instance.canvas.player_score.value,
-      50,
-      75
+  drawPlayerScore() {
+    const {
+      canvas: { ctx, player_score, game_speed },
+    } = this;
+    ctx.fillStyle = "#333";
+    ctx.fillText("Score: " + player_score.value, 50, 75);
+    ctx.fillText("Game Speed: " + game_speed.value, 50, 139);
+    ctx.fillStyle = "#fff";
+    ctx.fillText("Score: " + player_score.value, 55, 80);
+    ctx.fillText("Game Speed: " + game_speed.value, 55, 144);
+  }
+
+  drawGameStart() {
+    const {
+      canvas: { ctx, width, height },
+    } = this;
+    ctx.clearRect(0, 0, width, height);
+
+    ctx.save();
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#333";
+    ctx.fillText("Click to Start!!", width * 0.5 + 6, height * 0.5 + 6);
+    ctx.fillStyle = "#fff";
+    ctx.fillText("Click to Start!!", width * 0.5, height * 0.5);
+    ctx.restore();
+  }
+
+  drawGameOver() {
+    const {
+      canvas: { ctx, width, height, player_score },
+    } = this;
+    ctx.clearRect(0, 0, width, height);
+
+    ctx.fillStyle = "#333";
+    ctx.fillText(
+      "GAME OVER!! Your Score is: " + player_score.value,
+      width * 0.3 + 6,
+      height * 0.5 + 6
     );
-    instance.canvas.ctx.fillText(
-      "Game Speed: " + instance.canvas.game_speed.value,
-      50,
-      139
-    );
-    instance.canvas.ctx.fillStyle = "#fff";
-    instance.canvas.ctx.fillText(
-      "Score: " + instance.canvas.player_score.value,
-      55,
-      80
-    );
-    instance.canvas.ctx.fillText(
-      "Game Speed: " + instance.canvas.game_speed.value,
-      55,
-      144
+    ctx.fillStyle = "#fff";
+    ctx.fillText(
+      "GAME OVER!! Your Score is: " + player_score.value,
+      width * 0.3,
+      height * 0.5
     );
   }
 
-  drawGameOver(instance: ShooterCanvas) {
-    instance.canvas.ctx.fillStyle = "#333";
-    instance.canvas.ctx.fillText(
-      "GAME OVER!! Your Score is: " + instance.canvas.player_score.value,
-      instance.canvas.width * 0.3 + 6,
-      instance.canvas.height * 0.5 + 6
-    );
-    instance.canvas.ctx.fillStyle = "#fff";
-    instance.canvas.ctx.fillText(
-      "GAME OVER!! Your Score is: " + instance.canvas.player_score.value,
-      instance.canvas.width * 0.3,
-      instance.canvas.height * 0.5
-    );
+  playMusic() {
+    let currentTrack = 0;
+    const {
+      canvas: { game_music, game_over },
+    } = this;
+
+    game_music.addEventListener("ended", () => {
+      if (currentTrack === music_playlist.length) {
+        game_music.src = music_playlist[0];
+        game_music.play();
+        return;
+      }
+      game_music.src = music_playlist[currentTrack];
+      game_music.play();
+      currentTrack++;
+    });
+
+    game_music.volume = 0.15;
+    game_music.src = music_playlist[0];
+    game_music.play();
+
+    super.effect(() => {
+      if (game_over.value) {
+        game_music.pause();
+        game_music.load();
+      }
+    });
+  }
+
+  resetGame() {
+    const {
+      canvas: {
+        game_frame,
+        game_over,
+        game_speed,
+        player_score,
+        enemy_objects,
+        explosion_objects,
+        prev_timestamp,
+        enemy_number,
+      },
+    } = this;
+
+    game_over.value = false;
+    game_frame.value = 0;
+    game_speed.value = 5;
+    player_score.value = 0;
+    enemy_objects.value = [];
+    explosion_objects.value = [];
+    prev_timestamp.value = 0;
+    enemy_number.value = 1;
+    this.playMusic();
+    this.loop(game_frame.value);
+  }
+
+  gameDifficulty() {
+    const {
+      canvas: {
+        player_score,
+        game_speed,
+        enemy_number,
+        enemy_objects,
+        width,
+        height,
+      },
+    } = this;
+    switch (player_score.value) {
+      case 10:
+        game_speed.value = 10;
+        for (let i = 0; i < enemy_number.value; i++) {
+          enemy_objects.value.push(new Raven({ width, height }));
+        }
+        break;
+      case 25:
+        game_speed.value = 20;
+        enemy_number.value = 3;
+        for (let i = 0; i < enemy_number.value; i++) {
+          enemy_objects.value.push(new Raven({ width, height }));
+        }
+        break;
+      case 50:
+        game_speed.value = 40;
+        for (let i = 0; i < enemy_number.value; i++) {
+          enemy_objects.value.push(new Raven({ width, height }));
+        }
+        break;
+      case 80:
+        game_speed.value = 80;
+        for (let i = 0; i < enemy_number.value; i++) {
+          enemy_objects.value.push(new Raven({ width, height }));
+        }
+      case 100:
+        game_speed.value = 160;
+        enemy_number.value = 6;
+        for (let i = 0; i < enemy_number.value; i++) {
+          enemy_objects.value.push(new Raven({ width, height }));
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
+  handleClick(e: MouseEvent) {
+    const {
+      canvas: {
+        game_frame,
+        game_over,
+        col_ctx,
+        enemy_objects,
+        player_score,
+        explosion_objects,
+        enemy_number,
+        width,
+        height,
+      },
+    } = this;
+    if (!game_frame.value) {
+      this.playMusic();
+      this.loop(game_frame.value);
+      return;
+    }
+
+    if (game_over.value) {
+      this.resetGame();
+      return;
+    }
+
+    const detectPixelColor = col_ctx.getImageData(
+      e.offsetX,
+      e.offsetY,
+      1,
+      1
+    ).data;
+    enemy_objects.value.forEach(object => {
+      let isMatch = detectPixelColor.reduce((result, current, i) => {
+        if (result === false) return false;
+        if (i === 3) return result;
+        return current === object.random_colors[i];
+      }, true);
+
+      if (isMatch) {
+        player_score.value++;
+        object.marked_for_deletion = true;
+        explosion_objects.value.push(
+          new Explosion(object.x, object.y, object.width)
+        );
+        if (game_frame.value % 1e3 === 0) {
+          enemy_number.value++;
+          for (let i = 0; i < enemy_number.value; i++) {
+            enemy_objects.value.push(new Raven({ width, height }));
+          }
+        }
+      }
+    });
   }
 }
 
