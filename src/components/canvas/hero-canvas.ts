@@ -156,8 +156,7 @@ class HeroCanvas extends HeroCanvasTemplate {
       selectAnimBtn?.appendChild(option);
     });
     selectAnimBtn.addEventListener("change", e => {
-      //@ts-ignore
-      const selected = e.target.value;
+      const selected = (e.target as HTMLSelectElement).value;
       instance.selectAnimation(instance, selected);
     });
 
@@ -185,14 +184,12 @@ class HeroCanvas extends HeroCanvasTemplate {
     );
 
     let position =
-      Math.floor(
-        instance.props.gameFrame / instance.props.staggerFrames
-      ) % instance.totalAnimationFrames;
+      Math.floor(instance.props.gameFrame / instance.props.staggerFrames) %
+      instance.totalAnimationFrames;
     let frameX = instance.props.SPRITE_WIDTH * position;
     let frameY =
-      instance.props.SPRITE_ANIMATIONS.get(
-        instance.props.activeAnimation.value
-      )?.loc[position].y || 0;
+      instance.props.SPRITE_ANIMATIONS.get(instance.props.activeAnimation.value)
+        ?.loc[position].y || 0;
 
     instance.props.ctx?.drawImage(
       instance.props.playerImage,
@@ -225,8 +222,7 @@ class HeroCanvas extends HeroCanvasTemplate {
 
   selectAnimation(instance: HeroCanvas, target?: string) {
     if (!target) {
-      instance.props.activeAnimation.value =
-        instance.animationSets[0].name;
+      instance.props.activeAnimation.value = instance.animationSets[0].name;
       return;
     }
 
@@ -235,7 +231,8 @@ class HeroCanvas extends HeroCanvasTemplate {
     );
     if (validAnimationName) {
       instance.props.activeAnimation.value = validAnimationName.name;
-      return;
+    } else {
+      instance.props.activeAnimation.value = instance.animationSets[0].name;
     }
   }
 
@@ -260,6 +257,6 @@ class HeroCanvas extends HeroCanvasTemplate {
     ];
   }
 }
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
   window.customElements.define("hero-canvas", HeroCanvas);
 });

@@ -247,7 +247,7 @@ class ParallaxCanvas extends ParallaxCanvasTempate {
         instance.canvas.height
       );
       instance.canvas.background_layers.forEach(layer => {
-        if(instance.canvas.ctx !== null){
+        if(instance.canvas.ctx){
           layer.start(
             instance.canvas.ctx,
             instance.canvas.game_frame,

@@ -2,6 +2,8 @@ import ravenPng from "./enemies/enemy5.png";
 import explosionPng from "./effects/boom.png";
 import explosionSfx from "./effects/boom.wav";
 
+class Particles {}
+
 class Explosion {
   x: number;
   y: number;
