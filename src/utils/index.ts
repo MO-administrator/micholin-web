@@ -5,7 +5,7 @@ export * as argon from "argon2";
 import SHA256 from "crypto-js/sha256";
 
 export const prisma = new PrismaClient();
-export const resend = new Resend(import.meta.env.AUTH_RESEND_KEY);
+export const resend = new Resend(import.meta.env.AUTH_RESEND_KEY || 'resend_test_key');
 export const { handleErrors } = new ErrorHandler();
 
 /**
