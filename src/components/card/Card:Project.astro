@@ -1,7 +1,7 @@
 ---
 import { Picture } from "astro:assets";
 import { type CollectionEntry } from "astro:content";
-import styles from './card.module.scss';
+import styles from "./card.module.scss";
 import Card from "./Card.astro";
 import Tag from "../Tag.astro";
 import FormattedDate from "../FormattedDate.astro";
@@ -9,12 +9,13 @@ import FormattedDate from "../FormattedDate.astro";
 type Props = CollectionEntry<"projects">;
 
 const {
-  data: { title, tags, pubDate, image },
+  data: { title, tags, pubDate: date, image },
   slug,
 } = Astro.props;
+const href = `/projects/${slug}`;
 ---
 
-<Card href={`/projects/${slug}`}>
+<Card {href}>
   <div class={styles.project__content}>
     <span class={styles.project__content__body}>
       <span>
@@ -24,7 +25,7 @@ const {
         <i>&rarr;</i>
       </span>
       <sub>
-        <FormattedDate date={pubDate} />
+        <FormattedDate {date} />
       </sub>
     </span>
     <ul class={styles.project__content__tags}>

@@ -34,6 +34,7 @@ body {
   scroll-behavior: smooth;
   display: grid;
   grid-template-rows: 4rem auto 4rem;
+  overflow: hidden;
 }
 main {
   position: relative;
