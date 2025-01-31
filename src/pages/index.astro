@@ -2,6 +2,7 @@
 import Layout from "@layouts/Layout.astro";
 import HeroHome from "@/sections/hero/Hero:Home.astro";
 import HighlightsHome from "@/sections/highlights/Highlights:Home.astro";
+import FormContact from "@svelte/form/Form:Contact.svelte";
 Astro.response.headers.set(
   "CDN-Cache-Control",
   "public, max-age=45, must-revalidate"
@@ -11,4 +12,5 @@ Astro.response.headers.set(
 <Layout>
   <HeroHome />
   <HighlightsHome />
+  <FormContact client:only="svelte" />
 </Layout>

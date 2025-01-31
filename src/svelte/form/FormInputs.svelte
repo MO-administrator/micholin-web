@@ -22,6 +22,7 @@
     @apply px-8 grid gap-2 place-items-start;
     @media (min-width: 768px) {
       @apply grid-cols-2;
+      grid-template-columns: 1fr 6fr;
     }
     label {
       @apply capitalize;

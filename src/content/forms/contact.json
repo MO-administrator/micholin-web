@@ -11,22 +11,23 @@
     {
       "type": "email",
       "name": "email",
-      "label": "Email",
+      "label": "Email*",
       "required": true,
-      "autocomplete": "email"
+      "placeholder": "Your/Company email address"
     },
     {
       "type": "text",
       "name": "name",
-      "label": "Name",
-      "required": false,
-      "autocomplete": "name"
+      "label": "Name*",
+      "required": true,
+      "placeholder": "Your/Company name"
     },
     {
       "type": "textarea",
       "name": "message",
-      "label": "Message",
-      "required": true
+      "label": "Message*",
+      "required": true,
+      "placeholder": "Services you are interested in?"
     }
   ]
 }

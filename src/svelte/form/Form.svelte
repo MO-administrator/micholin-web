@@ -49,7 +49,7 @@
         p-2 mt-4 mx-auto text-center duration-300 ease-in-out transform
         border-2 border-white border-b-slate-900 border-r-slate-900
         rounded-full cursor-pointer place-items-center
-        bg-slate-600 rounded-bl-3xl rounded-tr-3xl;
+        bg-slate-600 rounded-br-3xl rounded-tl-3xl;
       &:hover {
         @apply scale-110 bg-violet-600;
       }

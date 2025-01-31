@@ -12,7 +12,6 @@
     <svelte:fragment slot="form-copy">
       <hgroup>
         <h1>Transform your experience!</h1>
-        <p>Are you ready?</p>
       </hgroup>
     </svelte:fragment>
     <svelte:fragment slot="fields">
