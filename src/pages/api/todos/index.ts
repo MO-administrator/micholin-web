@@ -9,12 +9,11 @@ const todoDtoSchema = z.object({
   completed: z.boolean(),
 });
 
-const JSON_SERVER_BASE = "https://my-json-server.typicode.com";
-const GIT_USERNAME = "olinfernandes";
-const GIT_REPO = "FakeDB";
-
 const url = (item: string) => {
-  return `${JSON_SERVER_BASE}/${GIT_USERNAME}/${GIT_REPO}/${item}`;
+  const JSON_SERVER_BASE = "my-json-server.typicode.com";
+  const GIT_USERNAME = "olinfernandes";
+  const GIT_REPO = "FakeDB";
+  return `https://${JSON_SERVER_BASE}/${GIT_USERNAME}/${GIT_REPO}/${item}`;
 };
 const options = {
   method: "GET",
@@ -24,6 +23,11 @@ const options = {
 export const GET: APIRoute = async () => {
   try {
     const response = await fetch(url("todos"), options);
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch todos.");
+    }
+
     let todos = await response.json();
     return new Response(JSON.stringify(todos), {
       status: 200,
@@ -42,10 +46,13 @@ export const POST: APIRoute = async ({ request }) => {
       method: "POST",
       body: JSON.stringify(payload),
     });
-    if(response.ok){
-      const data = await response.json();
-      console.log(data);
+
+    if(!response.ok){
+      throw new Error("Failed to create a new todo.");
     }
+
+    const data = await response.json();
+    console.log(data);
     return new Response(JSON.stringify({ message: "created a new todo." }), {
       status: 200,
       statusText: "OK",

@@ -36,7 +36,7 @@
 <style lang="scss">
   .form-wrapper {
     @apply py-6 grid h-full justify-center gap-4
-    bg-slate-800/90 rounded-b-3xl;
+    bg-slate-800/90 rounded-3xl;
     &__legend {
       @apply grid max-w-xs place-items-center
         place-self-center p-4 rounded-xl gap-4 w-full;

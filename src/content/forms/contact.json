@@ -1,6 +1,6 @@
 {
   "props": {
-    "name": "contact v1",
+    "name": "contact_form",
     "title": "Contact Form",
     "showLogo": true,
     "netlify": true,

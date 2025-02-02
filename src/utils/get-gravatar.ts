@@ -5,7 +5,7 @@ import SHA256 from "crypto-js/sha256";
  * @param {number|undefined} size Size of image
  * @param {string|undefined} defaultTheme Default image to use on gravatar
  * @returns {string} gravatar url string
- * @see [Gravatar](https://docs.gravatar.com/api/avatars/images/)
+ * @see [Gravatar] (https://docs.gravatar.com/api/avatars/images/)
  */
 export const getGravatarUrl = (
   email: string | null | undefined = "",

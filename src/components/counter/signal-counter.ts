@@ -109,12 +109,8 @@ window.addEventListener("DOMContentLoaded", () => {
         countEl.innerHTML = instance.count.value;
       });
 
-      btnEl.addEventListener("click", () => {
-        instance.count.value++;
-      });
-      resetEl.addEventListener("click", () => {
-        instance.count.value = parseInt(instance.getAttribute("count") || "0");
-      });
+      btnEl.addEventListener("click", instance.incrementCount.bind(instance));
+      resetEl.addEventListener("click", instance.resetCount.bind(instance));
     }
 
     disconnectedCallback() {
@@ -122,12 +118,16 @@ window.addEventListener("DOMContentLoaded", () => {
       let resetEl = this.shadowRoot?.querySelector("#reset");
       if (!btnEl || !resetEl) return;
       let instance = this;
-      btnEl.removeEventListener("click", () => {
-        instance.count.value++;
-      });
-      resetEl.removeEventListener("click", () => {
-        instance.count.value = 0;
-      });
+      btnEl.removeEventListener("click", instance.incrementCount.bind(instance));
+      resetEl.removeEventListener("click", instance.resetCount.bind(instance));
+    }
+
+    incrementCount() {
+      this.count.value++;
+    }
+
+    resetCount() {
+      this.count.value = parseInt(this.getAttribute("count") || "0");;
     }
   }
   window.customElements.define("signal-counter", SignalCounter);
