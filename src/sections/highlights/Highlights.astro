@@ -10,8 +10,9 @@ type Props = {
 const { projects } = Astro.props;
 ---
 
-<section class="container">
+<section class="container justify-items-center">
   <div class={styles.wrapper}>
     {projects.map(project => <CardProject {...project} />)}
   </div>
+  <slot name="button" />
 </section>

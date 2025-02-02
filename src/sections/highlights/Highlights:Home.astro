@@ -1,7 +1,12 @@
 ---
 import Highlights from "./Highlights.astro";
+import Button from "@components/button/Button.astro";
 import { projectsMap } from "./highlights.service";
 const projects = projectsMap.get("home")?.data || [];
 ---
 
-<Highlights {projects} />
+<Highlights {projects}>
+  <Button href="/projects" slot="button">
+    View all projects
+  </Button>
+</Highlights>
