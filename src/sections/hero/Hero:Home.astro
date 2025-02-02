@@ -16,13 +16,10 @@ const { title, description } = heroHome;
     <div class="wrapper">
       <Button
         id="contact"
-        href="#contact_form"
+        onclick="document.getElementById('contact_form').scrollIntoView()"
         class="wrapper__cta"
       >
         Contact Me
-      </Button>
-      <Button id="work" href="/projects" class="wrapper__cta">
-        Our Work
       </Button>
 
       <style lang="scss">

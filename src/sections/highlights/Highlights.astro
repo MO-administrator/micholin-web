@@ -14,5 +14,5 @@ const { projects } = Astro.props;
   <div class={styles.wrapper}>
     {projects.map(project => <CardProject {...project} />)}
   </div>
-  <slot name="button" />
+  <slot />
 </section>
