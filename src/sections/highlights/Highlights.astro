@@ -1,7 +1,7 @@
 ---
 import { type CollectionEntry } from "astro:content";
 import CardProject from "@components/card/Card:Project.astro";
-import classes from './highlights.module.scss';
+import styles from './highlights.module.scss';
 
 type Props = {
   projects: CollectionEntry<"projects">[];
@@ -10,8 +10,9 @@ type Props = {
 const { projects } = Astro.props;
 ---
 
-<section class="container">
-  <div class={classes.wrapper}>
+<section class="container justify-items-center">
+  <div class={styles.wrapper}>
     {projects.map(project => <CardProject {...project} />)}
   </div>
+  <slot />
 </section>

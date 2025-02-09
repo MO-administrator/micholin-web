@@ -14,12 +14,12 @@ import FormattedDate from "../components/FormattedDate.astro";
 
   <style lang="scss">
     .footer {
-      @apply flex justify-between w-full border-t-2 border-t-slate-600;
+      @apply flex justify-between w-full border-t-2 border-t-green-600;
       & > div {
         @apply flex place-items-center;
       }
       & > div:is(:last-child) {
-        @apply hidden md:block;
+        @apply hidden md:grid md:place-self-center;
       }
     }
   </style>

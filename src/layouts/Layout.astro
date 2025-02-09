@@ -3,11 +3,12 @@ import BaseHead from "@/sections/BaseHead.astro";
 import Header from "@/sections/Header.astro";
 import Footer from "@/sections/Footer.astro";
 import "@/styles/global.scss";
+const { title } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
-  <BaseHead />
+  <BaseHead {title} />
   <body>
     <Header />
     <main>

@@ -8,6 +8,6 @@ const getProjects = async () =>
 const projects: CollectionEntry<"projects">[] = await getProjects();
 
 export const projectsMap = new Map([
-  ["home", { data: projects.slice(0, 4) }],
+  ["home", { data: projects.slice(0, 3) }],
   ["projects", { data: projects }],
 ]);

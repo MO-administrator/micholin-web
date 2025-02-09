@@ -1,9 +1,25 @@
 ---
+import {
+  SignedIn,
+  SignedOut,
+  UserButton,
+  SignInButton,
+} from "@clerk/astro/components";
 import { pages } from "./navbar.service";
-import classes from "./navbar.module.scss";
-import NavItem from './NavItem.astro';
+import styles from "./navbar.module.scss";
+import NavItem from "./NavItem.astro";
 ---
 
-<div class={classes.navbar} role="navigation" aria-label="navbar">
-  <menu>{pages.map((_, index) => <NavItem {index} />)}</menu>
+<div class={styles.navbar} role="navigation" aria-label="navbar">
+  <menu>
+    {pages.map((_, index) => <NavItem {index} />)}
+    <li>
+      <SignedOut>
+        <SignInButton mode="modal" />
+      </SignedOut>
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
+    </li>
+  </menu>
 </div>

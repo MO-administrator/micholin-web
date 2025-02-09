@@ -5,8 +5,8 @@ import JWT from 'jsonwebtoken';
  * @public decodeToken - decodes a jwt token
  */
 export default class JwtService {
-  private readonly jwt = JWT;
-  private readonly secret = import.meta.env.TOKEN_SECRET || "randomsecret";
+  readonly jwt = JWT;
+  readonly secret = import.meta.env.TOKEN_SECRET || "randomsecret";
   /**
    * Takes a string and returns an encoded jwt
    * @param {string|Buffer|object} userId token source

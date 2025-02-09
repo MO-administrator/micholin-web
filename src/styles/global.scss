@@ -6,46 +6,50 @@
   --accent: 136, 58, 234;
   --accent-light: 224, 204, 250;
   --accent-dark: 49, 10, 101;
-  --accent-gradient: linear-gradient(
-    45deg,
-    rgb(var(--accent)),
-    rgb(var(--accent-light)) 30%,
-    white 60%
-  );
+  --accent-gradient: linear-gradient(45deg,
+      rgb(var(--accent)),
+      rgb(var(--accent-light)) 30%,
+      white 60%);
   --tw-gradient-from: rgb(180, 40, 165, 0.8) var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(142, 85, 172) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Lato", system-ui, sans-serif;
 }
+
 html {
   background: var(--page-bg-color);
-  background-size: 224px;
   color: #fff;
 }
+
 body {
   height: 100dvh;
-  background-image: linear-gradient(#000, #333, #000);
+  background-image: var(--accent-gradient);
   scrollbar-width: thin;
   scroll-behavior: smooth;
   display: grid;
   grid-template-rows: 4rem auto 4rem;
+  overflow: hidden;
 }
+
 main {
   position: relative;
   background-image: var(--page-bg);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: #00000030;
-  max-height: calc(100dvh - 8rem);
+  background-color: #00000080;
+  height: calc(100dvh - 8rem);
   display: grid;
   grid-template-rows: auto;
   overflow-y: scroll;
+  scroll-behavior: smooth;
+
   h1,
   h2,
   h3,
@@ -55,20 +59,26 @@ main {
     font-family: "Merriweather", system-ui, sans-serif;
     scroll-snap-align: start;
   }
+
   section {
+    display: block;
     height: 100%;
+    width: 100%;
   }
 }
+
 section {
   scroll-snap-align: start;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 2rem;
 }
+
 input {
   color: #1e293b;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
 }
+
 input[type='submit'] {
   color: #f2f2f2;
   background: #1e293b;
@@ -76,13 +86,27 @@ input[type='submit'] {
   border-radius: 2rem;
   cursor: pointer;
   transition: all 0.3s ease-in-out 0.1s;
+
+  &:hover {
+    transform: scale(1.1);
+    background-color: #7c3aed;
+  }
+
+  &:disabled {
+    opacity: 0.8 !important;
+    cursor: not-allowed !important;
+    transition: none !important;
+
+    &:hover {
+      transform: none !important;
+      background-color: #1e293b !important;
+    }
+  }
 }
-input[type='submit']:hover {
-  transform: scale(1.1);
-  background-color: #7c3aed;
-}
-.header, .footer {
-  background-image: linear-gradient(transparent, #3f3f3f, transparent);
+
+.header,
+.footer {
+  background-image: linear-gradient(#333, #3f3f3f, #333);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

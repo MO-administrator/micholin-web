@@ -1,22 +1,17 @@
 ---
 import { Icon } from "astro-icon/components";
-
-type Props = {
-  tag: string;
-  isIcon?: boolean;
-};
-
-const { tag, isIcon = false } = Astro.props;
+type Props = { tag: string };
+const { tag } = Astro.props;
 ---
 
 <li class="tag">
-  {isIcon ? <Icon name={tag} size={32} /> : tag}
+  <Icon name={`logos:${tag}`} size={24} />
 
   <style lang="scss">
     .tag {
-      @apply flex place-items-center my-2 mr-2 p-1 px-2
-      text-xs rounded-full border-2 text-slate-400
-    border-slate-800 bg-blue-100;
+      @apply flex place-items-center gap-2 py-1 px-3
+      text-xs rounded-full border-2 text-blue-200
+    border-slate-800 bg-white;
     }
   </style>
 </li>

@@ -3,7 +3,7 @@
     @apply hidden
         lg:flex lg:flex-row lg:justify-between;
     li {
-      @apply mr-4 hover:animate-pulse;
+      @apply mr-4 min-h-8 min-w-8 hover:animate-pulse;
       .link {
         @apply flex flex-auto gap-2
         place-items-center

@@ -33,13 +33,13 @@ This application helps to manage workout routines & schedules along with acting 
 - Upgraded frontend codebase from react to Material-UI framework.
 - Assisted with docker configuration and deployment.
 
-[dockerIcon]: ../icons/docker.svg "Docker"
-[nodejsIcon]: ../icons/nodejs.svg "NodeJS"
-[expressjsIcon]: ../icons/express.svg "ExpressJS"
-[postgresIcon]: ../icons/postgresql.svg "PostgreSQL"
-[reactIcon]: ../icons//react.svg "ReactJS"
-[materialIcon]: ../icons/material-ui.svg "Material-UI"
-[sassIcon]: ../icons/sass.svg "SaSS"
+[dockerIcon]: ./icons/docker.svg "Docker"
+[nodejsIcon]: ./icons/nodejs.svg "NodeJS"
+[expressjsIcon]: ./icons/express.svg "ExpressJS"
+[postgresIcon]: ./icons/postgresql.svg "PostgreSQL"
+[reactIcon]: ./icons//react.svg "ReactJS"
+[materialIcon]: ./icons/material-ui.svg "Material-UI"
+[sassIcon]: ./icons/sass.svg "SaSS"
 [dockerUrl]: https://www.docker.com
 [nodejsUrl]: https://nodejs.org
 [reactUrl]: https://react.dev
