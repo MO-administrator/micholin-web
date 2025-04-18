@@ -1,5 +1,5 @@
 ---
-import type { Session } from '@svelte/stores';
+import type { Session } from "@svelte/stores";
 import Layout from "@layouts/Layout.astro";
 import Profile from "@svelte/profile/index.svelte";
 
@@ -7,7 +7,9 @@ const currentUser = await Astro.locals.currentUser();
 const { sessionId, userId, sessionClaims, redirectToSignIn } =
   Astro.locals.auth();
 
-if (!sessionId || !userId || !sessionClaims || !currentUser){
+if (!redirectToSignIn) return;
+
+if (!sessionId || !userId || !sessionClaims || !currentUser) {
   return redirectToSignIn();
 }
 

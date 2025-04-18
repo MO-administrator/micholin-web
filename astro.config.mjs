@@ -5,18 +5,11 @@ import compress from "astro-compress";
 import netlify from "@astrojs/netlify";
 import icon from "astro-icon";
 import svelte from "@astrojs/svelte";
-import clerk from '@clerk/astro';
+import clerk from "@clerk/astro";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [
-    tailwind(),
-    svelte(),
-    sitemap(),
-    compress(),
-    icon(),
-    clerk(),
-  ],
+  integrations: [tailwind(), svelte(), sitemap(), compress(), icon(), clerk()],
   image: {
     service: passthroughImageService(),
   },
@@ -25,4 +18,9 @@ export default defineConfig({
     edgeMiddleware: true,
   }),
   site: "https://micholin.com/",
+  vite: {
+    ssr: {
+      noExternal: ["svelte"],
+    },
+  },
 });

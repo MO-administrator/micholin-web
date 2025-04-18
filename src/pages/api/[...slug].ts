@@ -16,10 +16,10 @@ export const GET: APIRoute = async ({ redirect, params, url }) => {
         let formMeta: CollectionEntry<"forms">;
         switch (formKey) {
           case "basic-info":
-            formMeta = await getEntry("forms", "basic-info");
+            formMeta = await getEntry("forms", "basic-info")!;
             break;
           case "contact":
-            formMeta = await getEntry("forms", "contact");
+            formMeta = await getEntry("forms", "contact")!;
             break;
           default:
             throw new Error("invalid key.");
