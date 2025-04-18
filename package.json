@@ -56,6 +56,6 @@
     "@types/set-cookie-parser": "^2.4.10",
     "husky": "^9.1.1",
     "sass": "^1.77.6",
-    "vitest": "^1.6.0"
+    "vitest": "^1.6.1"
   }
 }
